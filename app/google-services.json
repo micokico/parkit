@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446223328614",
+    "project_id": "parkit-687b0",
+    "storage_bucket": "parkit-687b0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446223328614:android:91c4dd26280faf673b54a7",
+        "android_client_info": {
+          "package_name": "com.example.parkit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChImn7d0Zj7ye-BYAEt_1-Ye1dEt_h6RQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
