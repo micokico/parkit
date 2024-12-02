@@ -8,17 +8,17 @@
     android:gravity="center"
     android:background="@color/white">
 
-
+    <!-- Imagem de navegação -->
     <ImageView
         android:id="@+id/navigation_image"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/img.png"
+        android:src="@drawable/img"
         android:contentDescription="@string/navigation_image_desc"
         android:layout_marginTop="24dp"
         android:layout_gravity="center" />
 
-
+    <!-- Título -->
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:gravity="center"
         android:layout_marginTop="16dp" />
 
-
+    <!-- Subtítulo -->
     <TextView
         android:id="@+id/subtitle_text"
         android:layout_width="wrap_content"
@@ -41,6 +41,7 @@
         android:gravity="center"
         android:layout_marginTop="8dp" />
 
+    <!-- Indicador de página -->
     <LinearLayout
         android:id="@+id/page_indicator"
         android:layout_width="wrap_content"
@@ -67,14 +68,15 @@
             android:layout_marginStart="8dp" />
     </LinearLayout>
 
-
+    <!-- Botões de navegação -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="space_between"
         android:layout_marginTop="32dp"
-        android:paddingHorizontal="24dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
         <!-- Botão Skip -->
         <TextView
@@ -85,6 +87,8 @@
             android:textSize="16sp"
             android:textColor="@color/gray"
             android:layout_gravity="start" />
+
+        <!-- Botão Next -->
         <TextView
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
@@ -95,3 +99,4 @@
             android:layout_gravity="end" />
     </LinearLayout>
 
+</LinearLayout>

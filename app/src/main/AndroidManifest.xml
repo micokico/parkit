@@ -28,11 +28,6 @@
             android:name=".OnBoardingActivity"
             android:exported="true" />
 
-        <!-- Próxima tela de Onboarding -->
-        <activity
-            android:name="."
-            android:exported="true" />
-
     </application>
 
 </manifest>

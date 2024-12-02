@@ -2,34 +2,23 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.parkit.databinding.ActivityOnboardingScreenBinding
 
 class OnBoardingActivity : AppCompatActivity() {
 
-    // Declaração do ViewBinding
-    private lateinit var binding: ActivityOnboardingScreenBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_onboarding_screen)
 
-        // Inicializa o ViewBinding para vincular o layout
-        binding = ActivityOnboardingScreenBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val skipButton: TextView = findViewById(R.id.skipButton)
+        val nextButton: TextView = findViewById(R.id.nextButton)
 
-        // Configuração dos cliques dos botões
-        setupButtonListeners()
-    }
-
-    // Configuração dos listeners para os botões
-    private fun setupButtonListeners() {
-        // Clique no botão "SKIP"
-        binding.skipButton.setOnClickListener {
+        skipButton.setOnClickListener {
             goToMainScreen()
         }
 
-        // Clique no botão "SEGUINTE"
-        binding.nextButton.setOnClickListener {
+        nextButton.setOnClickListener {
             goToNextOnboardingScreen()
         }
     }
@@ -37,7 +26,7 @@ class OnBoardingActivity : AppCompatActivity() {
     private fun goToMainScreen() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() //
+        finish() // Finaliza a tela atual
     }
 
     private fun goToNextOnboardingScreen() {
