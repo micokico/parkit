@@ -25,10 +25,12 @@
             </intent-filter>
         </activity>
 
-        <!-- Tela de Onboarding -->
-        <activity
-            android:name=".OnBoardingActivity"
-            android:exported="true" />
+        <activity android:name=".OnBoardingActivity" android:exported="true" />
+
+        <activity android:name=".PhoneNumberActivity" android:exported="true" />
+        <activity android:name=".VerificationCodeActivity" android:exported="true" />
+        <activity android:name=".SetPasswordActivity" android:exported="true" />
+
 
     </application>
 
