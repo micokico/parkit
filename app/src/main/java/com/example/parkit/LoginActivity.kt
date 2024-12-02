@@ -22,8 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Associando as views com os elementos do layout
-        emailEditText = findViewById(R.id.emailEditText)
+        emailEditText = findViewById(R.id.NumeroEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
         registerButton = findViewById(R.id.registerButton)
@@ -57,4 +56,4 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-}
+
