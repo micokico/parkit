@@ -5,5 +5,7 @@
     <string name="skip">SKIP</string>
     <string name="next">SEGUINTE</string>
     <string name="onboarding_image_desc">Imagem de carro e personagem</string>
-
+    <string name="navigation_title">Título de Navegação</string>
+    <string name="navigation_subtitle">Subtítulo de Navegação</string>
+    <string name="navigation_image_desc">Imagem de navegação</string>
 </resources>
