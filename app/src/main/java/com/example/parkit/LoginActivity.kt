@@ -53,16 +53,16 @@ class LoginActivity : AppCompatActivity() {
     // Função para autenticar o usuário
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                // Se a autenticação for bem-sucedida, redireciona para a MainActivity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Fecha a LoginActivity
-            } else {
-                // Se a autenticação falhar, mostra uma mensagem de erro
-                Toast.makeText(this, "Falha na autenticação: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Se a autenticação for bem-sucedida, redireciona para a MainActivity
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Fecha a LoginActivity
+                } else {
+                    // Se a autenticação falhar, mostra uma mensagem de erro
+                    Toast.makeText(this, "Falha na autenticação: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
     }
 }
