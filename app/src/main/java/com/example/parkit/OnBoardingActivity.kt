@@ -43,7 +43,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
     // Navega para a próxima tela de onboarding
     private fun goToNextOnboardingScreen() {
-        val intent = Intent(this, NextOnboardingScreenActivity::class.java)
+        val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
     }
 }
