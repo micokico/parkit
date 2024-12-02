@@ -34,16 +34,14 @@ class OnBoardingActivity : AppCompatActivity() {
         }
     }
 
-    // Navega para a tela principal
     private fun goToMainScreen() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Finaliza a atividade atual para evitar o retorno a ela
+        finish() //
     }
 
-    // Navega para a próxima tela de onboarding
     private fun goToNextOnboardingScreen() {
-        val intent = Intent(this, NextOnboardingScreenActivity::class.java)
+        val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
     }
 }

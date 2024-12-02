@@ -14,7 +14,7 @@ class NavigationActivity : AppCompatActivity() {
         val nextButton: TextView = findViewById(R.id.next_button)
 
         skipButton.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java)) // Redirecione para a próxima tela do app
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
