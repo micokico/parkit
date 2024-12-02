@@ -19,7 +19,7 @@ class NavigationActivity : AppCompatActivity() {
         }
 
         nextButton.setOnClickListener {
-            startActivity(Intent(this, NextOnboardingActivity::class.java))
+            startActivity(Intent(this, PayamentActivity::class.java))
         }
     }
 }

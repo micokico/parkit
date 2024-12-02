@@ -8,10 +8,10 @@
 
     <!-- Campo para email -->
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/NumeroEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Numero"
         android:inputType="textEmailAddress"
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
@@ -26,12 +26,11 @@
         android:padding="16dp"
         android:layout_marginBottom="16dp" />
 
-    <!-- Botão de login -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entrar" />
+        android:text="Login" />
 
     <!-- Botão de registro -->
     <Button
