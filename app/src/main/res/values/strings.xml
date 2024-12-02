@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">parkit</string>
+    <string name="onboarding_title">Os melhores lugares de estacionamento</string>
+    <string name="onboarding_subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</string>
+    <string name="skip">SKIP</string>
+    <string name="next">SEGUINTE</string>
+    <string name="onboarding_image_desc">Imagem de carro e personagem</string>
+
 </resources>
