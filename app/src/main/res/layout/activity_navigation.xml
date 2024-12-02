@@ -13,7 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/img"
-        android:contentDescription="@string/navigation_image_desc"
+        android:contentDescription="@string/img.png"
         android:layout_marginTop="24dp"
         android:layout_gravity="center" />
 
