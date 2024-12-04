@@ -2,6 +2,7 @@ package com.example.parkit
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView // Import da classe ImageView adicionado
 import android.widget.SeekBar
 import android.widget.Switch
 import android.widget.TextView
