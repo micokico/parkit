@@ -97,6 +97,24 @@
 
                 <!-- Slots com imagens -->
                 <ImageView
+                    android:id="@+id/slot4c2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:backgroundTint="@color/green"
+                    android:contentDescription="Slot 4c"
+                    android:src="@drawable/car" />
+
+                <ImageView
+                    android:id="@+id/slot3b2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:backgroundTint="@color/green"
+                    android:contentDescription="Slot 3b"
+                    android:src="@drawable/car" />
+
+                <ImageView
                     android:id="@+id/slot3b"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
