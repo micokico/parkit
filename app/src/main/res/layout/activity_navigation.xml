@@ -74,30 +74,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="space_between"
+        android:gravity="center"
         android:layout_marginTop="32dp"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp">
+        android:paddingEnd="24dp"
+        android:weightSum="1">
 
         <!-- Botão SKIP -->
         <TextView
             android:id="@+id/skip_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="SKIP"
             android:textSize="16sp"
             android:textColor="@color/gray"
+            android:gravity="start"
             android:clickable="true"
             android:focusable="true" />
 
         <!-- Botão SEGUINTE -->
         <TextView
             android:id="@+id/next_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="SEGUINTE"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:gravity="end"
             android:clickable="true"
             android:focusable="true" />
     </LinearLayout>
