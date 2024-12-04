@@ -7,18 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".PaymentActivity">
 
+    <!-- Ilustração -->
     <ImageView
         android:id="@+id/ivIllustration"
         android:layout_width="129dp"
         android:layout_height="119dp"
         android:layout_marginBottom="500dp"
-        android:src="@drawable/img_1.png"
+        android:src="@drawable/img_1"
         app:layout_constraintBottom_toTopOf="@id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:srcCompat="@drawable/img_1" />
 
+    <!-- Título -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -29,10 +32,11 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivIllustration" />
 
+    <!-- Subtítulo -->
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
@@ -44,10 +48,10 @@
         android:textColor="#808080"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+    <!-- Botão "Começar" -->
     <Button
         android:id="@+id/Start"
         android:layout_width="200dp"
@@ -57,7 +61,6 @@
         android:text="Começar"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
 
