@@ -22,7 +22,8 @@
                 android:id="@+id/menu_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_menu" />
+                android:src="@drawable/ic_menu"
+                />
 
             <!-- Espaço para alinhar no final -->
             <View
