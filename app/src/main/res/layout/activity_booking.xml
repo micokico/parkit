@@ -11,26 +11,35 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Nome do estacionamento -->
-        <TextView
-            android:id="@+id/tvParkingName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ParkIT A"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginBottom="8dp" />
 
-        <!-- Preço por hora -->
-        <TextView
-            android:id="@+id/tvParkingPrice"
-            android:layout_width="wrap_content"
+
+        <!-- Nome do estacionamento e preço -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="N200/Hr"
-            android:textSize="18sp"
-            android:textColor="#888888"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_background"
+            android:padding="16dp"
+            android:gravity="space_between"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvParkingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ParkIT A"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvParkingPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N200/Hr"
+                android:textSize="18sp"
+                android:textColor="#000000" />
+        </LinearLayout>
 
         <!-- Texto de instrução -->
         <TextView
@@ -42,22 +51,87 @@
             android:textColor="#555555"
             android:layout_marginBottom="8dp" />
 
-        <!-- RecyclerView para os slots -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvParkingSlots"
+        <!-- Slots de estacionamento -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:clipToPadding="false"
-            android:paddingBottom="8dp"
-            android:overScrollMode="never" />
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvAvailableSlots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 slots Available"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Grid de slots -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4"
+                android:alignmentMode="alignMargins"
+                android:padding="8dp">
+
+                <!-- Slots com imagens -->
+                <ImageView
+                    android:id="@+id/slot3b"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/car"
+                    android:contentDescription="Slot 3b"
+                    android:backgroundTint="@color/green" />
+
+                <ImageView
+                    android:id="@+id/slot4c"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/car"
+                    android:contentDescription="Slot 4c"
+                    android:backgroundTint="@color/green" />
+
+                <ImageView
+                    android:id="@+id/slot6a"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/car"
+                    android:contentDescription="Slot 6a"
+                    android:backgroundTint="@color/black" />
+
+                <ImageView
+                    android:id="@+id/slot7b"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/car"
+                    android:contentDescription="Slot 7b"
+                    android:backgroundTint="@color/blue" />
+
+                <ImageView
+                    android:id="@+id/slot8c"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/car"
+                    android:contentDescription="Slot 8c"
+                    android:backgroundTint="@color/green" />
+            </GridLayout>
+
+        </LinearLayout>
 
         <!-- Alternativa para reserva futura -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:gravity="space_between"
             android:layout_marginBottom="16dp">
 
             <TextView
@@ -65,7 +139,6 @@
                 android:layout_height="wrap_content"
                 android:text="Reserva lugar para outro momento"
                 android:textSize="14sp"
-                android:layout_marginEnd="8dp"
                 android:textColor="#555555" />
 
             <Switch
