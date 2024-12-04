@@ -45,7 +45,6 @@ class SpaceBookingActivity : AppCompatActivity() {
 
         // Editar o horário de check-in
         ivEditCheckInTime.setOnClickListener {
-            // Lógica para abrir um TimePicker (não implementado aqui)
             Toast.makeText(this, "Edit Check-in Time clicked", Toast.LENGTH_SHORT).show()
         }
     }
