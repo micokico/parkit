@@ -33,4 +33,5 @@ class OnBoardingActivity : AppCompatActivity() {
         val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
     }
+
 }
