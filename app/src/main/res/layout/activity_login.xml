@@ -1,43 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@android:color/white">
 
-    <!-- Campo para email -->
+    <!-- Título -->
+    <TextView
+        android:id="@+id/phoneTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ParkIt"
+        android:textSize="32sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Espaçamento -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <!-- Campo para número -->
     <EditText
         android:id="@+id/NumeroEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Numero"
-        android:inputType="textEmailAddress"
+        android:hint="Número"
+        android:inputType="phone"
         android:padding="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="8dp"
+        android:background="@android:drawable/edit_text" />
 
     <!-- Campo para senha -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Senha"
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:drawable/edit_text" />
+
+    <!-- Esqueceu a senha -->
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esqueceu a Password?"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"
+        android:layout_gravity="end"
         android:layout_marginBottom="16dp" />
 
+    <!-- Botão de login -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:text="Login"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/black"
+        android:textColor="@android:color/white" />
 
-    <!-- Botão de registro -->
-    <Button
+    <!-- Texto ou -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ou"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Botão de criar conta -->
+    <TextView
         android:id="@+id/registerButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Criar Conta"
-        android:layout_marginTop="16dp" />
-
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>
