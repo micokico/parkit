@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="space_between"
             android:paddingBottom="16dp">
 
             <!-- Ícone do menu -->
@@ -23,7 +22,8 @@
                 android:id="@+id/menu_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_menu" />
+                android:src="@drawable/ic_menu"
+                />
 
             <!-- Espaço para alinhar no final -->
             <View
@@ -37,7 +37,6 @@
             android:layout_height="100dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_background"
-            android:gravity="space_between"
             android:orientation="horizontal"
             android:padding="16dp">
 

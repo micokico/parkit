@@ -26,12 +26,13 @@ class OnBoardingActivity : AppCompatActivity() {
     private fun goToMainScreen() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish() // Finaliza a tela atual
+        finish()
     }
 
     private fun goToNextOnboardingScreen() {
         val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 }
