@@ -1,4 +1,4 @@
-package com.example.onboarding
+package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
