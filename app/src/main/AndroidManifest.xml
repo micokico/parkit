@@ -27,13 +27,16 @@
 
         <activity android:name=".OnBoardingActivity" android:exported="true" />
 
+        <!-- Remove o <intent-filter> de PaymentActivity -->
         <activity android:name=".NavigationActivity" />
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".PaymentActivity" android:exported="true" />
+
+        <!-- Página de Login -->
+        <activity android:name=".LoginActivity" android:exported="true" />
+
         <activity android:name=".PhoneNumberActivity" android:exported="true" />
         <activity android:name=".VerificationCodeActivity" android:exported="true" />
         <activity android:name=".SetPasswordActivity" android:exported="true" />
-
 
     </application>
 
