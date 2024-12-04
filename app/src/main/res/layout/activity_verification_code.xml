@@ -22,56 +22,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insere o código de verificação"
+        android:text="Insira o código de verificação"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
-    <!-- Espaço para os dígitos do código -->
-    <LinearLayout
+    <!-- Espaço para o código -->
+    <EditText
+        android:id="@+id/codeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@android:drawable/edit_text"
         android:gravity="center"
-        android:layout_marginTop="24dp">
-
-        <EditText
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@android:drawable/edit_text"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1" />
-
-        <EditText
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@android:drawable/edit_text"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1" />
-
-        <EditText
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@android:drawable/edit_text"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1" />
-
-        <EditText
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:background="@android:drawable/edit_text"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="1" />
-    </LinearLayout>
+        android:inputType="number"
+        android:hint="Insira o código de verificação"
+        android:layout_marginTop="24dp" />
 
     <!-- Reenviar código -->
     <TextView
