@@ -7,53 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".PaymentActivity">
 
+    <ImageView
+        android:id="@+id/ivIllustration"
+        android:layout_width="129dp"
+        android:layout_height="119dp"
+        android:layout_marginBottom="500dp"
+        android:src="@drawable/img_1.png"
+        app:layout_constraintBottom_toTopOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="292dp"
         android:text="Pagamento Fácil"
+        android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivIllustration" />
 
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-        android:textSize="14sp"
-        android:textColor="#808080"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        android:textColor="#808080"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="24dp" />
-
-    <ImageView
-        android:id="@+id/ivIllustration"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/img_1.png"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <Button
         android:id="@+id/Start"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Começar"
+        android:layout_marginTop="132dp"
         android:backgroundTint="#000000"
+        android:text="Começar"
         android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/ivIllustration"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
