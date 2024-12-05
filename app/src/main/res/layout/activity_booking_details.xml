@@ -38,7 +38,7 @@
             android:id="@+id/ivQRCode"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_qr_code" <!-- Substitua pelo ícone do QR Code -->
+            android:src="@drawable/ic_qr_code"
         android:layout_marginBottom="8dp" />
 
         <!-- ID único -->

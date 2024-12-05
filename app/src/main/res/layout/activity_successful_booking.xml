@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F5F5F5"
     android:padding="16dp">
 
@@ -28,8 +29,8 @@
             android:id="@+id/ivSuccessIcon"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/ic_check_circle" <!-- Substitua pelo ícone desejado -->
-        android:tint="#4CAF50"
+            android:src="@drawable/ic_check_circle"
+        app:tint="#4CAF50"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
 
