@@ -14,16 +14,19 @@ class PaymentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding_screen3)
+
         val startButton: Button = findViewById(R.id.Start)
         startButton.setOnClickListener {
+            // Adicionando log para depuração
+            Log.d("PaymentActivity", "Botão Start clicado")
             try {
+                // Intent para navegar para LoginActivity
                 val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent) // Navega para LoginActivity
+                startActivity(intent)
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(this, "Erro ao navegar: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }

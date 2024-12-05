@@ -2,9 +2,10 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -12,81 +13,49 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var loginButton: Button
-    private lateinit var registerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize FirebaseAuth instance
+        // Inicializando o FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        // Link UI components to their IDs
-        emailEditText = findViewById(R.id.NumeroEditText)
-        passwordEditText = findViewById(R.id.passwordEditText)
-        loginButton = findViewById(R.id.loginButton)
-        registerButton = findViewById(R.id.registerButton)
+        val editTextEmail: EditText = findViewById(R.id.NumeroEditText)
+        val editTextPassword: EditText = findViewById(R.id.passwordEditText)
+        val btnLogin: Button = findViewById(R.id.loginButton)
+        val forgotPassword: TextView = findViewById(R.id.forgotPasswordTextView)
 
-        // Login button click listener
-        loginButton.setOnClickListener {
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
+        // Ação do botão de login
+        btnLogin.setOnClickListener {
+            val email = editTextEmail.text.toString()
+            val password = editTextPassword.text.toString()
 
-            if (validateInput(email, password)) {
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
+            } else {
                 loginUser(email, password)
             }
         }
 
-        // Register button click listener
-        registerButton.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
     }
 
-    /**
-     * Validates user input fields for email and password.
-     */
-    private fun validateInput(email: String, password: String): Boolean {
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Por favor, insira um email válido", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        if (password.length < 6) {
-            Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-        return true
-    }
-
-    /**
-     * Handles user login with Firebase Authentication.
-     */
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Navigate to the MainActivity on successful login
-                    val intent = Intent(this, MainActivity::class.java)
+                    // Login bem-sucedido
+                    val user = auth.currentUser
+                    Toast.makeText(this, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
+
+                    // Navegar para a próxima Activity (ex: PaymentActivity ou HomeActivity)
+                    val intent = Intent(this, PaymentActivity::class.java)
                     startActivity(intent)
-                    finish()
+                    finish() // Finaliza a LoginActivity para que o usuário não volte para ela
                 } else {
-                    // Display an error message to the user
-                    Toast.makeText(
-                        this,
-                        "Falha na autenticação: ${task.exception?.localizedMessage}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // Se o login falhar
+                    Log.e("LoginActivity", "Erro ao fazer login", task.exception)
+                    Toast.makeText(this, "Falha no login: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
