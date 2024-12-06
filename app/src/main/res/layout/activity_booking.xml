@@ -64,13 +64,13 @@
         <!-- Texto de instrução -->
         <TextView
             android:id="@+id/tvSelectSpace"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select preferred space"
+            android:text="Selecione o espaço pretendido"
             android:textSize="16sp"
             android:textColor="#555555"
             android:layout_marginBottom="8dp"
-            android:gravity="center" />
+            android:gravity="center_horizontal" />
 
         <!-- Destaque com slots disponíveis -->
         <LinearLayout
@@ -100,7 +100,7 @@
 
                 <!-- Slots com imagens -->
                 <ImageView
-                    android:id="@+id/slot3b8"
+                    android:id="@+id/slot_1a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -109,7 +109,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b3"
+                    android:id="@+id/slot_2a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -118,7 +118,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b4"
+                    android:id="@+id/slot_3a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -127,7 +127,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b5"
+                    android:id="@+id/slot_4a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -136,7 +136,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b6"
+                    android:id="@+id/slot_5a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -145,7 +145,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b7"
+                    android:id="@+id/slot_6a"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -154,7 +154,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c3"
+                    android:id="@+id/slot_1b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -163,7 +163,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c4"
+                    android:id="@+id/slot_2b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -172,7 +172,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c5"
+                    android:id="@+id/slot_3b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -181,7 +181,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c6"
+                    android:id="@+id/slot_4b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -190,7 +190,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c7"
+                    android:id="@+id/slot_5b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -199,7 +199,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c2"
+                    android:id="@+id/slot_6b"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -208,7 +208,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b2"
+                    android:id="@+id/slot_1c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -217,7 +217,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b"
+                    android:id="@+id/slot_2c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -226,7 +226,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b9"
+                    android:id="@+id/slot_3c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -235,25 +235,25 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b10"
+                    android:id="@+id/slot_4c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
-                    android:backgroundTint="@color/green"
+                    android:backgroundTint="@color/black"
                     android:contentDescription="Slot 4c"
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b11"
+                    android:id="@+id/slot_5c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
-                    android:backgroundTint="@color/green"
+                    android:backgroundTint="@color/blue"
                     android:contentDescription="Slot 5c"
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b12"
+                    android:id="@+id/slot_6c"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -262,7 +262,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b13"
+                    android:id="@+id/slot_1d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -271,7 +271,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot3b14"
+                    android:id="@+id/slot_2d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -280,7 +280,7 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot4c"
+                    android:id="@+id/slot_3d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
@@ -289,31 +289,32 @@
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot6a"
+                    android:id="@+id/slot_4d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/green"
                     android:contentDescription="Slot 4d"
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot7b"
+                    android:id="@+id/slot_5d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/green"
                     android:contentDescription="Slot 5d"
                     android:src="@drawable/car" />
 
                 <ImageView
-                    android:id="@+id/slot8c"
+                    android:id="@+id/slot_6d"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_margin="8dp"
                     android:backgroundTint="@color/green"
                     android:contentDescription="Slot 6d"
                     android:src="@drawable/car" />
+
             </GridLayout>
         </LinearLayout>
 
