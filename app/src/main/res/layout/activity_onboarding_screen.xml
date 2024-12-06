@@ -1,80 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:gravity="center"
+    android:background="@color/white">
 
-    <!-- Spacer -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
-
-    <!-- Illustration -->
+    <!-- Imagem principal -->
     <ImageView
-        android:id="@+id/carIllustration"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:contentDescription="Car Illustration"
-        android:scaleType="fitCenter"
-        android:src="@drawable/car_illustration" />
+        android:id="@+id/navigation_image"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        android:src="@drawable/car_illustration"
+        android:layout_marginTop="24dp" />
 
-    <!-- Text Content -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Título -->
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:text="Os melhores lugares de estacionamento"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:text="Os melhores lugares de estacionamento"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/subtitle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:gravity="center"
+        android:layout_marginTop="8dp" />
 
-        <TextView
-            android:id="@+id/descriptionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
+    <!-- Indicadores de página -->
+    <LinearLayout
+        android:id="@+id/page_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <!-- Indicador ativo -->
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/indicator_active"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Indicador inativo -->
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/indicator_inactive"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Indicador inativo -->
+        <View
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/indicator_inactive" />
     </LinearLayout>
 
-    <!-- Navigation Controls -->
+    <!-- Botões de navegação -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         android:weightSum="2">
 
-        <Button
-            android:id="@+id/skipButton"
+        <!-- Botão SKIP -->
+        <TextView
+            android:id="@+id/skip_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
             android:text="SKIP"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            android:gravity="start"
+            android:clickable="true"
+            android:focusable="true" />
 
-        <Button
-            android:id="@+id/nextButton"
+        <!-- Botão SEGUINTE -->
+        <TextView
+            android:id="@+id/next_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
             android:text="SEGUINTE"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="end"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 </LinearLayout>

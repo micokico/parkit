@@ -11,8 +11,8 @@ class OnBoardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding_screen)
 
-        val skipButton: TextView = findViewById(R.id.skipButton)
-        val nextButton: TextView = findViewById(R.id.nextButton)
+        val skipButton: TextView = findViewById(R.id.skip_button)
+        val nextButton: TextView = findViewById(R.id.next_button)
 
         skipButton.setOnClickListener {
             goToMainScreen()
