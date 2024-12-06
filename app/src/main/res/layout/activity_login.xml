@@ -22,17 +22,17 @@
     <!-- Espaçamento -->
     <Space
         android:layout_width="match_parent"
-        android:layout_height="32dp" />
+        android:layout_height="24dp" />
 
     <!-- Campo para número -->
     <EditText
         android:id="@+id/NumeroEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Número"
+        android:hint="Número de telefone"
         android:inputType="phone"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@android:drawable/edit_text" />
 
     <!-- Campo para senha -->
@@ -40,10 +40,10 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="Senha"
         android:inputType="textPassword"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@android:drawable/edit_text" />
 
     <!-- Esqueceu a senha -->
@@ -51,11 +51,13 @@
         android:id="@+id/forgotPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esqueceu a Password?"
+        android:text="Esqueceu a senha?"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="14sp"
         android:layout_gravity="end"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true" />
 
     <!-- Botão de login -->
     <Button
@@ -68,7 +70,7 @@
         android:backgroundTint="@android:color/black"
         android:textColor="@android:color/white" />
 
-    <!-- Texto ou -->
+    <!-- Texto "ou" -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,5 +89,7 @@
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
         android:clickable="true"
-        android:focusable="true" />
+        android:focusable="true"
+        android:layout_marginBottom="8dp" />
+
 </LinearLayout>
