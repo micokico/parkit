@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             if (phoneNumber.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
             } else if (password != confirmPassword) {
-                Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "As Passwords não coincidem", Toast.LENGTH_SHORT).show()
             } else if (!isValidPhoneNumber(phoneNumber)) {
                 Toast.makeText(this, "Por favor, insira um número de telefone válido", Toast.LENGTH_SHORT).show()
             } else {
@@ -50,7 +50,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun isValidPhoneNumber(phoneNumber: String): Boolean {
-        // Validação simples para o número de telefone (ajuste conforme necessário)
         return phoneNumber.length >= 10 && phoneNumber.all { it.isDigit() }
     }
 
@@ -64,7 +63,6 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 override fun onVerificationFailed(e: FirebaseException) {
-                    // Falha no envio do código
                     Toast.makeText(
                         this@RegisterActivity,
                         "Erro ao enviar código: ${e.message}",
@@ -78,7 +76,6 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     super.onCodeSent(verificationId, token)
 
-                    // Redirecionar para a página de verificação
                     val intent = Intent(this@RegisterActivity, VerificationCodeActivity::class.java)
                     intent.putExtra("verificationId", verificationId)
                     intent.putExtra("phoneNumber", phoneNumber)
