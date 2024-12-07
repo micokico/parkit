@@ -23,7 +23,6 @@ class VerificationCodeActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Obtém o ID de verificação passado pela intenção
         verificationId = intent.getStringExtra("verificationId").toString()
 
         codeEditText = findViewById(R.id.codeEditText)
@@ -48,7 +47,6 @@ class VerificationCodeActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Redirecionar para a página de criar senha
                     val intent = Intent(this, SetPasswordActivity::class.java)
                     startActivity(intent)
                     finish()

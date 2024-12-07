@@ -50,8 +50,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun isValidPhoneNumber(phoneNumber: String): Boolean {
-        return phoneNumber.length >= 10 && phoneNumber.all { it.isDigit() }
+        return phoneNumber.startsWith("+") && phoneNumber.length >= 9 && phoneNumber.drop(1).all { it.isDigit() }
     }
+
 
     private fun registerUser(phoneNumber: String, password: String) {
         val options = PhoneAuthOptions.newBuilder(auth)
@@ -75,6 +76,7 @@ class RegisterActivity : AppCompatActivity() {
                     token: PhoneAuthProvider.ForceResendingToken
                 ) {
                     super.onCodeSent(verificationId, token)
+                    Toast.makeText(this@RegisterActivity, "Código enviado com sucesso!", Toast.LENGTH_SHORT).show()
 
                     val intent = Intent(this@RegisterActivity, VerificationCodeActivity::class.java)
                     intent.putExtra("verificationId", verificationId)
@@ -83,6 +85,7 @@ class RegisterActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
+
             }).build()
 
         PhoneAuthProvider.verifyPhoneNumber(options)
