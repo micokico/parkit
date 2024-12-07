@@ -13,7 +13,7 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_gravity="center"
-        android:src="@drawable/img"
+        android:src="@drawable/navegacao"
         android:layout_marginTop="24dp" />
 
     <!-- Título -->
