@@ -1,5 +1,6 @@
 package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -43,7 +44,9 @@ class VerificationCodeActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Usuário autenticado com sucesso!", Toast.LENGTH_LONG).show()
-                // Redirecione para a próxima tela ou feche esta
+
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
                 finish()
             } else {
                 Toast.makeText(this, "Erro ao verificar o código.", Toast.LENGTH_LONG).show()
