@@ -64,8 +64,12 @@ dependencies {
     // Para usar o Firebase Analytics (opcional)
     implementation("com.google.firebase:firebase-analytics")
 
+    // Para usar o Firebase Storage
+    implementation("com.google.firebase:firebase-storage") // Firebase Storage
+
     // O Firebase BOM já foi incluído, então as versões das dependências são gerenciadas automaticamente
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+
 }
 
 // Aplica o plugin do Google Services no final

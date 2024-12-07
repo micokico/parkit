@@ -39,6 +39,8 @@
         <activity android:name=".LoginActivity" android:exported="true" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProfileActivity" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
         <activity android:name=".PhoneNumberActivity" android:exported="true" />
         <activity android:name=".VerificationCodeActivity" android:exported="true" />
