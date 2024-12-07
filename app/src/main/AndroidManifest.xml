@@ -38,7 +38,7 @@
         <!-- Página de Login -->
         <activity android:name=".LoginActivity" android:exported="true" />
         <activity android:name=".RegisterActivity" />
-
+        <activity android:name=".ProfileActivity" />
 
         <activity android:name=".PhoneNumberActivity" android:exported="true" />
         <activity android:name=".VerificationCodeActivity" android:exported="true" />
