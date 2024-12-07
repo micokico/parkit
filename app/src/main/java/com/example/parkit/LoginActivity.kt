@@ -18,16 +18,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicializando o FirebaseAuth
+
         auth = FirebaseAuth.getInstance()
 
-        val editTextPhone: EditText = findViewById(R.id.NumeroEditText) // Número de telefone
-        val editTextPassword: EditText = findViewById(R.id.passwordEditText) // Senha
-        val btnLogin: Button = findViewById(R.id.loginButton) // Botão para fazer login
+        val editTextPhone: EditText = findViewById(R.id.NumeroEditText)
+        val editTextPassword: EditText = findViewById(R.id.passwordEditText)
+        val btnLogin: Button = findViewById(R.id.loginButton)
         val createAccount: TextView = findViewById(R.id.registerButton)
 
 
-        // Ação do botão "Login"
         btnLogin.setOnClickListener {
             val phoneNumber = editTextPhone.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
@@ -39,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Ação do texto "Criar Conta"
+
         createAccount.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -47,13 +46,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser(phoneNumber: String, password: String) {
-        // Implementação de login com telefone e senha
-        auth.signInWithEmailAndPassword(phoneNumber, password) // Firebase Auth usa email, substituir conforme necessidade
+        
+        auth.signInWithEmailAndPassword(phoneNumber, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Login bem-sucedido
                     Toast.makeText(this, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, PaymentActivity::class.java)
+                    val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
