@@ -32,7 +32,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         nextButton.setOnClickListener {
             val phoneNumber = phoneNumberEditText.text.toString().trim()
             if (phoneNumber.isNotEmpty()) {
-                sendVerificationCode(phoneNumber)
+                sendVerificationCode("+351$phoneNumber") // Prefixo de Portugal
             } else {
                 Toast.makeText(this, "Por favor, insira um número de telefone válido.", Toast.LENGTH_SHORT).show()
             }

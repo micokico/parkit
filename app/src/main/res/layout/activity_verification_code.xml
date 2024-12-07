@@ -1,73 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
-    android:background="@android:color/white">
+    android:padding="16dp">
 
-    <!-- Título -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ParkIt"
-        android:textSize="32sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal" />
-
-    <!-- Subtítulo -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insira o código de verificação"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-    <!-- Espaço para o código -->
     <EditText
-        android:id="@+id/codeEditText"
+        android:id="@+id/verificationCodeEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/edit_text"
-        android:gravity="center"
-        android:inputType="number"
-        android:hint="Insira o código de verificação"
-        android:layout_marginTop="24dp" />
+        android:hint="Código de Verificação"
+        android:inputType="number" />
 
-    <!-- Reenviar código -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Não recebeu o código?"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reenviar"
-        android:textColor="@color/red"
-        android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <!-- Botão de verificar -->
     <Button
         android:id="@+id/verifyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seguinte"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/button_black"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:text="Verificar" />
 </LinearLayout>

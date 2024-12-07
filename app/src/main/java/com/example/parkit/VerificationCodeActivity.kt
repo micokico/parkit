@@ -1,62 +1,53 @@
 package com.example.parkit
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.parkit.databinding.ActivityVerificationCodeBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
 class VerificationCodeActivity : AppCompatActivity() {
 
-    private lateinit var codeEditText: EditText
-    private lateinit var verifyButton: Button
+    private lateinit var binding: ActivityVerificationCodeBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var verificationId: String
+    private var verificationId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verification_code)
 
+        // Configurar View Binding
+        binding = ActivityVerificationCodeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        verificationId = intent.getStringExtra("verificationId").toString()
+        // Obter o ID de verificação da Intent
+        verificationId = intent.getStringExtra("verificationId")
 
-        codeEditText = findViewById(R.id.codeEditText)
-        verifyButton = findViewById(R.id.verifyButton)
+        // Configurar o botão "Verificar"
+        binding.verifyButton.setOnClickListener {
+            val code = binding.verificationCodeEditText.text.toString().trim()
 
-        verifyButton.setOnClickListener {
-            val code = codeEditText.text.toString().trim()
-            if (code.isNotEmpty()) {
+            if (code.isNotEmpty() && verificationId != null) {
                 verifyCode(code)
             } else {
-                Toast.makeText(this, "Por favor, insira o código de verificação.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Insira o código.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun verifyCode(code: String) {
-        val credential = PhoneAuthProvider.getCredential(verificationId, code)
-        signInWithCredential(credential)
-    }
-
-    private fun signInWithCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val intent = Intent(this, SetPasswordActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Falha ao verificar o código: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
+        auth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Usuário autenticado com sucesso!", Toast.LENGTH_LONG).show()
+                // Redirecione para a próxima tela ou feche esta
+                finish()
+            } else {
+                Toast.makeText(this, "Erro ao verificar o código.", Toast.LENGTH_LONG).show()
             }
+        }
     }
 }
