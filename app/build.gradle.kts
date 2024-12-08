@@ -44,6 +44,10 @@ android {
 
 dependencies {
 
+    implementation ("com.google.firebase:firebase-auth:22.1.2")
+
+    implementation ("com.firebaseui:firebase-ui-auth:8.0.0")
+
     implementation("org.osmdroid:osmdroid-android:6.1.14")
 
     implementation(libs.androidx.core.ktx)

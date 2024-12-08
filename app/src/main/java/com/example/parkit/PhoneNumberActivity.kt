@@ -2,10 +2,9 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.parkit.databinding.ActivityPhoneNumberBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -15,26 +14,24 @@ import java.util.concurrent.TimeUnit
 
 class PhoneNumberActivity : AppCompatActivity() {
 
-    private lateinit var phoneNumberEditText: EditText
-    private lateinit var nextButton: Button
+    private lateinit var binding: ActivityPhoneNumberBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var verificationId: String
+    private var verificationId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_phone_number)
+
+        binding = ActivityPhoneNumberBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
 
-        phoneNumberEditText = findViewById(R.id.phoneNumberEditText)
-        nextButton = findViewById(R.id.nextButton)
-
-        nextButton.setOnClickListener {
-            val phoneNumber = phoneNumberEditText.text.toString().trim()
-            if (phoneNumber.isNotEmpty()) {
-                sendVerificationCode("+351$phoneNumber") // Prefixo de Portugal
+        binding.nextButton.setOnClickListener {
+            val phoneNumber = binding.phoneNumberEditText.text.toString().trim()
+            if (phoneNumber.isEmpty()) {
+                Toast.makeText(this, "Digite seu número de telefone", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Por favor, insira um número de telefone válido.", Toast.LENGTH_SHORT).show()
+                sendVerificationCode("+351$phoneNumber")
             }
         }
     }
@@ -44,28 +41,29 @@ class PhoneNumberActivity : AppCompatActivity() {
             .setPhoneNumber(phoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(this)
-            .setCallbacks(object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                    // Login automático
-                }
-
-                override fun onVerificationFailed(e: FirebaseException) {
-                    Toast.makeText(this@PhoneNumberActivity, e.message, Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onCodeSent(
-                    verificationId: String,
-                    token: PhoneAuthProvider.ForceResendingToken
-                ) {
-                    super.onCodeSent(verificationId, token)
-                    this@PhoneNumberActivity.verificationId = verificationId
-                    val intent = Intent(this@PhoneNumberActivity, VerificationCodeActivity::class.java)
-                    intent.putExtra("verificationId", verificationId)
-                    startActivity(intent)
-                }
-            })
+            .setCallbacks(callbacks)
             .build()
 
         PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+            Toast.makeText(this@PhoneNumberActivity, "Verificação automática concluída", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onVerificationFailed(e: FirebaseException) {
+            Toast.makeText(this@PhoneNumberActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+            this@PhoneNumberActivity.verificationId = verificationId
+            Toast.makeText(this@PhoneNumberActivity, "Código enviado", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this@PhoneNumberActivity, VerificationCodeActivity::class.java)
+            intent.putExtra("verificationId", verificationId)
+            intent.putExtra("phoneNumber", binding.phoneNumberEditText.text.toString().trim())
+            startActivity(intent)
+        }
     }
 }

@@ -24,7 +24,7 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun goToMainScreen() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }

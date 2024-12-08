@@ -36,7 +36,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/Imagem1"
+        android:background="@drawable/imagem_1"
         android:contentDescription="Adicionar Foto"
         android:scaleType="centerInside"
         app:layout_constraintTop_toBottomOf="@id/profileTitle"

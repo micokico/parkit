@@ -28,7 +28,7 @@ class NavigationActivity : AppCompatActivity() {
     }
 
     private fun goToLastScreen() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 

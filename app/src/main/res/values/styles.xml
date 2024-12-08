@@ -1,0 +1,28 @@
+<resources>
+    <!-- Tema personalizado para o Firebase Auth UI -->
+    <style name="FirebaseAuthUITheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Cores principais do tema -->
+        <item name="colorPrimary">#6200EE</item> <!-- Cor primária -->
+        <item name="colorPrimaryDark">#3700B3</item> <!-- Cor da barra de status -->
+        <item name="colorAccent">#03DAC5</item> <!-- Cor de destaque (botões, etc.) -->
+
+        <!-- Cores de fundo -->
+        <item name="android:windowBackground">#FFFFFF</item> <!-- Cor de fundo da tela -->
+        <item name="android:textColorPrimary">#000000</item> <!-- Cor principal do texto -->
+        <item name="android:textColorSecondary">#666666</item> <!-- Cor do texto secundário -->
+
+
+
+        <!-- Configurações de botão -->
+        <item name="buttonStyle">@style/FirebaseAuthUIButton</item>
+    </style>
+
+    <!-- Estilo para os botões do Firebase Auth UI -->
+    <style name="FirebaseAuthUIButton" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">#6200EE</item> <!-- Cor de fundo do botão -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Cor do texto do botão -->
+        <item name="android:padding">12dp</item> <!-- Espaçamento interno -->
+        <item name="android:textSize">16sp</item> <!-- Tamanho do texto -->
+
+    </style>
+</resources>

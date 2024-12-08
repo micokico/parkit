@@ -24,7 +24,7 @@ class BookingDetailsActivity : AppCompatActivity() {
 
         // Ação para voltar à página principal
         btnBackToHome.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
