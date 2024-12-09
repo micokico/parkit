@@ -28,15 +28,13 @@ class HomeActivity : AppCompatActivity() {
         mapView = findViewById(R.id.map)
         mapView.setMultiTouchControls(true)
 
-        // Limitar o mapa ao território de Portugal
-        val portugalBoundingBox = BoundingBox(42.154, -6.188, 36.960, -9.533)
-        mapView.setScrollableAreaLimitDouble(portugalBoundingBox)
+        val portoBoundingBox = BoundingBox(41.366, -7.895, 40.801, -8.847)
+        mapView.setScrollableAreaLimitDouble(portoBoundingBox)
 
-        // Configurar o centro e o nível de zoom inicial
-        val portugalCenter = GeoPoint(39.3999, -8.2245) // Coordenadas aproximadas do centro de Portugal
-        mapView.controller.setZoom(7.0) // Zoom inicial ajustado para mostrar Portugal inteiro
-        mapView.controller.setCenter(portugalCenter)
-        mapView.minZoomLevel = 6.0
+        val portoCenter = GeoPoint(41.14961, -8.61099)
+        mapView.controller.setZoom(11.0)
+        mapView.controller.setCenter(portoCenter)
+        mapView.minZoomLevel = 9.0
 
         database = FirebaseDatabase.getInstance().getReference("carParks")
 
@@ -73,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
                     val longitude = firstChild.child("longitude").getValue(Double::class.java)
                     if (latitude != null && longitude != null) {
                         val firstLocation = GeoPoint(latitude, longitude)
-                        mapView.controller.setZoom(14.0)
+                        mapView.controller.setZoom(12.0)
                         mapView.controller.setCenter(firstLocation)
                     }
                 }
@@ -108,3 +106,4 @@ class HomeActivity : AppCompatActivity() {
         mapView.onPause()
     }
 }
+
