@@ -32,9 +32,9 @@ class HomeActivity : AppCompatActivity() {
         mapView.setScrollableAreaLimitDouble(portoBoundingBox)
 
         val portoCenter = GeoPoint(41.14961, -8.61099)
-        mapView.controller.setZoom(11.0)
+        mapView.controller.setZoom(13.0)
         mapView.controller.setCenter(portoCenter)
-        mapView.minZoomLevel = 9.0
+        mapView.minZoomLevel = 15.0
 
         database = FirebaseDatabase.getInstance().getReference("carParks")
 
