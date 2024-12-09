@@ -7,7 +7,6 @@
         tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -32,13 +31,14 @@
         <activity android:name=".OnBoardingActivity" android:exported="true" />
         <activity android:name=".NavigationActivity" />
         <activity android:name=".PaymentActivity" android:exported="true" />
-        <activity android:name=".LoginActivity" android:exported="true"/>
-        <activity android:name=".PhoneNumberActivity" android:exported="true"/>
-        <activity android:name=".VerificationCodeActivity" android:exported="true"/>
-        <activity android:name=".RegisterActivity" android:exported="true"/>
-        <activity android:name=".HomeActivity" android:exported="true"/>
-        <activity android:name=".ForgotPasswordActivity" android:exported="true"/>
+        <activity android:name=".LoginActivity" android:exported="true" />
+        <activity android:name=".PhoneNumberActivity" android:exported="true" />
+        <activity android:name=".VerificationCodeActivity" android:exported="true" />
+        <activity android:name=".RegisterActivity" android:exported="true" />
+        <activity android:name=".HomeActivity" android:exported="true" />
 
+        <!-- Atividade para recuperação de senha -->
+        <activity android:name=".ForgotPasswordActivity" android:exported="true" />
 
     </application>
 

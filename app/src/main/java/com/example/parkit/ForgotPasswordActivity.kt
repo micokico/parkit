@@ -14,6 +14,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         val etPhoneNumber = findViewById<EditText>(R.id.etPhoneNumber)
         val btnSendRecovery = findViewById<Button>(R.id.btnSendRecovery)
+        val btnBack = findViewById<Button>(R.id.btnBack)  // ou ImageButton, conforme necessário
+        btnBack.setOnClickListener {
+            onBackPressed()  // Este método volta para a tela anterior automaticamente
+        }
 
         // Lógica para enviar código de recuperação
         btnSendRecovery.setOnClickListener {
@@ -28,3 +32,4 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 }
+
