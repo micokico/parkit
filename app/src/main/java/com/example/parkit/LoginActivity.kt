@@ -2,10 +2,10 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
@@ -16,11 +16,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Inicialização do view binding
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Inicialização do Firestore
         db = FirebaseFirestore.getInstance()
 
+        // Ação do botão "Login"
         binding.loginButton.setOnClickListener {
             val phoneNumber = binding.NumeroEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
@@ -33,8 +36,16 @@ class LoginActivity : AppCompatActivity() {
             loginUser(phoneNumber, password)
         }
 
+        // Ação do botão "Criar Conta"
         binding.registerButton.setOnClickListener {
             startActivity(Intent(this, PhoneNumberActivity::class.java))
+        }
+
+        // Ação do texto "Esqueceu-se da palavra-passe?"
+        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -61,7 +72,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToHomeScreen() {
+        // Navega para a HomeActivity e limpa a pilha de atividades anteriores
         val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
