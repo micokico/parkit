@@ -6,8 +6,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.parkit.LoginActivity
-import com.example.parkit.R
 
 class PaymentActivity : AppCompatActivity() {
 
@@ -21,9 +19,10 @@ class PaymentActivity : AppCompatActivity() {
             Log.d("PaymentActivity", "Botão Start clicado")
             try {
                 // Intent para navegar para LoginActivity
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this@PaymentActivity, LoginActivity::class.java)
                 startActivity(intent)
             } catch (e: Exception) {
+                // Tratando exceções para exibir no Toast
                 e.printStackTrace()
                 Toast.makeText(this, "Erro ao navegar: ${e.message}", Toast.LENGTH_SHORT).show()
             }

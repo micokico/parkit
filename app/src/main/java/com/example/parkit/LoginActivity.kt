@@ -12,6 +12,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
         binding.loginButton.setOnClickListener {
@@ -36,10 +38,13 @@ class LoginActivity : AppCompatActivity() {
         binding.registerButton.setOnClickListener {
             startActivity(Intent(this, PhoneNumberActivity::class.java))
         }
+
+        binding.forgotPasswordTextView.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
     }
 
     private fun loginUser(phoneNumber: String, password: String) {
-        // Buscar as credenciais no Firestore
         db.collection("users").document(phoneNumber)
             .get()
             .addOnSuccessListener { document ->
@@ -62,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun goToHomeScreen() {
         val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
