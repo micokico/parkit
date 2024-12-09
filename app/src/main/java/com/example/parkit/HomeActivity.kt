@@ -9,9 +9,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.database.*
 import org.osmdroid.config.Configuration
-import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.util.BoundingBox
+import org.osmdroid.util.GeoPoint
 
 class HomeActivity : AppCompatActivity() {
 
@@ -21,18 +22,24 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Configurar o osmdroid
         Configuration.getInstance().load(applicationContext, getPreferences(MODE_PRIVATE))
         setContentView(R.layout.activity_home)
 
-        // Inicializar o MapView
         mapView = findViewById(R.id.map)
         mapView.setMultiTouchControls(true)
 
-        // Inicializar Firebase
+        // Limitar o mapa ao território de Portugal
+        val portugalBoundingBox = BoundingBox(42.154, -6.188, 36.960, -9.533)
+        mapView.setScrollableAreaLimitDouble(portugalBoundingBox)
+
+        // Configurar o centro e o nível de zoom inicial
+        val portugalCenter = GeoPoint(39.3999, -8.2245) // Coordenadas aproximadas do centro de Portugal
+        mapView.controller.setZoom(7.0) // Zoom inicial ajustado para mostrar Portugal inteiro
+        mapView.controller.setCenter(portugalCenter)
+        mapView.minZoomLevel = 6.0
+
         database = FirebaseDatabase.getInstance().getReference("carParks")
 
-        // Verificar permissões de localização
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -42,11 +49,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Método para carregar os dados dos parques do Firebase
     private fun loadCarParks() {
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Adicionar marcadores de cada parque
                 for (carParkSnapshot in snapshot.children) {
                     val name = carParkSnapshot.child("name").getValue(String::class.java)
                     val latitude = carParkSnapshot.child("latitude").getValue(Double::class.java)
@@ -62,7 +67,6 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
 
-                // Centralizar no primeiro ponto (se existir)
                 if (snapshot.children.iterator().hasNext()) {
                     val firstChild = snapshot.children.iterator().next()
                     val latitude = firstChild.child("latitude").getValue(Double::class.java)
@@ -81,7 +85,6 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    // Gerenciar permissão de localização
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
