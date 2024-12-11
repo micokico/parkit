@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId("activity_profile"))
+        setContentView(findViewById(getResId("activity_profile", "layout")))
 
         profileImage = findViewById(getResId("profileImage", "id"))
         val nameField = findViewById<EditText>(getResId("nameField", "id"))
@@ -31,27 +31,37 @@ class ProfileActivity : AppCompatActivity() {
         val passwordField = findViewById<EditText>(getResId("passwordField", "id"))
         val saveButton = findViewById<Button>(getResId("saveButton", "id"))
 
+        // Configura o clique na imagem para escolher uma foto
         profileImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, PICK_IMAGE_REQUEST)
         }
 
+        // Configura o botão de salvar
         saveButton.setOnClickListener {
-            val name = nameField.text.toString()
-            val email = emailField.text.toString()
-            val phone = phoneField.text.toString()
-            val password = passwordField.text.toString()
+            val name = nameField.text.toString().trim()
+            val email = emailField.text.toString().trim()
+            val phone = phoneField.text.toString().trim()
+            val password = passwordField.text.toString().trim()
+
+            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (imageUri != null) {
                 uploadImageToFirebase(imageUri!!) { imageUrl ->
-
                     Toast.makeText(this, "Imagem salva em $imageUrl", Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "Nenhuma imagem foi selecionada", Toast.LENGTH_SHORT).show()
             }
 
-            Toast.makeText(this, "Salvo:\n$name\n$email\n$phone\n$password", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "Dados salvos:\nNome: $name\nEmail: $email\nTelefone: $phone\nSenha: $password",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -68,15 +78,12 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirebase(fileUri: Uri, onSuccess: (String) -> Unit) {
-        // Nome único para o arquivo no Firebase Storage
         val fileName = "profile_images/${UUID.randomUUID()}.jpg"
         val fileRef = storageReference.child(fileName)
 
-        // Fazer o upload da imagem para o Firebase Storage
         fileRef.putFile(fileUri)
             .addOnSuccessListener {
                 fileRef.downloadUrl.addOnSuccessListener { uri ->
-                    // Retorna a URL pública da imagem
                     onSuccess(uri.toString())
                 }
             }
@@ -87,9 +94,5 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun getResId(resourceName: String, resourceType: String): Int {
         return resources.getIdentifier(resourceName, resourceType, packageName)
-    }
-
-    private fun getLayoutId(layoutName: String): Int {
-        return resources.getIdentifier(layoutName, "layout", packageName)
     }
 }
