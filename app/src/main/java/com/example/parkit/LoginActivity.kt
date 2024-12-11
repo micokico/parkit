@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "Senha incorreta.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Utilizador não encontrado.", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { e ->
