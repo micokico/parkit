@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="Quantidade de utilizadores totais"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="Receitas Globais"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
@@ -62,7 +62,7 @@
         android:id="@+id/buttonPlaceholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="XXXXXXXXXXXX"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
