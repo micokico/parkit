@@ -51,7 +51,10 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:src="@drawable/sino"
-            android:background="@drawable/fundo_branco" />
+            android:background="@drawable/fundo_branco"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
 
         <!-- Search Bar -->
         <LinearLayout
