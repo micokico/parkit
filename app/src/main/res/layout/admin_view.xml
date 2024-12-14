@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="ParkIt"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <!-- Botão 1 -->
+    <Button
+        android:id="@+id/buttonUsage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textTitle"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
+        android:background="#0C001E"
+        android:text="Ver utilização atual do parque"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- Botão 2 -->
+    <Button
+        android:id="@+id/buttonStatistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonUsage"
+        android:layout_marginBottom="20dp"
+        android:background="#0C001E"
+        android:text="Estatísticas"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- Botão 3 -->
+    <Button
+        android:id="@+id/buttonImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonStatistics"
+        android:background="#0C001E"
+        android:text="Imagens do parque"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</RelativeLayout>

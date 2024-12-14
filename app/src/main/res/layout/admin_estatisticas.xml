@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Título Principal -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="ParkIt"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/textSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Estatísticas"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Espaçamento entre textos e botões -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <!-- Botão 1: Quantidade de utilizadores totais -->
+    <Button
+        android:id="@+id/buttonUserCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="#0C001E"
+        android:text="Quantidade de utilizadores totais"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- Botão 2: Receitas Globais -->
+    <Button
+        android:id="@+id/buttonGlobalRevenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="#0C001E"
+        android:text="Receitas Globais"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <!-- Botão 3: Placeholder -->
+    <Button
+        android:id="@+id/buttonPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0C001E"
+        android:text="XXXXXXXXXXXX"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>
