@@ -51,7 +51,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:src="@drawable/sino"
-            android:background="@android:color/white" />
+            android:background="@drawable/fundo_branco" />
 
         <!-- Search Bar -->
         <LinearLayout
@@ -96,35 +96,44 @@
 
             <ImageButton
                 android:id="@+id/car_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/carro"
-                android:background="@drawable/rounded_background_white" />
+                android:background="@drawable/rounded_background_white"
+                android:scaleType="centerInside"
+                android:padding="8dp" />
 
             <ImageButton
                 android:id="@+id/bike_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/mota"
-                android:background="@drawable/fundo_branco" />
+                android:background="@drawable/fundo_branco"
+                android:scaleType="centerInside"
+                android:padding="8dp" />
 
             <ImageButton
                 android:id="@+id/van_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/van"
-                android:background="@drawable/fundo_branco" />
+                android:background="@drawable/fundo_branco"
+                android:scaleType="centerInside"
+                android:padding="8dp" />
 
             <ImageButton
                 android:id="@+id/scooter_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/scotter"
-                android:background="@drawable/fundo_branco" />
+                android:background="@drawable/fundo_branco"
+                android:scaleType="centerInside"
+                android:padding="8dp" />
         </LinearLayout>
+
 
     </RelativeLayout>
 
