@@ -3,17 +3,17 @@ package com.example.parkit
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.parkit.databinding.ActivityAdminDashboardBinding
+import com.example.parkit.databinding.ActivityAdminBinding
 
 class AdminDashboardActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAdminDashboardBinding
+    private lateinit var binding: ActivityAdminBinding
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityAdminDashboardBinding.inflate(layoutInflater)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         db = FirebaseFirestore.getInstance()

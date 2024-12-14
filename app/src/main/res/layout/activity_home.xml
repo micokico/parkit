@@ -73,7 +73,6 @@
         android:layout_height="50dp"
         android:layout_below="@id/header_section"
         android:layout_margin="16dp"
-        android:background="@drawable/rounded_background_white"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:orientation="horizontal">
@@ -112,7 +111,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/carro"
-            android:background="@drawable/rounded_background_white"
             android:scaleType="centerInside"
             android:padding="8dp" />
 

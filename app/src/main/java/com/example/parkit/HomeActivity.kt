@@ -1,155 +1,138 @@
-package com.example.parkit
+package com.example.parkingapp
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.example.parkingapp.databinding.ActivityHomeBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import org.osmdroid.config.Configuration
-import org.osmdroid.util.BoundingBox
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.MapView
-import org.osmdroid.views.overlay.Marker
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var mapView: MapView
+    private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Load configuration for OSM
-        Configuration.getInstance().load(applicationContext, getPreferences(MODE_PRIVATE))
-        setContentView(R.layout.activity_home)
+        // Inicializar View Binding
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialize MapView
-        mapView = findViewById(R.id.map)
-        mapView.setMultiTouchControls(true)
+        // Inicializar Firebase
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
 
-        // Set bounding box for Porto region
-        val portoBoundingBox = BoundingBox(41.366, -7.895, 40.801, -8.847)
-        mapView.setScrollableAreaLimitDouble(portoBoundingBox)
+        // Configurar saudação do usuário
+        setUserGreeting()
 
-        // Set initial map view
-        val portoCenter = GeoPoint(41.14961, -8.61099) // Coordenadas do Porto
-        mapView.controller.setZoom(15.0)
-        mapView.controller.setCenter(portoCenter)
+        // Listener para botão de notificações
+        binding.notificationButton.setOnClickListener {
+            Toast.makeText(this, "Notificações em breve!", Toast.LENGTH_SHORT).show()
+        }
 
+        // Configurar barra de pesquisa
+        setupSearchBar()
 
-        // Firebase database reference
-        database = FirebaseDatabase.getInstance().getReference("parks/carParks")
+        // Configurar botões de filtro
+        setupFilterButtons()
 
-        // Initialize location client
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        // Carregar estacionamentos próximos
+        loadNearbyParking()
 
-        // Check location permissions
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
-        } else {
-            loadCarParks()
-            getCurrentLocation()
+        // Configurar navegação inferior
+        setupBottomNavigation()
+    }
+
+    private fun setUserGreeting() {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            database.child("users").child(userId).child("name").addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val name = snapshot.value as? String ?: "Usuário"
+                    binding.greetingText.text = "Bom dia, $name"
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@HomeActivity, "Erro ao carregar nome do usuário", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
-    private fun getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                val userLocation = GeoPoint(location.latitude, location.longitude)
-                val userMarker = Marker(mapView)
-                userMarker.position = userLocation
-                userMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                userMarker.title = "Minha Localização"
-                userMarker.icon = resources.getDrawable(R.drawable.ic_location, null)
-                mapView.overlays.add(userMarker)
-
-                // Centralizar o mapa na posição do usuário
-                mapView.controller.setZoom(15.0)
-                mapView.controller.setCenter(userLocation)
-            } else {
-                // Fallback para o Porto
-                val portoCenter = GeoPoint(41.14961, -8.61099) // Coordenadas do Porto
-                mapView.controller.setZoom(15.0)
-                mapView.controller.setCenter(portoCenter)
-                Toast.makeText(this, "Localização não encontrada. Centralizando no Porto.", Toast.LENGTH_SHORT).show()
+    private fun setupSearchBar() {
+        binding.searchEditText.setOnEditorActionListener { _, _, _ ->
+            val query = binding.searchEditText.text.toString()
+            if (query.isNotEmpty()) {
+                Toast.makeText(this, "Procurando por: $query", Toast.LENGTH_SHORT).show()
+                // Implementar lógica de pesquisa
             }
-        }.addOnFailureListener {
-            // Fallback para o Porto em caso de erro
-            val portoCenter = GeoPoint(41.14961, -8.61099) // Coordenadas do Porto
-            mapView.controller.setZoom(15.0)
-            mapView.controller.setCenter(portoCenter)
-            Toast.makeText(this, "Erro ao obter localização: ${it.message}. Centralizando no Porto.", Toast.LENGTH_SHORT).show()
+            true
         }
     }
 
+    private fun setupFilterButtons() {
+        binding.carButton.setOnClickListener {
+            Toast.makeText(this, "Filtro: Carro", Toast.LENGTH_SHORT).show()
+            // Lógica do filtro de carro
+        }
 
-    private fun loadCarParks() {
-        database.addValueEventListener(object : ValueEventListener {
+        binding.bikeButton.setOnClickListener {
+            Toast.makeText(this, "Filtro: Moto", Toast.LENGTH_SHORT).show()
+            // Lógica do filtro de moto
+        }
+
+        binding.vanButton.setOnClickListener {
+            Toast.makeText(this, "Filtro: Van", Toast.LENGTH_SHORT).show()
+            // Lógica do filtro de van
+        }
+
+        binding.scooterButton.setOnClickListener {
+            Toast.makeText(this, "Filtro: Scooter", Toast.LENGTH_SHORT).show()
+            // Lógica do filtro de scooter
+        }
+    }
+
+    private fun loadNearbyParking() {
+        // Simulando carregamento de dados do Firebase
+        database.child("parking").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Remova apenas os marcadores de parques, mantendo o marcador do usuário
-                val existingMarkers = mapView.overlays.filterIsInstance<Marker>()
-                mapView.overlays.removeAll(existingMarkers.filter { it.title != "Minha Localização" })
+                for (parkingSnapshot in snapshot.children) {
+                    val name = parkingSnapshot.child("name").value as? String ?: "Desconhecido"
+                    val address = parkingSnapshot.child("address").value as? String ?: "Sem endereço"
+                    val price = parkingSnapshot.child("price").value as? String ?: "N/A"
 
-                for (carParkSnapshot in snapshot.children) {
-                    val name = carParkSnapshot.child("name").getValue(String::class.java)
-                    val latitude = carParkSnapshot.child("latitude").getValue(Double::class.java)
-                    val longitude = carParkSnapshot.child("longitude").getValue(Double::class.java)
-
-                    if (latitude != null && longitude != null && name != null) {
-                        val location = GeoPoint(latitude, longitude)
-                        val marker = Marker(mapView)
-                        marker.position = location
-                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                        marker.title = name
-                        mapView.overlays.add(marker)
-                    }
+                    binding.parkingName.text = name
+                    binding.parkingAddress.text = address
+                    binding.parkingPrice.text = price
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@HomeActivity, "Erro ao carregar dados: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeActivity, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getCurrentLocation()
-            loadCarParks()
-        } else {
-            Toast.makeText(this, "Permissão de localização necessária", Toast.LENGTH_SHORT).show()
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    Toast.makeText(this, "Home selecionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_profile -> {
+                    Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_settings -> {
+                    Toast.makeText(this, "Configurações selecionadas", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
     }
 }
