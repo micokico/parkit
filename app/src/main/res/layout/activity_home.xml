@@ -25,10 +25,11 @@
             android:id="@+id/greeting_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/profile_image"
+            android:layout_below="@id/profile_image"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:text="Bom dia, Michael"
+            android:layout_marginTop="8dp"
+            android:layout_alignStart="@id/profile_image"
+            android:text="Bom dia, Andreia"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -38,8 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/greeting_text"
-            android:layout_toEndOf="@id/profile_image"
             android:layout_marginStart="16dp"
+            android:layout_alignStart="@id/profile_image"
             android:layout_marginTop="8dp"
             android:text="Escolha o melhor lugar para estacionar"
             android:textColor="@android:color/white"
@@ -56,104 +57,104 @@
             android:scaleType="centerInside"
             android:padding="8dp" />
 
-
-        <!-- Search Bar -->
-        <LinearLayout
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/subtitle_text"
-            android:layout_margin="16dp"
-            android:background="@drawable/rounded_background_white"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/search_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/lupa" />
-
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:hint="Pesquisa"
-                android:background="@android:color/transparent"
-                android:inputType="text" />
-
-        </LinearLayout>
-
-        <!-- Filters Section -->
-        <LinearLayout
-            android:id="@+id/filters_section"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@id/search_bar"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/car_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/carro"
-                android:background="@drawable/rounded_background_white"
-                android:scaleType="centerInside"
-                android:padding="8dp" />
-
-            <ImageButton
-                android:id="@+id/bike_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/mota"
-                android:background="@drawable/fundo_branco"
-                android:scaleType="centerInside"
-                android:padding="8dp" />
-
-            <ImageButton
-                android:id="@+id/van_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/van"
-                android:background="@drawable/fundo_branco"
-                android:scaleType="centerInside"
-                android:padding="8dp" />
-
-            <ImageButton
-                android:id="@+id/scooter_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/scotter"
-                android:background="@drawable/fundo_branco"
-                android:scaleType="centerInside"
-                android:padding="8dp" />
-        </LinearLayout>
-
         <View
             android:id="@+id/curved_divider"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/filters_section"
             android:background="@drawable/curve_backgroud" />
+
     </RelativeLayout>
+
+    <!-- Search Bar -->
+    <LinearLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/header_section"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_background_white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/lupa" />
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:hint="Pesquisa"
+            android:background="@android:color/transparent"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <!-- Filters Section -->
+    <LinearLayout
+        android:id="@+id/filters_section"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/search_bar"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/car_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/carro"
+            android:background="@drawable/rounded_background_white"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/bike_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/mota"
+            android:background="@drawable/fundo_branco"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/van_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/van"
+            android:background="@drawable/fundo_branco"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/scooter_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/scotter"
+            android:background="@drawable/fundo_branco"
+            android:scaleType="centerInside"
+            android:padding="8dp" />
+
+    </LinearLayout>
 
     <!-- Nearby Parking Section -->
     <ScrollView
         android:id="@+id/nearby_parking_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header_section"
-        android:layout_above="@id/map">
+        android:layout_below="@id/filters_section"
+        android:layout_above="@id/bottom_navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,7 +177,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp"
-                android:background="@drawable/rounded_background_white"
                 android:layout_marginBottom="16dp">
 
                 <ImageView
@@ -214,21 +214,25 @@
                         android:text="1,50€/hr"
                         android:textSize="14sp"
                         android:textColor="@color/red" />
+
                 </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        android:layout_marginBottom="16dp"
-        app:menu="@menu/bottom_nav_menu" />
-
-
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="24dp"
+        app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Caption"
+        app:itemTextAppearanceInactive="@style/TextAppearance.AppCompat.Caption"
+        app:labelVisibilityMode="unlabeled" />
 
 </RelativeLayout>
