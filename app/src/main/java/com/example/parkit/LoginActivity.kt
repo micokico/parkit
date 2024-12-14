@@ -50,9 +50,18 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val savedPassword = document.getString("password")
+                    val role = document.getString("role")
+
                     if (savedPassword == password) {
-                        Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                        goToHomeScreen()
+                        if (role == "admin") {
+                            Toast.makeText(this, "Bem-vindo, Administrador!", Toast.LENGTH_SHORT).show()
+                            goToAdminDashboard()
+                        } else if (role == "user") {
+                            Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
+                            goToHomeScreen()
+                        } else {
+                            Toast.makeText(this, "Função desconhecida.", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
                         Toast.makeText(this, "Senha incorreta.", Toast.LENGTH_SHORT).show()
                     }
@@ -65,10 +74,17 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    private fun goToAdminDashboard() {
+        val intent = Intent(this, AdminDashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish() // Finaliza a LoginActivity
+    }
+
     private fun goToHomeScreen() {
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish()
+        finish() // Finaliza a LoginActivity
     }
 }

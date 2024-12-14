@@ -35,9 +35,8 @@
         <activity android:name=".PhoneNumberActivity" android:exported="true" />
         <activity android:name=".VerificationCodeActivity" android:exported="true" />
         <activity android:name=".RegisterActivity" android:exported="true" />
+        <activity android:name=".AdminDashboardActivity" android:launchMode="singleTask" />
         <activity android:name=".HomeActivity" android:exported="true" />
-
-        <!-- Atividade para recuperação de senha -->
         <activity android:name=".ForgotPasswordActivity" android:exported="true" />
 
     </application>
