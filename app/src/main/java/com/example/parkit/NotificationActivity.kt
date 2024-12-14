@@ -1,7 +1,10 @@
+package com.example.parkit
+
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+
 
 class NotificationActivity : AppCompatActivity() {
 

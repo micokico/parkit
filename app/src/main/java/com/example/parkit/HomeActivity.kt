@@ -1,9 +1,10 @@
-package com.example.parkingapp
+package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.parkingapp.databinding.ActivityHomeBinding
+import com.example.parkit.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -27,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
         // Configurar saudação do usuário
         setUserGreeting()
 
-        // Listener para botão de notificações
         binding.notificationButton.setOnClickListener {
-            Toast.makeText(this, "Notificações em breve!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
         }
 
         // Configurar barra de pesquisa
@@ -123,7 +124,7 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Home selecionado", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.nav_profile -> {
+                R.id.nav_navigation -> {
                     Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
                     true
                 }
