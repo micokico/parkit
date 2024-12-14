@@ -11,24 +11,21 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header com Botão Voltar e Título -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
 
-            <!-- Botão Voltar -->
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/botao_voltar"
+                android:src="@drawable/ic_return"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true" />
 
-            <!-- Título Centralizado -->
             <TextView
                 android:id="@+id/title_notification"
                 android:layout_width="wrap_content"
@@ -39,7 +36,6 @@
                 android:layout_centerInParent="true" />
         </RelativeLayout>
 
-        <!-- Seção "Today" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +46,6 @@
             android:paddingTop="8dp"
             android:paddingBottom="4dp" />
 
-        <!-- Card de Notificação 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +97,6 @@
                     android:textColor="#808080"
                     android:textSize="12sp" />
 
-                <!-- Indicador Novo -->
                 <View
                     android:layout_width="8dp"
                     android:layout_height="8dp"
@@ -111,7 +105,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Seção "June 12, 2021" -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,7 +115,6 @@
             android:paddingTop="16dp"
             android:paddingBottom="4dp" />
 
-        <!-- Card de Notificação 2 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

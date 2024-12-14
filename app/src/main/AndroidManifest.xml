@@ -38,7 +38,7 @@
         <activity android:name=".AdminDashboardActivity" android:launchMode="singleTask" />
         <activity android:name=".HomeActivity" android:exported="true" />
         <activity android:name=".ForgotPasswordActivity" android:exported="true" />
-
+        <activity android:name=".NotificationActivity" android:exported="true" />
     </application>
 
 </manifest>
