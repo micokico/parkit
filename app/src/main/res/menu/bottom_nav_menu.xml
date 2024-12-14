@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_wallet"
+        android:icon="@drawable/carteira"
+        android:title="Carteira" />
+    <item
+        android:id="@+id/nav_arrow"
+        android:icon="@drawable/seta"
+        android:title="Seta" />
+    <item
+        android:id="@+id/nav_pie_chart"
+        android:icon="@drawable/reports"
+        android:title="Gráfico" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/definicoes"
+        android:title="Definições" />
+</menu>

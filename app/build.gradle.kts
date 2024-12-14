@@ -50,6 +50,10 @@ dependencies {
 
     implementation("org.osmdroid:osmdroid-android:6.1.14")
 
+    implementation("androidx.appcompat:appcompat:1.3.0")
+
+    implementation ("com.google.android.material:material:1.4.0")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -76,6 +80,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
 }
+
+
+
 
 // Aplica o plugin do Google Services no final
 apply(plugin = "com.google.gms.google-services")
