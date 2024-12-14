@@ -79,6 +79,8 @@ dependencies {
     // O Firebase BOM já foi incluído, então as versões das dependências são gerenciadas automaticamente
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
+
+
 }
 
 
