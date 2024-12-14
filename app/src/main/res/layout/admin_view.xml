@@ -25,7 +25,7 @@
         android:layout_below="@id/textTitle"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="20dp"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="Ver utilização atual do parque"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonUsage"
         android:layout_marginBottom="20dp"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="Estatísticas"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonStatistics"
-        android:background="#0C001E"
+        android:backgroundTint="#000000"
         android:text="Imagens do parque"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
