@@ -1,0 +1,352 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ChooseSpaceActivity">
+
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_return"
+            android:contentDescription="Back Button"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Escolha um lugar"
+            android:textSize="20sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <ImageButton
+            android:id="@+id/floor1Button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:src="@drawable/floor1_selected"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="1º Piso" />
+
+        <ImageButton
+            android:id="@+id/floor2Button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:src="@drawable/floor2_unselected"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="2º Piso" />
+
+        <ImageButton
+            android:id="@+id/floor3Button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:src="@drawable/floor3_unselected"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="3º Piso" />
+
+        <ImageButton
+            android:id="@+id/floor4Button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:src="@drawable/floor4_unselected"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="4º Piso" />
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- Column A -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/spotA1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot A1" />
+
+                <ImageView
+                    android:id="@+id/spotA2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot A2" />
+
+                <ImageView
+                    android:id="@+id/spotA3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot A3" />
+
+                <ImageView
+                    android:id="@+id/spotA4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot A4" />
+
+                <ImageView
+                    android:id="@+id/spotA5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot A5" />
+            </LinearLayout>
+
+            <!-- Center Line for Entry/Exit -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_entrada_saida"
+                    android:contentDescription="Entry Point"
+                    android:layout_marginBottom="16dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_gray" />
+            </LinearLayout>
+
+            <!-- Column B -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/spotB1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot B1" />
+
+                <ImageView
+                    android:id="@+id/spotB2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot B2" />
+
+                <ImageView
+                    android:id="@+id/spotB3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot B3" />
+
+                <ImageView
+                    android:id="@+id/spotB4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot B4" />
+
+                <ImageView
+                    android:id="@+id/spotB5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot B5" />
+            </LinearLayout>
+
+
+
+            <!-- Column C -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/spotC1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot C1" />
+
+                <ImageView
+                    android:id="@+id/spotC2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot C2" />
+
+                <ImageView
+                    android:id="@+id/spotC3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot C3" />
+
+                <ImageView
+                    android:id="@+id/spotC4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot C4" />
+
+                <ImageView
+                    android:id="@+id/spotC5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot C5" />
+            </LinearLayout>
+
+            <!-- Center Line for Entry/Exit -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_entrada_saida"
+                    android:contentDescription="Entry Point"
+                    android:layout_marginBottom="16dp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dark_gray" />
+            </LinearLayout>
+
+            <!-- Column D -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/spotD1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot D1" />
+
+                <ImageView
+                    android:id="@+id/spotD2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot D2" />
+
+                <ImageView
+                    android:id="@+id/spotD3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot D3" />
+
+                <ImageView
+                    android:id="@+id/spotD4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_free_spot"
+                    android:contentDescription="Parking Spot D4" />
+
+                <ImageView
+                    android:id="@+id/spotD5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Parking Spot D5" />
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <!-- Book Place Button -->
+    <Button
+        android:id="@+id/bookPlaceButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/red"
+        android:text="Reservar Lugar"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:textSize="16sp" />
+</LinearLayout>
