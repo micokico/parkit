@@ -17,9 +17,8 @@
             android:layout_margin="16dp"
             android:layout_alignParentStart="true"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_profile_placeholder"
-            android:scaleType="centerCrop"
-            android:background="@drawable/circle_background" />
+            android:src="@drawable/foto_perfil"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/greeting_text"
@@ -28,7 +27,7 @@
             android:layout_toEndOf="@id/profile_image"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="Good Morning, Michael"
+            android:text="Bom dia, Michael"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -41,7 +40,7 @@
             android:layout_toEndOf="@id/profile_image"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Find the best place to park"
+            android:text="Escolha o melhor lugar para estacionar"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
@@ -51,8 +50,8 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_notifications"
-            android:background="@android:color/transparent" />
+            android:src="@drawable/sino"
+            android:background="@android:color/white" />
 
         <!-- Search Bar -->
         <LinearLayout
@@ -71,7 +70,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/lupa" />
 
             <EditText
                 android:id="@+id/search_edit_text"
@@ -79,7 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:hint="Search"
+                android:hint="Pesquisa"
                 android:background="@android:color/transparent"
                 android:inputType="text" />
 
@@ -99,7 +98,7 @@
                 android:id="@+id/car_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_car"
+                android:src="@drawable/carro"
                 android:background="@drawable/rounded_background_white" />
 
             <ImageButton
@@ -107,24 +106,24 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_bike"
-                android:background="@drawable/rounded_background_white" />
+                android:src="@drawable/mota"
+                android:background="@drawable/fundo_branco" />
 
             <ImageButton
                 android:id="@+id/van_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_van"
-                android:background="@drawable/rounded_background_white" />
+                android:src="@drawable/van"
+                android:background="@drawable/fundo_branco" />
 
             <ImageButton
                 android:id="@+id/scooter_button"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_scooter"
-                android:background="@drawable/rounded_background_white" />
+                android:src="@drawable/scotter"
+                android:background="@drawable/fundo_branco" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -147,7 +146,7 @@
                 android:id="@+id/parking_nearby_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Parking Nearby"
+                android:text="Parque mais próximo"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
@@ -165,7 +164,7 @@
                     android:id="@+id/parking_image"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/ic_parking" />
+                    android:src="@drawable/parque" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -186,14 +185,14 @@
                         android:id="@+id/parking_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1301 Hubbell Pl, Seattle"
+                        android:text="Rua Mouzinho da Silveira, Porto"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/parking_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$10/hr"
+                        android:text="1,50€/hr"
                         android:textSize="14sp"
                         android:textColor="@color/red" />
                 </LinearLayout>
