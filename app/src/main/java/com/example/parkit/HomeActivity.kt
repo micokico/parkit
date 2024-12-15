@@ -2,6 +2,7 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityHomeBinding
@@ -13,6 +14,12 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var binding: ActivityHomeBinding
+
+    private var selectedVehicleType: String = "Carro" // Tipo de veículo padrão
+    private var priceCar: Double = 0.0
+    private var priceBike: Double = 0.0
+    private var priceVan: Double = 0.0
+    private var priceScooter: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +35,16 @@ class HomeActivity : AppCompatActivity() {
         // Configurar saudação do usuário
         setUserGreeting()
 
+        // Configurar botões de filtro
+        setupFilterButtons()
+
+        // Carregar dados do estacionamento
+        loadParkingData()
+
         binding.notificationButton.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
-
-        // Configurar barra de pesquisa
-        setupSearchBar()
-
-        // Configurar botões de filtro
-        setupFilterButtons()
-
-        // Carregar estacionamentos próximos
-        loadNearbyParking()
-
-        // Configurar navegação inferior
-        setupBottomNavigation()
     }
 
     private fun setUserGreeting() {
@@ -63,77 +64,68 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupSearchBar() {
-        binding.searchEditText.setOnEditorActionListener { _, _, _ ->
-            val query = binding.searchEditText.text.toString()
-            if (query.isNotEmpty()) {
-                Toast.makeText(this, "Procurando por: $query", Toast.LENGTH_SHORT).show()
-                // Implementar lógica de pesquisa
-            }
-            true
-        }
-    }
-
     private fun setupFilterButtons() {
         binding.carButton.setOnClickListener {
-            Toast.makeText(this, "Filtro: Carro", Toast.LENGTH_SHORT).show()
-            // Lógica do filtro de carro
+            selectedVehicleType = "Carro"
+            updateParkingPrice()
         }
 
         binding.bikeButton.setOnClickListener {
-            Toast.makeText(this, "Filtro: Moto", Toast.LENGTH_SHORT).show()
-            // Lógica do filtro de moto
+            selectedVehicleType = "Moto"
+            updateParkingPrice()
         }
 
         binding.vanButton.setOnClickListener {
-            Toast.makeText(this, "Filtro: Van", Toast.LENGTH_SHORT).show()
-            // Lógica do filtro de van
+            selectedVehicleType = "Van"
+            updateParkingPrice()
         }
 
         binding.scooterButton.setOnClickListener {
-            Toast.makeText(this, "Filtro: Scooter", Toast.LENGTH_SHORT).show()
-            // Lógica do filtro de scooter
+            selectedVehicleType = "Scooter"
+            updateParkingPrice()
         }
     }
 
-    private fun loadNearbyParking() {
-        // Simulando carregamento de dados do Firebase
-        database.child("parking").addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun loadParkingData() {
+        database.child("parking").child("parking1").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (parkingSnapshot in snapshot.children) {
-                    val name = parkingSnapshot.child("name").value as? String ?: "Desconhecido"
-                    val address = parkingSnapshot.child("address").value as? String ?: "Sem endereço"
-                    val price = parkingSnapshot.child("price").value as? String ?: "N/A"
+                Log.d("HomeActivity", "Dados do estacionamento: $snapshot")
 
-                    binding.parkingName.text = name
-                    binding.parkingAddress.text = address
-                    binding.parkingPrice.text = price
-                }
+                val name = snapshot.child("name").value as? String ?: "Desconhecido"
+                val address = snapshot.child("address").value as? String ?: "Sem endereço"
+                priceCar = snapshot.child("priceCar").value as? Double ?: 0.0
+                priceBike = snapshot.child("priceBike").value as? Double ?: 0.0
+                priceVan = snapshot.child("priceVan").value as? Double ?: 0.0
+                priceScooter = snapshot.child("priceScooter").value as? Double ?: 0.0
+
+                Log.d("HomeActivity", "Preço Carro: $priceCar")
+                Log.d("HomeActivity", "Preço Moto: $priceBike")
+                Log.d("HomeActivity", "Preço Van: $priceVan")
+                Log.d("HomeActivity", "Preço Scooter: $priceScooter")
+
+                binding.parkingName.text = name
+                binding.parkingAddress.text = address
+
+                updateParkingPrice()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@HomeActivity, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeActivity, "Erro ao carregar os dados do estacionamento", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun setupBottomNavigation() {
-        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Home selecionado", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_navigation -> {
-                    Toast.makeText(this, "Perfil selecionado", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_settings -> {
-                    Toast.makeText(this, "Configurações selecionadas", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> false
-            }
+    private fun updateParkingPrice() {
+        Log.d("HomeActivity", "Atualizando preço para: $selectedVehicleType")
+
+        val adjustedPrice = when (selectedVehicleType) {
+            "Carro" -> priceCar
+            "Moto" -> priceBike
+            "Van" -> priceVan
+            "Scooter" -> priceScooter
+            else -> 0.0
         }
+
+        binding.parkingPrice.text = "$adjustedPrice € / hora"
     }
 }
