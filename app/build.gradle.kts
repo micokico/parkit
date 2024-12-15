@@ -44,6 +44,12 @@ android {
 
 dependencies {
 
+    implementation ("com.google.android.gms:play-services-basement:18.3.0")
+    implementation ("com.google.firebase:firebase-database:20.3.1")
+    implementation ("com.google.firebase:firebase-auth:22.3.1")
+    implementation ("com.google.android.gms:play-services-auth:21.1.1")
+
+
     implementation ("com.google.firebase:firebase-auth:22.1.2")
 
     implementation ("com.firebaseui:firebase-ui-auth:8.0.0")

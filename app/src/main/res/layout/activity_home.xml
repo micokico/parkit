@@ -193,7 +193,7 @@
                         android:id="@+id/parking_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ParkIT Garage"
+                        android:text="Nome do Parque"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -201,16 +201,17 @@
                         android:id="@+id/parking_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rua Mouzinho da Silveira, Porto"
+                        android:text="Endereço do Parque"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/parking_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1,50€/hr"
+                        android:text="0.00 €/hora"
                         android:textSize="14sp"
                         android:textColor="@color/red" />
+
 
                 </LinearLayout>
 

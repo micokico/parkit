@@ -6,14 +6,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityHomeBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
     private lateinit var binding: ActivityHomeBinding
+    private val db = FirebaseFirestore.getInstance()
 
     private var selectedVehicleType: String = "Carro" // Tipo de veículo padrão
     private var priceCar: Double = 0.0
@@ -28,13 +26,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializar Firebase
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
-
-        // Configurar saudação do usuário
-        setUserGreeting()
-
         // Configurar botões de filtro
         setupFilterButtons()
 
@@ -47,39 +38,19 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUserGreeting() {
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val userId = currentUser.uid
-            database.child("users").child(userId).child("name").addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val name = snapshot.value as? String ?: "Usuário"
-                    binding.greetingText.text = "Bom dia, $name"
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@HomeActivity, "Erro ao carregar nome do usuário", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
-    }
-
     private fun setupFilterButtons() {
         binding.carButton.setOnClickListener {
             selectedVehicleType = "Carro"
             updateParkingPrice()
         }
-
         binding.bikeButton.setOnClickListener {
             selectedVehicleType = "Moto"
             updateParkingPrice()
         }
-
         binding.vanButton.setOnClickListener {
             selectedVehicleType = "Van"
             updateParkingPrice()
         }
-
         binding.scooterButton.setOnClickListener {
             selectedVehicleType = "Scooter"
             updateParkingPrice()
@@ -87,37 +58,39 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadParkingData() {
-        database.child("parking").child("parking1").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("HomeActivity", "Dados do estacionamento: $snapshot")
+        db.collection("parkingPrices").document("parking1")
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Carregar strings
+                    val name = document.getString("name") ?: "Desconhecido"
+                    val address = document.getString("address") ?: "Sem endereço"
 
-                val name = snapshot.child("name").value as? String ?: "Desconhecido"
-                val address = snapshot.child("address").value as? String ?: "Sem endereço"
-                priceCar = snapshot.child("priceCar").value as? Double ?: 0.0
-                priceBike = snapshot.child("priceBike").value as? Double ?: 0.0
-                priceVan = snapshot.child("priceVan").value as? Double ?: 0.0
-                priceScooter = snapshot.child("priceScooter").value as? Double ?: 0.0
+                    // Carregar preços
+                    priceCar = document.getDouble("priceCar") ?: 0.0
+                    priceBike = document.getDouble("priceBike") ?: 0.0
+                    priceVan = document.getDouble("priceVan") ?: 0.0
+                    priceScooter = document.getDouble("priceScooter") ?: 0.0
 
-                Log.d("HomeActivity", "Preço Carro: $priceCar")
-                Log.d("HomeActivity", "Preço Moto: $priceBike")
-                Log.d("HomeActivity", "Preço Van: $priceVan")
-                Log.d("HomeActivity", "Preço Scooter: $priceScooter")
+                    // Atualizar UI
+                    binding.parkingName.text = name
+                    binding.parkingAddress.text = address
+                    updateParkingPrice()
 
-                binding.parkingName.text = name
-                binding.parkingAddress.text = address
-
-                updateParkingPrice()
+                    Log.d("Firestore", "Nome: $name, Endereço: $address")
+                    Log.d("Firestore", "Preços - Carro: $priceCar, Moto: $priceBike, Van: $priceVan, Scooter: $priceScooter")
+                } else {
+                    Log.e("Firestore", "Documento não encontrado.")
+                    Toast.makeText(this, "Dados não encontrados no Firestore.", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@HomeActivity, "Erro ao carregar os dados do estacionamento", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Erro ao carregar dados", exception)
+                Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
             }
-        })
     }
 
     private fun updateParkingPrice() {
-        Log.d("HomeActivity", "Atualizando preço para: $selectedVehicleType")
-
         val adjustedPrice = when (selectedVehicleType) {
             "Carro" -> priceCar
             "Moto" -> priceBike
@@ -126,6 +99,6 @@ class HomeActivity : AppCompatActivity() {
             else -> 0.0
         }
 
-        binding.parkingPrice.text = "$adjustedPrice € / hora"
+        binding.parkingPrice.text = String.format("%.2f € / hora", adjustedPrice)
     }
 }
