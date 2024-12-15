@@ -1,98 +1,63 @@
-package com.example.profile
+package com.example.parkit
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.storage.FirebaseStorage
-import java.util.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var profileImage: ImageView
-    private val PICK_IMAGE_REQUEST = 1
-    private var imageUri: Uri? = null
-    private val storageReference = FirebaseStorage.getInstance().reference
+    private lateinit var valueName: TextView
+    private lateinit var valueEmail: TextView
+    private lateinit var valuePhone: TextView
+    private lateinit var saveButton: Button
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(findViewById(getResId("activity_profile", "layout")))
+        setContentView(R.layout.activity_profile)
 
-        profileImage = findViewById(getResId("profileImage", "id"))
-        val nameField = findViewById<EditText>(getResId("nameField", "id"))
-        val emailField = findViewById<EditText>(getResId("emailField", "id"))
-        val phoneField = findViewById<EditText>(getResId("phoneField", "id"))
-        val passwordField = findViewById<EditText>(getResId("passwordField", "id"))
-        val saveButton = findViewById<Button>(getResId("saveButton", "id"))
+        // Inicializar os componentes
+        profileImage = findViewById(R.id.profileImage)
+        valueName = findViewById(R.id.valueName)
+        valueEmail = findViewById(R.id.valueEmail)
+        valuePhone = findViewById(R.id.valuePhone)
+        saveButton = findViewById(R.id.saveButton)
 
-        // Configura o clique na imagem para escolher uma foto
-        profileImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, PICK_IMAGE_REQUEST)
-        }
+        loadUserData()
 
-        // Configura o botão de salvar
         saveButton.setOnClickListener {
-            val name = nameField.text.toString().trim()
-            val email = emailField.text.toString().trim()
-            val phone = phoneField.text.toString().trim()
-            val password = passwordField.text.toString().trim()
-
-            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (imageUri != null) {
-                uploadImageToFirebase(imageUri!!) { imageUrl ->
-                    Toast.makeText(this, "Imagem salva em $imageUrl", Toast.LENGTH_LONG).show()
-                }
-            } else {
-                Toast.makeText(this, "Nenhuma imagem foi selecionada", Toast.LENGTH_SHORT).show()
-            }
-
-            Toast.makeText(
-                this,
-                "Dados salvos:\nNome: $name\nEmail: $email\nTelefone: $phone\nSenha: $password",
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, "Funcionalidade de salvar em desenvolvimento", Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun loadUserData() {
+        val currentUser = firebaseAuth.currentUser
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val selectedImageUri: Uri? = data.data
-            selectedImageUri?.let {
-                imageUri = it
-                profileImage.setImageURI(it)
-            }
-        }
-    }
-
-    private fun uploadImageToFirebase(fileUri: Uri, onSuccess: (String) -> Unit) {
-        val fileName = "profile_images/${UUID.randomUUID()}.jpg"
-        val fileRef = storageReference.child(fileName)
-
-        fileRef.putFile(fileUri)
-            .addOnSuccessListener {
-                fileRef.downloadUrl.addOnSuccessListener { uri ->
-                    onSuccess(uri.toString())
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            firestore.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        valueName.text = document.getString("name") ?: "N/A"
+                        valueEmail.text = document.getString("email") ?: "N/A"
+                        valuePhone.text = document.getString("phone") ?: "N/A"
+                    } else {
+                        Toast.makeText(this, "Dados não encontrados", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Erro no upload: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun getResId(resourceName: String, resourceType: String): Int {
-        return resources.getIdentifier(resourceName, resourceType, packageName)
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Erro ao carregar dados: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show()
+        }
     }
 }
