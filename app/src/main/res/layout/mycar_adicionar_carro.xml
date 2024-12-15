@@ -111,9 +111,6 @@
             android:text="Cancelar"
             android:textColor="#FFFFFF"
             android:backgroundTint="#000000" />
-
-
-
     </RelativeLayout>
 
 </RelativeLayout>
