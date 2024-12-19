@@ -3,40 +3,169 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@drawable/fundo_perfil"
+    android:padding="0dp"
     tools:context=".ProfileActivity">
 
+    <!-- Top Bar com os botões de voltar e sair -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Botão de voltar -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_return"
+            android:contentDescription="Voltar"
+            android:layout_alignParentStart="true" />
+
+        <!-- Botão de sair -->
+        <ImageButton
+            android:id="@+id/logoutButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/sair"
+            android:background="@drawable/rounded_gray_background"
+            android:contentDescription="Sair"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+    <!-- Imagem circular do perfil -->
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/profile_placeholder"
-        android:layout_marginBottom="16dp" />
+        android:src="@drawable/foto_perfil"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/circle_background"
+        android:padding="8dp" />
 
+    <!-- Parte branca com curva no topo -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/curve_backgroud"
+        android:elevation="4dp"
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/profileButton"
+        <!-- Conteúdo do menu -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Perfil" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/myCarsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Meus carros" />
+            <!-- Item Perfil -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/historyButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Histórico" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/perfil"
+                    android:contentDescription="Ícone Perfil"
+                    android:layout_marginEnd="8dp" />
 
+                <TextView
+                    android:id="@+id/profileTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Perfil"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="Seta para Perfil" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray" />
+
+            <!-- Item Meus carros -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_car"
+                    android:contentDescription="Ícone Meus carros"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/myCarsTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Meus carros"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="Seta para Meus carros" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray" />
+
+            <!-- Item Histórico -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/historico"
+                    android:contentDescription="Ícone Histórico"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/historyTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Histórico"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_next"
+                    android:contentDescription="Seta para Histórico" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
