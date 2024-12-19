@@ -67,7 +67,6 @@
                 android:id="@+id/carName1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/carIcon1"
                 android:layout_marginStart="10dp"
                 android:text="Mercedes G 63"
                 android:textColor="#000000"
@@ -79,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/carName1"
-                android:layout_toEndOf="@id/carIcon1"
                 android:layout_marginStart="10dp"
                 android:text="A 61026"
                 android:textColor="#AAAAAA" />
@@ -105,7 +103,6 @@
                 android:id="@+id/vanName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/vanIcon"
                 android:layout_marginStart="10dp"
                 android:text="Ford Transit"
                 android:textColor="#000000"
@@ -116,7 +113,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vanName"
-                android:layout_toEndOf="@id/vanIcon"
                 android:layout_marginStart="10dp"
                 android:text="B 20045"
                 android:textColor="#AAAAAA" />
@@ -142,7 +138,6 @@
                 android:id="@+id/motorcycleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/motorcycleIcon"
                 android:layout_marginStart="10dp"
                 android:text="Yamaha MT-09"
                 android:textColor="#000000"
@@ -153,7 +148,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/motorcycleName"
-                android:layout_toEndOf="@id/motorcycleIcon"
                 android:layout_marginStart="10dp"
                 android:text="C 30578"
                 android:textColor="#AAAAAA" />
@@ -174,13 +168,21 @@
             android:background="#F5F5F5"
             android:padding="10dp">
 
-
+            <LinearLayout
+                android:id="@+id/vehiclesListLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_below="@id/myCarsLabel"
+                android:layout_marginTop="20dp"
+                tools:ignore="NotSibling">
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/scooterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/scooterIcon"
                 android:layout_marginStart="10dp"
                 android:text="Vespa LX"
                 android:textColor="#000000"
@@ -191,7 +193,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/scooterName"
-                android:layout_toEndOf="@id/scooterIcon"
                 android:layout_marginStart="10dp"
                 android:text="D 12345"
                 android:textColor="#AAAAAA" />

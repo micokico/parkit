@@ -8,4 +8,11 @@
     <string name="navigation_title">Título de Navegação</string>
     <string name="navigation_subtitle">Subtítulo de Navegação</string>
     <string name="navigation_image_desc">Imagem de navegação</string>
+
+    <string-array name="tipos_veiculos">
+        <item>Carro</item>
+        <item>Moto</item>
+        <item>Van</item>
+        <item>Scooter</item>
+    </string-array>
 </resources>
