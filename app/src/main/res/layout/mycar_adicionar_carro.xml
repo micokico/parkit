@@ -7,8 +7,21 @@
     <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#FF3B30">
+        android:layout_height="80dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_return"
+            android:contentDescription="Back"
+            android:scaleType="fitCenter"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@null" />
+
 
         <!-- Título -->
         <TextView
@@ -16,28 +29,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Adicionar Carro"
-            android:textColor="#FFFFFF"
+            android:text="Adicionar Veículo"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- Nome do Carro -->
+    <!-- Tipo de Veículo -->
     <TextView
-        android:id="@+id/tvNomeCarro"
+        android:id="@+id/tvTipoVeiculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:layout_marginTop="100dp"
-        android:text="Nome do Carro"
+        android:layout_marginTop="80dp"
+        android:text="Tipo de Veículo"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/spinnerTipoVeiculo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTipoVeiculo"
+        android:layout_marginTop="8dp"
+        android:entries="@array/tipos_veiculos"
+        android:background="@android:drawable/edit_text"
+        android:padding="10dp" />
+
+    <!-- Nome do Veículo -->
+    <TextView
+        android:id="@+id/tvNomeVeiculo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerTipoVeiculo"
+        android:layout_marginTop="20dp"
+        android:text="Nome do Veículo"
         android:textColor="#000000"
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/etNomeCarro"
+        android:id="@+id/etNomeVeiculo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvNomeCarro"
+        android:layout_below="@id/tvNomeVeiculo"
         android:layout_marginTop="8dp"
         android:hint="Ex: Tesla Model 3"
         android:background="@android:drawable/edit_text"
@@ -48,7 +82,7 @@
         android:id="@+id/tvMatricula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etNomeCarro"
+        android:layout_below="@id/etNomeVeiculo"
         android:layout_marginTop="20dp"
         android:text="Matrícula"
         android:textColor="#000000"
@@ -66,12 +100,12 @@
 
     <!-- Escolher Imagem -->
     <TextView
-        android:id="@+id/tvImagemCarro"
+        android:id="@+id/tvImagemVeiculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etMatricula"
         android:layout_marginTop="20dp"
-        android:text="Imagem do Carro (Opcional)"
+        android:text="Imagem do Veículo (Opcional)"
         android:textColor="#000000"
         android:textSize="16sp" />
 
@@ -79,7 +113,7 @@
         android:id="@+id/btnEscolherImagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvImagemCarro"
+        android:layout_below="@id/tvImagemVeiculo"
         android:layout_marginTop="8dp"
         android:text="Escolher Imagem"
         android:textColor="#FFFFFF"
