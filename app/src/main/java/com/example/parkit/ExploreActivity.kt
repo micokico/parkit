@@ -1,53 +1,94 @@
 package com.example.parkit
 
-import ParkingAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExploreActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ParkingAdapter
-    private val parkingList = mutableListOf<Parking>()
+    private lateinit var searchEditText: EditText
+    private lateinit var nameTextView: TextView
+    private lateinit var addressTextView: TextView
+    private lateinit var priceTextView: TextView
+    private lateinit var backButton: ImageButton
+
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explore)
 
-        val searchEditText = findViewById<EditText>(R.id.searchEditText)
-        recyclerView = findViewById(R.id.exploreRecyclerView)
+        // Inicializando as views
+        searchEditText = findViewById(R.id.search_edit_text)
+        nameTextView = findViewById(R.id.nameTextView)
+        addressTextView = findViewById(R.id.addressTextView)
+        priceTextView = findViewById(R.id.priceTextView)
+        backButton = findViewById(R.id.btn_back)
 
-        adapter = ParkingAdapter(parkingList)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Configurando botão de voltar para ir à HomeActivity
+        backButton.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+        }
 
+        // Carregar dados do Firebase
         loadParkingFromFirebase()
 
-        searchEditText.addTextChangedListener {
-            val query = it.toString()
-            filterResults(query)
-        }
+        // Filtro de pesquisa
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterResults(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun loadParkingFromFirebase() {
-        val db = FirebaseFirestore.getInstance()
         db.collection("parking").get()
             .addOnSuccessListener { result ->
-                parkingList.clear()
-                for (document in result) {
-                    val parking = document.toObject(Parking::class.java)
-                    parkingList.add(parking)
+                if (result.documents.isNotEmpty()) {
+                    val parking = result.documents[0].toObject(Parking::class.java)
+                    parking?.let {
+                        updateUI(it)
+                    }
                 }
-                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                // Trate o erro de carregamento
             }
     }
 
     private fun filterResults(query: String) {
-        val filteredList = parkingList.filter { it.name.contains(query, ignoreCase = true) }
-        adapter.updateList(filteredList)
+        db.collection("parking")
+            .whereGreaterThanOrEqualTo("name", query)
+            .whereLessThanOrEqualTo("name", query + "\uf8ff")
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.documents.isNotEmpty()) {
+                    val parking = result.documents[0].toObject(Parking::class.java)
+                    parking?.let {
+                        updateUI(it)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                // Trate o erro de pesquisa
+            }
+    }
+
+    private fun updateUI(parking: Parking) {
+        nameTextView.text = parking.name
+        addressTextView.text = parking.address
+        priceTextView.text = String.format("%.2f €/hora", parking.price)
     }
 }
