@@ -2,8 +2,6 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -15,7 +13,6 @@ class ExploreActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
     private lateinit var nameTextView: TextView
     private lateinit var addressTextView: TextView
-    private lateinit var priceTextView: TextView
     private lateinit var backButton: ImageButton
 
     private val db = FirebaseFirestore.getInstance()
@@ -28,7 +25,6 @@ class ExploreActivity : AppCompatActivity() {
         searchEditText = findViewById(R.id.search_edit_text)
         nameTextView = findViewById(R.id.nameTextView)
         addressTextView = findViewById(R.id.addressTextView)
-        priceTextView = findViewById(R.id.priceTextView)
         backButton = findViewById(R.id.btn_back)
 
         // Configurando botão de voltar para ir à HomeActivity
@@ -39,56 +35,28 @@ class ExploreActivity : AppCompatActivity() {
             finish()
         }
 
-        // Carregar dados do Firebase
-        loadParkingFromFirebase()
-
-        // Filtro de pesquisa
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterResults(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        // Carregar dados do Firestore (apenas name e address)
+        loadParkingData()
     }
 
-    private fun loadParkingFromFirebase() {
-        db.collection("parking").get()
-            .addOnSuccessListener { result ->
-                if (result.documents.isNotEmpty()) {
-                    val parking = result.documents[0].toObject(Parking::class.java)
-                    parking?.let {
-                        updateUI(it)
-                    }
-                }
-            }
-            .addOnFailureListener {
-                // Trate o erro de carregamento
-            }
-    }
-
-    private fun filterResults(query: String) {
-        db.collection("parking")
-            .whereGreaterThanOrEqualTo("name", query)
-            .whereLessThanOrEqualTo("name", query + "\uf8ff")
+    private fun loadParkingData() {
+        db.collection("parkingPrices").document("parking1")
             .get()
-            .addOnSuccessListener { result ->
-                if (result.documents.isNotEmpty()) {
-                    val parking = result.documents[0].toObject(Parking::class.java)
-                    parking?.let {
-                        updateUI(it)
-                    }
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Obter apenas o name e o address
+                    val name = document.getString("name") ?: "Desconhecido"
+                    val address = document.getString("address") ?: "Sem endereço"
+
+                    // Atualizar a interface
+                    nameTextView.text = name
+                    addressTextView.text = address
                 }
             }
-            .addOnFailureListener {
-                // Trate o erro de pesquisa
+            .addOnFailureListener { exception ->
+                // Tratar falha no carregamento de dados
+                nameTextView.text = "Erro ao carregar nome"
+                addressTextView.text = "Erro ao carregar endereço"
             }
-    }
-
-    private fun updateUI(parking: Parking) {
-        nameTextView.text = parking.name
-        addressTextView.text = parking.address
-        priceTextView.text = String.format("%.2f €/hora", parking.price)
     }
 }

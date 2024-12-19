@@ -105,15 +105,6 @@
                     android:layout_height="wrap_content"
                     android:text="Endereço"
                     android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/priceTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Preço"
-                    android:textStyle="bold"
-                    android:textColor="@color/red"
-                    android:layout_marginTop="4dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
