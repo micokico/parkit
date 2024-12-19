@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.gms.google-services") // Plugin do Google Services
+    id("com.google.gms.google-services")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -54,6 +55,10 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.14")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation ("com.google.android.material:material:1.4.0")
+
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
