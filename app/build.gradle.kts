@@ -48,16 +48,11 @@ dependencies {
     implementation ("com.google.firebase:firebase-database:20.3.1")
     implementation ("com.google.firebase:firebase-auth:22.3.1")
     implementation ("com.google.android.gms:play-services-auth:21.1.1")
-
-
+    implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("com.google.firebase:firebase-auth:22.1.2")
-
     implementation ("com.firebaseui:firebase-ui-auth:8.0.0")
-
     implementation("org.osmdroid:osmdroid-android:6.1.14")
-
     implementation("androidx.appcompat:appcompat:1.3.0")
-
     implementation ("com.google.android.material:material:1.4.0")
 
     implementation(libs.androidx.core.ktx)
