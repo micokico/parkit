@@ -24,7 +24,7 @@ class MyCarActivity : AppCompatActivity() {
                     Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.profile -> {
+                R.id.nav_settings -> {
                     // Ação para o Perfil
                     val intent = Intent(this, ProfileBeginActivity::class.java)
                     startActivity(intent)

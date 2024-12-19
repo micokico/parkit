@@ -32,6 +32,12 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.profileImage.setOnClickListener {
+            val intent = Intent(this, ProfileBeginActivity::class.java)
+            startActivity(intent)
+        }
+
+
         // Configurar botões de filtro
         setupFilterButtons()
 
