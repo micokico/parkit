@@ -1,12 +1,12 @@
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="16dp"
-android:background="@color/white"
-tools:context=".HistoryActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white"
+    tools:context=".HistoryActivity">
 
 <ImageButton
     android:id="@+id/btn_back"
@@ -69,61 +69,60 @@ tools:context=".HistoryActivity">
     android:textSize="16sp"
     android:textColor="@color/black" />
 
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginHorizontal="0dp"
-    android:cardCornerRadius="12dp"
-    android:cardElevation="4dp"
-    android:background="@color/white">
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
-
-        <ImageView
-            android:id="@+id/parkingImageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/parque"
-            android:scaleType="centerCrop"
-            android:layout_marginRight="12dp"
-            android:contentDescription="Parking Image" />
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nome do Estacionamento"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/parkingImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/parque"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="12dp"
+                android:contentDescription="Parking Image" />
 
-            <TextView
-                android:id="@+id/addressTextView"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Endereço"
-                android:textSize="14sp" />
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/priceTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Preço"
-                android:textStyle="bold"
-                android:textColor="@color/red"
-                android:layout_marginTop="4dp" />
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nome do Estacionamento"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/addressTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Endereço"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/priceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Preço"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>
