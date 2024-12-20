@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="CoarseFineLocation">
 
-    <uses-permission android:name="android.permission.INTERNET"
-        tools:ignore="CoarseFineLocation" />
+    <uses-permission android:name="android.permission.INTERNET" tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
