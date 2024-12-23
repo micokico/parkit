@@ -59,7 +59,7 @@
             android:id="@+id/removeVehicleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remover Todos os Veículos"
+            android:text="Remover Veículo"
             android:backgroundTint="#F44336"
             android:textColor="#FFFFFF" />
     </LinearLayout>

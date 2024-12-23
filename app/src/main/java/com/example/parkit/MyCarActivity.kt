@@ -25,6 +25,9 @@ class MyCarActivity : AppCompatActivity() {
     private lateinit var vehiclesListLayout: LinearLayout
     private val firestore = FirebaseFirestore.getInstance()
 
+    // Lista de veículos selecionados para remoção
+    private val selectedVehicles = mutableSetOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mycar)
@@ -48,6 +51,11 @@ class MyCarActivity : AppCompatActivity() {
         // Botão de adicionar veículo
         addVehicleButton.setOnClickListener {
             startActivity(Intent(this, MyCarAdicionarCarroActivity::class.java))
+        }
+
+        // Configurar o botão "Remover Veículos"
+        removeVehicleButton.setOnClickListener {
+            removeSelectedVehicles()
         }
     }
 
@@ -110,14 +118,14 @@ class MyCarActivity : AppCompatActivity() {
             }
         }
 
-        // Botão para remover veículo
-        val removeButton = Button(this).apply {
-            text = "Remover"
-            textSize = 12f
-            setBackgroundColor(resources.getColor(android.R.color.holo_red_dark, null))
-            setTextColor(resources.getColor(android.R.color.white, null))
-            setOnClickListener {
-                removeVehicle(documentId)
+        // CheckBox para selecionar veículo
+        val selectCheckBox = CheckBox(this).apply {
+            setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedVehicles.add(documentId)  // Adiciona à lista de veículos selecionados
+                } else {
+                    selectedVehicles.remove(documentId)  // Remove da lista de veículos selecionados
+                }
             }
         }
 
@@ -126,21 +134,31 @@ class MyCarActivity : AppCompatActivity() {
 
         vehicleLayout.addView(vehicleImage)
         vehicleLayout.addView(vehicleDetailsLayout)
-        vehicleLayout.addView(removeButton)
+        vehicleLayout.addView(selectCheckBox)
 
         return vehicleLayout
     }
 
-    private fun removeVehicle(documentId: String) {
-        firestore.collection("vehicles").document(documentId)
-            .delete()
-            .addOnSuccessListener {
-                Toast.makeText(this, "Veículo removido com sucesso.", Toast.LENGTH_SHORT).show()
-                loadVehicles() // Atualizar a lista após a remoção
-            }
-            .addOnFailureListener { exception ->
-                Log.e("Firestore", "Error removing vehicle: ${exception.message}")
-                Toast.makeText(this, "Erro ao remover veículo.", Toast.LENGTH_SHORT).show()
-            }
+    private fun removeSelectedVehicles() {
+        if (selectedVehicles.isEmpty()) {
+            Toast.makeText(this, "Selecione pelo menos um veículo para remover.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        selectedVehicles.forEach { documentId ->
+            firestore.collection("Vehicle").document(documentId)
+                .delete()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Veículo removido com sucesso.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("Firestore", "Error removing vehicle: ${exception.message}")
+                    Toast.makeText(this, "Erro ao remover veículo.", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        selectedVehicles.clear()
+        loadVehicles()
     }
 }
+
