@@ -28,6 +28,12 @@ class HistoryActivity : AppCompatActivity() {
         nameTextView = findViewById(R.id.nameTextView)
         addressTextView = findViewById(R.id.addressTextView)
         priceTextView = findViewById(R.id.priceTextView)
+        val backButton = findViewById<ImageView>(R.id.btn_back) // Botão de voltar
+
+        // Configurar o botão de voltar
+        backButton.setOnClickListener {
+            finish() // Finaliza a atividade atual e volta à anterior
+        }
 
         loadRecentHistory()
 
@@ -42,26 +48,31 @@ class HistoryActivity : AppCompatActivity() {
             it.name.contains(query, ignoreCase = true) || it.address.contains(query, ignoreCase = true)
         }
         if (filteredList.isNotEmpty()) {
-            updateUI(filteredList[0]) // Atualiza com o primeiro item filtrado
+            updateUI(filteredList[0])
         }
     }
 
     private fun loadRecentHistory() {
         val db = FirebaseFirestore.getInstance()
-        val userPhone = "918235917" // Número de telefone do usuário
 
-        db.collection("users").document(userPhone).collection("history").get()
-            .addOnSuccessListener { result ->
-                recentList.clear()
-                for (document in result) {
+        // Acessa o documento "history" dentro da subcoleção "history" do documento "918235917"
+        db.collection("users").document("918235917").collection("history").document("history").get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    recentList.clear() // Limpa a lista antes de adicionar novos resultados
+
                     val name = document.getString("name") ?: "Unknown"
                     val address = document.getString("address") ?: "Unknown"
-                    val price = document.getDouble("price") ?: 0.0
+                    val priceString = document.getString("preco") ?: "0" // Campo "preco" como String
+                    val price = priceString.toDoubleOrNull() ?: 0.0 // Converte para Double
                     val parking = Parking(name, address, price)
-                    recentList.add(parking)
-                }
-                if (recentList.isNotEmpty()) {
-                    updateUI(recentList[0]) // Atualiza com o primeiro item da lista
+
+                    recentList.add(parking) // Adiciona aos dados recentes
+
+                    // Atualiza a interface com os dados do documento
+                    updateUI(parking)
+                } else {
+                    Toast.makeText(this, "Nenhum histórico encontrado", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { exception ->
@@ -73,8 +84,9 @@ class HistoryActivity : AppCompatActivity() {
     private fun updateUI(parking: Parking) {
         nameTextView.text = parking.name
         addressTextView.text = parking.address
-        priceTextView.text = String.format("$%.2f", parking.price)
-        // Adicione uma imagem se necessário (exemplo: parkingImageView.setImageResource(...))
+        priceTextView.text = String.format("€%.2f", parking.price) // Formato europeu de moeda
+        // Adicione uma imagem se necessário, por exemplo:
+        // parkingImageView.setImageResource(...)
     }
 }
 
@@ -85,11 +97,12 @@ fun saveToHistory(name: String, address: String, price: Double) {
     val parkingData = hashMapOf(
         "name" to name,
         "address" to address,
-        "price" to price
+        "preco" to price.toString() // Salva o campo "preco" como String
     )
 
-    db.collection("users").document(userPhone).collection("history")
-        .add(parkingData)
+    // Atualiza o documento "history" dentro da subcoleção "history"
+    db.collection("users").document(userPhone).collection("history").document("history")
+        .set(parkingData)
         .addOnSuccessListener {
             Log.d("Firestore", "Histórico salvo com sucesso")
         }
@@ -98,7 +111,6 @@ fun saveToHistory(name: String, address: String, price: Double) {
         }
 }
 
-// Classe Parking ajustada para refletir o modelo usado no Firestore
 data class Parking(
     val name: String = "",
     val address: String = "",

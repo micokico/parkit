@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     tools:ignore="MissingConstraints">
+
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="24dp"
@@ -64,13 +65,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
-    <TextView
+    <EditText
         android:id="@+id/valueName"
         android:layout_width="350dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
+        android:hint="Nome Completo"
+        android:background="@null"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,13 +92,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/valueName" />
 
-    <TextView
+    <EditText
         android:id="@+id/valueEmail"
         android:layout_width="350dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:background="@null"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,13 +120,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/valueEmail" />
 
-    <TextView
+    <EditText
         android:id="@+id/valuePhone"
         android:layout_width="350dp"
         android:layout_height="25dp"
         android:layout_marginTop="8dp"
+        android:hint="Número de Telefone"
+        android:inputType="phone"
+        android:background="@null"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
