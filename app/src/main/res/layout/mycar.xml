@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +18,6 @@
         android:layout_marginTop="16dp"
         android:background="@null" />
 
-    <!-- Título Centralizado -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -31,39 +29,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp" />
 
-    <TextView
-        android:id="@+id/myCarsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginTop="0dp"
-        android:layout_marginStart="16dp"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:ignore="NotSibling" />
-
-    <!-- Lista de Veículos -->
     <LinearLayout
         android:id="@+id/vehiclesListLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/myCarsLabel"
+        android:layout_below="@id/title"
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_marginTop="20dp">
     </LinearLayout>
 
-    <!-- Botões Adicionar e Remover -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/myCarsLabel"
-        android:layout_marginTop="320dp"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Botão Adicionar Veículo -->
         <Button
             android:id="@+id/addVehicleButton"
             android:layout_width="match_parent"
@@ -73,12 +55,11 @@
             android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF" />
 
-        <!-- Botão Remover Veículo -->
         <Button
             android:id="@+id/removeVehicleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remover Veículo"
+            android:text="Remover Todos os Veículos"
             android:backgroundTint="#F44336"
             android:textColor="#FFFFFF" />
     </LinearLayout>
