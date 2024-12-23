@@ -34,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
         loadUserData()
 
         saveButton.setOnClickListener {
-            Toast.makeText(this, "Funcionalidade de salvar em desenvolvimento", Toast.LENGTH_SHORT).show()
+            saveUserData()
         }
     }
 
@@ -48,13 +48,37 @@ class ProfileActivity : AppCompatActivity() {
                     if (document.exists()) {
                         valueName.text = document.getString("name") ?: "N/A"
                         valueEmail.text = document.getString("email") ?: "N/A"
-                        valuePhone.text = document.getString("phone") ?: "N/A"
+                        valuePhone.text = document.getString("phoneNumber") ?: "N/A"
                     } else {
                         Toast.makeText(this, "Dados não encontrados", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Erro ao carregar dados: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveUserData() {
+        val currentUser = firebaseAuth.currentUser
+
+        if (currentUser != null) {
+            val userId = currentUser.uid
+
+            val updatedData = hashMapOf(
+                "name" to valueName.text.toString(),
+                "email" to valueEmail.text.toString(),
+                "phoneNumber" to valuePhone.text.toString()
+            )
+
+            firestore.collection("users").document(userId).update(updatedData as Map<String, Any>)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Dados salvos com sucesso!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Erro ao salvar dados: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show()

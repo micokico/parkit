@@ -52,7 +52,7 @@ class MyCarActivity : AppCompatActivity() {
     }
 
     private fun loadVehicles() {
-        firestore.collection("vehicles")
+        firestore.collection("Vehicle")
             .get()
             .addOnSuccessListener { result ->
                 vehiclesListLayout.removeAllViews() // Limpar layout antes de adicionar novos veículos
