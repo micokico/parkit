@@ -50,7 +50,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
             return
         }
 
-        val database = FirebaseDatabase.getInstance().getReference("vehicles")
+        val database = FirebaseDatabase.getInstance().getReference("Vehicle")
         val vehicleId = database.push().key ?: return
 
         val vehicle = Vehicle(vehicleId, vehicleType, vehicleName, vehiclePlate, null)
