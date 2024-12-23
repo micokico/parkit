@@ -3,7 +3,7 @@ package com.example.parkit
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyCarAdicionarCarroActivity : AppCompatActivity() {
     private lateinit var spinnerTipoVeiculo: Spinner
@@ -11,6 +11,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
     private lateinit var etMatricula: EditText
     private lateinit var btnSalvar: Button
     private lateinit var btnCancelar: Button
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
 
         // Save button
         btnSalvar.setOnClickListener {
-            saveVehicleToFirebase()
+            saveVehicleToFirestore()
         }
 
         // Cancel button
@@ -40,7 +41,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveVehicleToFirebase() {
+    private fun saveVehicleToFirestore() {
         val vehicleType = spinnerTipoVeiculo.selectedItem.toString()
         val vehicleName = etNomeVeiculo.text.toString()
         val vehiclePlate = etMatricula.text.toString()
@@ -50,25 +51,34 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
             return
         }
 
-        val database = FirebaseDatabase.getInstance().getReference("Vehicle")
-        val vehicleId = database.push().key ?: return
+        val metadataRef = firestore.collection("metadata").document("counters")
+        val vehicleCollection = firestore.collection("Vehicle")
 
-        val vehicle = Vehicle(vehicleId, vehicleType, vehicleName, vehiclePlate, null)
-        database.child(vehicleId).setValue(vehicle).addOnCompleteListener {
-            if (it.isSuccessful) {
-                Toast.makeText(this, "Veículo adicionado com sucesso", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                Toast.makeText(this, "Erro ao salvar veículo", Toast.LENGTH_SHORT).show()
-            }
+        firestore.runTransaction { transaction ->
+            // Obter o contador atual
+            val snapshot = transaction.get(metadataRef)
+            val currentCounter = snapshot.getLong("VehicleCounter") ?: 1
+
+            // Incrementar o contador
+            transaction.update(metadataRef, "VehicleCounter", currentCounter + 1)
+
+            // Criar o veículo com o novo ID
+            val vehicleId = currentCounter.toString()
+            val vehicle = hashMapOf(
+                "id" to vehicleId,
+                "type" to vehicleType,
+                "name" to vehicleName,
+                "plate" to vehiclePlate,
+                "imageUrl" to null
+            )
+
+            // Salvar o veículo na coleção
+            transaction.set(vehicleCollection.document(vehicleId), vehicle)
+        }.addOnSuccessListener {
+            Toast.makeText(this, "Veículo adicionado com sucesso", Toast.LENGTH_SHORT).show()
+            finish()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Erro ao salvar veículo", Toast.LENGTH_SHORT).show()
         }
     }
-
-    data class Vehicle(
-        val id: String,
-        val type: String,
-        val name: String,
-        val plate: String,
-        val imageUrl: String?
-    )
 }
