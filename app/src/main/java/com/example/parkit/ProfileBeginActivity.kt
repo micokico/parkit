@@ -49,9 +49,10 @@ class ProfileBeginActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        // Ação para o item "Perfil"
         profileButton.setOnClickListener {
-            // Aqui você pode adicionar o código para carregar o perfil do usuário
+            // Navega para a tela "Perfil"
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
 
         // Ação para o item "Meus carros"
