@@ -1,39 +1,35 @@
 package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FirebaseFirestore
-import com.example.parkit.databinding.ActivityAdminBinding
 
 class AdminDashboardActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAdminBinding
-    private lateinit var db: FirebaseFirestore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.admin_view)
 
-        binding = ActivityAdminBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Encontrar os botões pelo ID
+        val buttonUsage = findViewById<Button>(R.id.buttonUsage)
+        val buttonStatistics = findViewById<Button>(R.id.buttonStatistics)
+        val buttonImages = findViewById<Button>(R.id.buttonImages)
 
-        db = FirebaseFirestore.getInstance()
+        // Configurar ações para os botões
+        buttonUsage.setOnClickListener {
+            Toast.makeText(this, "Funcionalidade em desenvolvimento!", Toast.LENGTH_SHORT).show()
+        }
 
-        loadParkStatistics()
-    }
+        buttonStatistics.setOnClickListener {
+            // Redirecionar para a página de estatísticas
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
 
-    private fun loadParkStatistics() {
-        db.collection("parkStatistics").document("dailyStats")
-            .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val totalVisitors = document.getLong("totalVisitors") ?: 0
-                    binding.totalVisitorsTextView.text = "Total de Visitantes Hoje: $totalVisitors"
-                } else {
-                    binding.totalVisitorsTextView.text = "Estatísticas indisponíveis."
-                }
-            }
-            .addOnFailureListener { e ->
-                binding.totalVisitorsTextView.text = "Erro ao carregar estatísticas: ${e.message}"
-            }
+        buttonImages.setOnClickListener {
+            Toast.makeText(this, "Funcionalidade em desenvolvimento!", Toast.LENGTH_SHORT).show()
+        }
     }
 }
