@@ -65,11 +65,11 @@ class HomeActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
-                        // Recupera o nome do usuário
-                        val userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário" como fallback
+                        // Usar a variável global userName
+                        userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário" como fallback
 
-                        // Atualiza o greetingText com o nome do usuário
-                        binding.greetingText.text = "Bom dia, $userName"
+                        // Atualizar o greetingText com o nome do usuário
+                        binding.greetingText.text = "Bom dia, $userName"  // Usando a variável global userName
 
                         // Log para verificar
                         Log.d("Firestore", "Nome do usuário: $userName")
@@ -87,8 +87,6 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Usuário não autenticado.", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
 
     private fun setupFilterButtons() {
