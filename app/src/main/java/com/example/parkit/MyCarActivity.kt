@@ -3,18 +3,15 @@ package com.example.parkit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
-import com.bumptech.glide.Glide
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 data class Vehicle(
     val id: String = "",
     val type: String = "",
     val name: String = "",
-    val plate: String = "",
-    val imageUrl: String? = null
+    val plate: String = ""
 )
 
 class MyCarActivity : AppCompatActivity() {
@@ -53,7 +50,7 @@ class MyCarActivity : AppCompatActivity() {
             startActivity(Intent(this, MyCarAdicionarCarroActivity::class.java))
         }
 
-        // Configurar o botão "Remover Veículos"
+        // Botão "Remover Veículos"
         removeVehicleButton.setOnClickListener {
             removeSelectedVehicles()
         }
@@ -96,6 +93,12 @@ class MyCarActivity : AppCompatActivity() {
             text = vehicle.name
             textSize = 16f
             setTextColor(resources.getColor(android.R.color.black, null))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                marginStart = 16 // Desloca o texto para a direita
+            }
         }
 
         val vehicleDetail = TextView(this).apply {
@@ -105,16 +108,16 @@ class MyCarActivity : AppCompatActivity() {
         }
 
         val vehicleImage = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(100, 100)
+            layoutParams = LinearLayout.LayoutParams(80, 80) // Reduz o tamanho da imagem
             scaleType = ImageView.ScaleType.CENTER_CROP
 
-            if (!vehicle.imageUrl.isNullOrEmpty()) {
-                Glide.with(this@MyCarActivity)
-                    .load(vehicle.imageUrl)
-                    .placeholder(R.drawable.carro) // Placeholder padrão
-                    .into(this)
-            } else {
-                setImageResource(R.drawable.carro) // Ícone padrão se imageUrl for null
+            // Definir a imagem com base no tipo de veículo
+            when (vehicle.type.lowercase()) {
+                "carro" -> setImageResource(R.drawable.car)
+                "moto" -> setImageResource(R.drawable.mota)
+                "van" -> setImageResource(R.drawable.van)
+                "scooter" -> setImageResource(R.drawable.scotter)
+                else -> setImageResource(R.drawable.carro) // Imagem padrão para tipos desconhecidos
             }
         }
 
@@ -145,6 +148,7 @@ class MyCarActivity : AppCompatActivity() {
             return
         }
 
+        // Remover os veículos selecionados
         selectedVehicles.forEach { documentId ->
             firestore.collection("Vehicle").document(documentId)
                 .delete()
@@ -157,8 +161,10 @@ class MyCarActivity : AppCompatActivity() {
                 }
         }
 
+        // Limpar a lista de veículos selecionados
         selectedVehicles.clear()
+
+        // Recarregar os veículos após remoção
         loadVehicles()
     }
 }
-
