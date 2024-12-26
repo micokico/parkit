@@ -1,6 +1,9 @@
 package com.example.parkit
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,33 +14,55 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
     private lateinit var etMatricula: EditText
     private lateinit var btnSalvar: Button
     private lateinit var btnCancelar: Button
+    private lateinit var btnEscolherImagem: Button
+    private var selectedImageUri: Uri? = null
     private val firestore = FirebaseFirestore.getInstance()
+
+    private val PICK_IMAGE_REQUEST = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mycar_adicionar_carro)
 
-        // Initialize views
+        // Inicializar as views
         spinnerTipoVeiculo = findViewById(R.id.spinnerTipoVeiculo)
         etNomeVeiculo = findViewById(R.id.etNomeVeiculo)
         etMatricula = findViewById(R.id.etMatricula)
         btnSalvar = findViewById(R.id.btnSalvar)
         btnCancelar = findViewById(R.id.btnCancelar)
+        btnEscolherImagem = findViewById(R.id.btnEscolherImagem)
 
-        // Set up spinner
         val vehicleTypes = arrayOf("Carro", "Moto", "Van", "Scooter")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vehicleTypes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTipoVeiculo.adapter = adapter
 
-        // Save button
         btnSalvar.setOnClickListener {
             saveVehicleToFirestore()
         }
 
-        // Cancel button
         btnCancelar.setOnClickListener {
             finish()
+        }
+
+        // Botão Escolher Imagem
+        btnEscolherImagem.setOnClickListener {
+            openGallery()
+        }
+    }
+
+    // Função para abrir a galeria de imagens
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
+            selectedImageUri = data?.data
+
         }
     }
 
@@ -69,7 +94,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
                 "type" to vehicleType,
                 "name" to vehicleName,
                 "plate" to vehiclePlate,
-                "imageUrl" to null
+                "imageUrl" to selectedImageUri?.toString() // Salvar a URL da imagem, se foi selecionada
             )
 
             // Salvar o veículo na coleção
