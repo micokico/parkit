@@ -44,6 +44,9 @@ class HomeActivity : AppCompatActivity() {
         // Carregar dados do estacionamento
         loadParkingData()
 
+        // Configurar clique no cartão
+        setupParkingCardClickListener()
+
         binding.notificationButton.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
@@ -100,6 +103,21 @@ class HomeActivity : AppCompatActivity() {
                 Log.e("Firestore", "Erro ao carregar dados", exception)
                 Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun setupParkingCardClickListener() {
+        // Configurar clique no cartão de estacionamento
+        binding.parkingCard.setOnClickListener {
+            val intent = Intent(this, ChooseSpaceActivity::class.java)
+
+            // Passar informações, se necessário
+            intent.putExtra("parking_name", binding.parkingName.text.toString())
+            intent.putExtra("parking_address", binding.parkingAddress.text.toString())
+            intent.putExtra("parking_price", binding.parkingPrice.text.toString())
+
+            // Iniciar a nova atividade
+            startActivity(intent)
+        }
     }
 
     private fun updateParkingPrice() {
