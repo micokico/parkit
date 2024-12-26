@@ -6,7 +6,19 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
+    <!-- Botão de voltar -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_return"
+        android:contentDescription="Voltar"
+        android:layout_gravity="start"
+        android:layout_marginBottom="10dp" />
+
     <!-- Título Principal -->
+
+    <!-- Subtítulo -->
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
@@ -18,7 +30,6 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
-    <!-- Subtítulo -->
     <TextView
         android:id="@+id/textSubtitle"
         android:layout_width="wrap_content"
@@ -57,14 +68,6 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
-    <!-- Botão 3: Placeholder -->
-    <Button
-        android:id="@+id/buttonPlaceholder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#000000"
-        android:text="XXXXXXXXXXXX"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+
 
 </LinearLayout>

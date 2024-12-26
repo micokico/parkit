@@ -49,6 +49,7 @@
         <activity android:name=".NotificationActivity" android:exported="true" />
         <activity android:name=".MyCarAdicionarCarroActivity" android:exported="true" />
         <activity android:name=".MyCarActivity" android:exported="true" />
+        <activity android:name=".StatisticsActivity" android:exported="true" />
 
     </application>
 
