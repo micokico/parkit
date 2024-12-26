@@ -89,18 +89,13 @@ class MyCarActivity : AppCompatActivity() {
         val vehicleDetailsLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(16, 0, 0, 0)
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }
 
         val vehicleName = TextView(this).apply {
             text = vehicle.name
             textSize = 16f
             setTextColor(resources.getColor(android.R.color.black, null))
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                marginStart = 16 // Desloca o texto para a direita
-            }
         }
 
         val vehicleDetail = TextView(this).apply {
@@ -110,12 +105,10 @@ class MyCarActivity : AppCompatActivity() {
         }
 
         val vehicleImage = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(80, 80).apply {
-                gravity = Gravity.CENTER_VERTICAL // Centraliza a imagem verticalmente no layout
-            }
-            scaleType = ImageView.ScaleType.FIT_CENTER // Mantém a proporção da imagem
+            layoutParams = LinearLayout.LayoutParams(80, 80)
+            scaleType = ImageView.ScaleType.FIT_CENTER
 
-            // Definir a imagem com base no tipo de veículo
+            // Define a imagem com base no tipo de veículo
             when (vehicle.type.lowercase()) {
                 "carro" -> setImageResource(R.drawable.carro)
                 "moto" -> setImageResource(R.drawable.mota)
@@ -127,15 +120,20 @@ class MyCarActivity : AppCompatActivity() {
 
         // CheckBox para selecionar veículo
         val selectCheckBox = CheckBox(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
             setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    selectedVehicles.add(documentId)  // Adiciona à lista de veículos selecionados
+                    selectedVehicles.add(documentId) // Adiciona à lista de veículos selecionados
                 } else {
-                    selectedVehicles.remove(documentId)  // Remove da lista de veículos selecionados
+                    selectedVehicles.remove(documentId) // Remove da lista de veículos selecionados
                 }
             }
         }
 
+        // Adiciona os elementos ao layout principal
         vehicleDetailsLayout.addView(vehicleName)
         vehicleDetailsLayout.addView(vehicleDetail)
 
