@@ -7,7 +7,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import android.view.Gravity
-
+import androidx.activity.result.contract.ActivityResultContracts
 
 data class Vehicle(
     val id: String = "",
@@ -26,6 +26,14 @@ class MyCarActivity : AppCompatActivity() {
 
     // Lista de veículos selecionados para remoção
     private val selectedVehicles = mutableSetOf<String>()
+
+    private val addVehicleLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // Recarrega a lista de veículos após adicionar
+                loadVehicles()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +57,8 @@ class MyCarActivity : AppCompatActivity() {
 
         // Botão de adicionar veículo
         addVehicleButton.setOnClickListener {
-            startActivity(Intent(this, MyCarAdicionarCarroActivity::class.java))
+            val intent = Intent(this, MyCarAdicionarCarroActivity::class.java)
+            addVehicleLauncher.launch(intent)
         }
 
         // Botão "Remover Veículos"

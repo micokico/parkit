@@ -66,5 +66,6 @@ class ProfileBeginActivity : AppCompatActivity() {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
+
     }
 }
