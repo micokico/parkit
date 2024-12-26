@@ -2,7 +2,6 @@ package com.example.parkit
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -43,6 +42,17 @@ class HistoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateUI(parking: Parking) {
+        nameTextView.text = parking.name
+        addressTextView.text = parking.address
+        priceTextView.text = String.format("€%.2f", parking.price) // Preço formatado
+
+        // Exibe informações adicionais
+        findViewById<TextView>(R.id.dateTextView).text = "Data: ${parking.date}"
+        findViewById<TextView>(R.id.durationTextView).text = "Duração: ${parking.duration} horas"
+        findViewById<TextView>(R.id.transportTextView).text = "Transporte: ${parking.transport.capitalize()}"
+    }
+
     private fun filterResults(query: String) {
         val filteredList = recentList.filter {
             it.name.contains(query, ignoreCase = true) || it.address.contains(query, ignoreCase = true)
@@ -63,9 +73,14 @@ class HistoryActivity : AppCompatActivity() {
 
                     val name = document.getString("name") ?: "Unknown"
                     val address = document.getString("address") ?: "Unknown"
-                    val priceString = document.getString("preco") ?: "0" // Campo "preco" como String
+                    val priceString = document.getString("preco") ?: "0" // Preço como String
                     val price = priceString.toDoubleOrNull() ?: 0.0 // Converte para Double
-                    val parking = Parking(name, address, price)
+                    val date = document.getString("data") ?: "Unknown"
+                    val durationString = document.getString("duracao") ?: "0"
+                    val duration = durationString.toDoubleOrNull() ?: 0.0
+                    val transport = document.getString("type") ?: "Unknown"
+
+                    val parking = Parking(name, address, price, date, duration, transport)
 
                     recentList.add(parking) // Adiciona aos dados recentes
 
@@ -81,38 +96,51 @@ class HistoryActivity : AppCompatActivity() {
             }
     }
 
-    private fun updateUI(parking: Parking) {
-        nameTextView.text = parking.name
-        addressTextView.text = parking.address
-        priceTextView.text = String.format("€%.2f", parking.price) // Formato europeu de moeda
-        // Adicione uma imagem se necessário, por exemplo:
-        // parkingImageView.setImageResource(...)
+    fun saveToHistory(name: String, address: String, duration: Double, transport: String) {
+        val db = FirebaseFirestore.getInstance()
+        val userPhone = "918235917" // Número de telefone do usuário
+
+        // Preços por tipo de transporte
+        val transportPrices = mapOf(
+            "bike" to 1.0,
+            "car" to 2.0,
+            "scooter" to 1.5,
+            "van" to 3.0
+        )
+
+        // Calcula o preço com base no tempo e tipo de transporte
+        val pricePerHour = transportPrices[transport] ?: 0.0
+        val price = pricePerHour * duration
+
+        // Obtém a data atual
+        val currentDate = java.text.SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+
+        val parkingData = hashMapOf(
+            "name" to name,
+            "address" to address,
+            "preco" to price.toString(), // Preço total como String
+            "data" to currentDate,
+            "duracao" to duration.toString(),
+            "type" to transport
+        )
+
+        // Atualiza o documento "history" dentro da subcoleção "history"
+        db.collection("users").document(userPhone).collection("history").document("history")
+            .set(parkingData)
+            .addOnSuccessListener {
+                Log.d("Firestore", "Histórico salvo com sucesso")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Erro ao salvar histórico", exception)
+            }
     }
-}
-
-fun saveToHistory(name: String, address: String, price: Double) {
-    val db = FirebaseFirestore.getInstance()
-    val userPhone = "918235917" // Número de telefone do usuário
-
-    val parkingData = hashMapOf(
-        "name" to name,
-        "address" to address,
-        "preco" to price.toString() // Salva o campo "preco" como String
-    )
-
-    // Atualiza o documento "history" dentro da subcoleção "history"
-    db.collection("users").document(userPhone).collection("history").document("history")
-        .set(parkingData)
-        .addOnSuccessListener {
-            Log.d("Firestore", "Histórico salvo com sucesso")
-        }
-        .addOnFailureListener { exception ->
-            Log.e("Firestore", "Erro ao salvar histórico", exception)
-        }
 }
 
 data class Parking(
     val name: String = "",
     val address: String = "",
-    val price: Double = 0.0
+    val price: Double = 0.0,
+    val date: String = "", // Data de entrada/saída
+    val duration: Double = 0.0, // Duração em horas
+    val transport: String = "" // Meio de transporte usado
 )
