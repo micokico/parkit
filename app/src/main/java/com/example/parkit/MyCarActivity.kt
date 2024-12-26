@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import android.view.Gravity
+
 
 data class Vehicle(
     val id: String = "",
@@ -108,12 +110,14 @@ class MyCarActivity : AppCompatActivity() {
         }
 
         val vehicleImage = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(80, 80) // Reduz o tamanho da imagem
-            scaleType = ImageView.ScaleType.CENTER_CROP
+            layoutParams = LinearLayout.LayoutParams(80, 80).apply {
+                gravity = Gravity.CENTER_VERTICAL // Centraliza a imagem verticalmente no layout
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER // Mantém a proporção da imagem
 
             // Definir a imagem com base no tipo de veículo
             when (vehicle.type.lowercase()) {
-                "carro" -> setImageResource(R.drawable.car)
+                "carro" -> setImageResource(R.drawable.carro)
                 "moto" -> setImageResource(R.drawable.mota)
                 "van" -> setImageResource(R.drawable.van)
                 "scooter" -> setImageResource(R.drawable.scotter)
