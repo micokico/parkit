@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityHomeBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
 
@@ -57,31 +58,36 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        val userId = "user_id"  // Substitua com o ID correto do usuário ou recupere de alguma forma (ex: Auth)
+        val userId = FirebaseAuth.getInstance().currentUser?.uid  // Obter o ID do usuário autenticado
 
-        // Realize a consulta no Firestore para o documento do usuário
-        db.collection("users").document(userId)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    // Verifica se o campo 'name' está presente
-                    val userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário"
+        if (userId != null) {
+            db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        // Recupera o nome do usuário
+                        val userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário" como fallback
 
-                    // Log para verificar o nome recuperado
-                    Log.d("Firestore", "Nome do usuário recuperado: $userName")
+                        // Atualiza o greetingText com o nome do usuário
+                        binding.greetingText.text = "Bom dia, $userName"
 
-                    // Atualiza o greetingText com o nome do usuário
-                    binding.greetingText.text = "Bom dia, $userName"
-                } else {
-                    Log.e("Firestore", "Usuário não encontrado.")
-                    Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
+                        // Log para verificar
+                        Log.d("Firestore", "Nome do usuário: $userName")
+                    } else {
+                        Log.e("Firestore", "Usuário não encontrado.")
+                        Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.e("Firestore", "Erro ao carregar dados", exception)
-                Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
-            }
+                .addOnFailureListener { exception ->
+                    Log.e("Firestore", "Erro ao carregar dados", exception)
+                    Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Log.e("FirebaseAuth", "Usuário não autenticado.")
+            Toast.makeText(this, "Usuário não autenticado.", Toast.LENGTH_SHORT).show()
+        }
     }
+
 
 
 
