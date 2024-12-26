@@ -6,7 +6,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChooseSpaceActivity : AppCompatActivity() {
 
@@ -19,8 +19,8 @@ class ChooseSpaceActivity : AppCompatActivity() {
     // Parking spots
     private lateinit var spots: Map<String, ImageView>
 
-    // Firebase Database reference
-    private lateinit var database: DatabaseReference
+    // Firebase Firestore reference
+    private val firestore = FirebaseFirestore.getInstance()
 
     // Currently selected floor
     private var currentFloor: Int = 1
@@ -31,9 +31,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_space)
-
-        // Initialize Firebase reference
-        database = FirebaseDatabase.getInstance().reference.child("parkingSpots")
 
         // Initialize floor buttons
         floor1Button = findViewById(R.id.floor1Button)
@@ -80,8 +77,8 @@ class ChooseSpaceActivity : AppCompatActivity() {
             finish() // Close the current activity and return to the previous one
         }
 
-        // Load initial data for Floor 1 from Firebase
-        loadParkingSpotsFromFirebase(currentFloor)
+        // Load initial data for Floor 1 from Firestore
+        loadParkingSpotsFromFirestore(currentFloor)
     }
 
     /**
@@ -114,29 +111,30 @@ class ChooseSpaceActivity : AppCompatActivity() {
             4 -> floor4Button.setImageResource(R.drawable.floor4_selected)
         }
 
-        // Load parking spots for the selected floor from Firebase
-        loadParkingSpotsFromFirebase(selectedFloor)
+        // Load parking spots for the selected floor from Firestore
+        loadParkingSpotsFromFirestore(selectedFloor)
     }
 
     /**
-     * Load parking spots from Firebase based on the selected floor
+     * Load parking spots from Firestore based on the selected floor
      */
-    private fun loadParkingSpotsFromFirebase(floor: Int) {
-        database.child("floor_$floor").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                resetParkingSpots() // Clear all spots before updating
-
-                for (spotSnapshot in snapshot.children) {
-                    val spotId = spotSnapshot.key ?: continue
-                    val state = spotSnapshot.getValue(String::class.java) ?: "free"
-                    updateParkingSpot(spotId, state)
+    private fun loadParkingSpotsFromFirestore(floor: Int) {
+        val floorKey = "floor_$floor" // Example: "floor_1"
+        firestore.collection("parkingSpots").document(floorKey).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    resetParkingSpots() // Clear all spots before updating
+                    document.data?.forEach { (spotId, state) ->
+                        val spotState = state as? String ?: "free"
+                        updateParkingSpot(spotId, spotState)
+                    }
+                } else {
+                    Toast.makeText(this, "Nenhum dado encontrado para $floorKey", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@ChooseSpaceActivity, "Error loading data: ${error.message}", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Erro ao carregar dados: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
-        })
     }
 
     /**
@@ -164,8 +162,16 @@ class ChooseSpaceActivity : AppCompatActivity() {
                         selectSpot(spotId)
                     }
                 }
-                "car" -> spot.setImageResource(R.drawable.ic_car)
-                "selected" -> spot.setImageResource(R.drawable.ic_selected_spot)
+                "car" -> {
+                    spot.setImageResource(R.drawable.ic_car)
+                    spot.setOnClickListener(null) // Occupied spots are not clickable
+                }
+                "selected" -> {
+                    spot.setImageResource(R.drawable.ic_selected_spot)
+                    spot.setOnClickListener {
+                        deselectSpot(spotId)
+                    }
+                }
             }
         }
     }
@@ -174,9 +180,21 @@ class ChooseSpaceActivity : AppCompatActivity() {
      * Select a parking spot
      */
     private fun selectSpot(spotId: String) {
+        // Deselect previously selected spot
+        selectedSpot?.let { deselectSpot(it) }
+
         selectedSpot = spotId
         Toast.makeText(this, "Selecionado: $spotId", Toast.LENGTH_SHORT).show()
         updateParkingSpot(spotId, "selected")
+    }
+
+    /**
+     * Deselect a parking spot
+     */
+    private fun deselectSpot(spotId: String) {
+        selectedSpot = null
+        Toast.makeText(this, "Desselecionado: $spotId", Toast.LENGTH_SHORT).show()
+        updateParkingSpot(spotId, "free")
     }
 
     /**
@@ -185,10 +203,12 @@ class ChooseSpaceActivity : AppCompatActivity() {
     private fun bookSelectedSpot() {
         val spotId = selectedSpot
         if (spotId != null) {
-            database.child("floor_$currentFloor").child(spotId).setValue("car")
+            val floorKey = "floor_$currentFloor"
+            firestore.collection("parkingSpots").document(floorKey)
+                .update(spotId, "car") // Update the spot state to "car"
                 .addOnSuccessListener {
                     Toast.makeText(this, "Lugar reservado: $spotId", Toast.LENGTH_SHORT).show()
-                    loadParkingSpotsFromFirebase(currentFloor) // Refresh the floor
+                    loadParkingSpotsFromFirestore(currentFloor) // Refresh the floor
                 }
                 .addOnFailureListener { error ->
                     Toast.makeText(this, "Erro ao reservar lugar: ${error.message}", Toast.LENGTH_SHORT).show()
