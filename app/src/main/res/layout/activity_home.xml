@@ -105,13 +105,23 @@
         android:layout_marginTop="8dp"
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/car_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/carro"
-            android:scaleType="centerInside"
-            android:padding="8dp" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/car_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/carro"
+                android:scaleType="centerInside" />
+
+            <ImageButton
+                android:id="@+id/car_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/bike_button"
@@ -168,21 +178,37 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
+            <Button
+                android:id="@+id/parking_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Testar Clique"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="16dp" />
+
             <LinearLayout
                 android:id="@+id/parking_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true">
 
+
                 <ImageView
                     android:id="@+id/parking_image"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/parque" />
+                    android:src="@drawable/parque"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?android:attr/selectableItemBackground" />
+
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -213,7 +239,6 @@
                         android:text="0.00 €/hora"
                         android:textSize="14sp"
                         android:textColor="@color/red" />
-
 
                 </LinearLayout>
 
