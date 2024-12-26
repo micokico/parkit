@@ -1,11 +1,18 @@
 package com.example.parkit
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.LinearLayout // Adicione esta importação
+import android.widget.Toast // Importação do Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
+import android.widget.Button
+import android.util.Log
+
+
 
 class ProfileBeginActivity : AppCompatActivity() {
 
@@ -49,8 +56,8 @@ class ProfileBeginActivity : AppCompatActivity() {
             dialog.show()
         }
 
+        // Ação do botão "Perfil"
         profileButton.setOnClickListener {
-            // Navega para a tela "Perfil"
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
@@ -66,5 +73,24 @@ class ProfileBeginActivity : AppCompatActivity() {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
+
+        // Ação para o botão da imagem do parque
+        val parkingCard = findViewById<LinearLayout>(R.id.parking_card) // Para todo o cartão
+        parkingCard.setOnClickListener {
+            val intent = Intent(this, ChooseSpaceActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        // Teste do botão "parking_button"
+        val parkingButton = findViewById<Button>(R.id.parking_button)
+        parkingButton.setOnClickListener {
+            // Adicionando um log para verificar se o clique foi registrado
+            Log.d("ProfileBeginActivity", "Botão 'parking_button' clicado!")
+
+            // Exibindo o Toast
+            Toast.makeText(this, "Funcionou!", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
