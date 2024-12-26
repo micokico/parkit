@@ -23,14 +23,13 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_explore)
 
         // Inicializar View Binding
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Buscar o nome do usuário da Firestore
-        loadUserData() // Alterado de loadUserName() para loadUserData()
+        loadUserData()
 
         binding.searchBar.setOnClickListener {
             val intent = Intent(this, ExploreActivity::class.java)
@@ -58,18 +57,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
+        val phoneNumber = "918235917"
         val userId = FirebaseAuth.getInstance().currentUser?.uid  // Obter o ID do usuário autenticado
 
         if (userId != null) {
-            db.collection("users").document(userId)
+            db.collection("users")
+                .whereEqualTo("phoneNumber", phoneNumber)
                 .get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        // Usar a variável global userName
-                        userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário" como fallback
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val document = documents.firstOrNull()
+                        userName = document?.getString("name") ?: "Usuário"
 
                         // Atualizar o greetingText com o nome do usuário
-                        binding.greetingText.text = "Bom dia, $userName"  // Usando a variável global userName
+                        binding.greetingText.text = "Bom dia, $userName"
 
                         // Log para verificar
                         Log.d("Firestore", "Nome do usuário: $userName")
@@ -87,7 +88,6 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Usuário não autenticado.", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun setupFilterButtons() {
         binding.carButton.setOnClickListener {
@@ -113,17 +113,14 @@ class HomeActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    // Carregar strings
                     val name = document.getString("name") ?: "Desconhecido"
                     val address = document.getString("address") ?: "Sem endereço"
 
-                    // Carregar preços
                     priceCar = document.getDouble("priceCar") ?: 0.0
                     priceBike = document.getDouble("priceBike") ?: 0.0
                     priceVan = document.getDouble("priceVan") ?: 0.0
                     priceScooter = document.getDouble("priceScooter") ?: 0.0
 
-                    // Atualizar UI
                     binding.parkingName.text = name
                     binding.parkingAddress.text = address
                     updateParkingPrice()
@@ -144,11 +141,9 @@ class HomeActivity : AppCompatActivity() {
     private fun setupParkingCardClickListener() {
         binding.parkingCard.setOnClickListener {
             val intent = Intent(this, ChooseSpaceActivity::class.java)
-            // Passar informações, se necessário
             intent.putExtra("parking_name", binding.parkingName.text.toString())
             intent.putExtra("parking_address", binding.parkingAddress.text.toString())
             intent.putExtra("parking_price", binding.parkingPrice.text.toString())
-            // Iniciar a nova atividade
             startActivity(intent)
         }
     }

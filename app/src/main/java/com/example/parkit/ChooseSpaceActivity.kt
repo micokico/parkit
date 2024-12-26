@@ -1,6 +1,7 @@
 package com.example.parkit
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
@@ -20,6 +21,12 @@ class ChooseSpaceActivity : AppCompatActivity() {
 
     // Firebase Database reference
     private lateinit var database: DatabaseReference
+
+    // Currently selected floor
+    private var currentFloor: Int = 1
+
+    // Selected parking spot
+    private var selectedSpot: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +68,20 @@ class ChooseSpaceActivity : AppCompatActivity() {
         // Setup floor buttons with listeners
         setupFloorButtons()
 
+        // Setup booking button
+        val bookPlaceButton = findViewById<Button>(R.id.bookPlaceButton)
+        bookPlaceButton.setOnClickListener {
+            bookSelectedSpot()
+        }
+
+        // Setup back button
+        val backButton = findViewById<ImageView>(R.id.backButton)
+        backButton.setOnClickListener {
+            finish() // Close the current activity and return to the previous one
+        }
+
         // Load initial data for Floor 1 from Firebase
-        loadParkingSpotsFromFirebase(1)
+        loadParkingSpotsFromFirebase(currentFloor)
     }
 
     /**
@@ -79,6 +98,8 @@ class ChooseSpaceActivity : AppCompatActivity() {
      * Set the selected floor and update the button states
      */
     private fun setSelectedFloor(selectedFloor: Int) {
+        currentFloor = selectedFloor
+
         // Reset all buttons to unselected
         floor1Button.setImageResource(R.drawable.floor1_unselected)
         floor2Button.setImageResource(R.drawable.floor2_unselected)
@@ -124,6 +145,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     private fun resetParkingSpots() {
         spots.values.forEach { spot ->
             spot.setImageResource(R.drawable.ic_free_spot)
+            spot.setOnClickListener(null) // Remove click listeners
         }
     }
 
@@ -136,10 +158,43 @@ class ChooseSpaceActivity : AppCompatActivity() {
         val spot = spots[spotId]
         if (spot != null) {
             when (state) {
-                "free" -> spot.setImageResource(R.drawable.ic_free_spot)
+                "free" -> {
+                    spot.setImageResource(R.drawable.ic_free_spot)
+                    spot.setOnClickListener {
+                        selectSpot(spotId)
+                    }
+                }
                 "car" -> spot.setImageResource(R.drawable.ic_car)
                 "selected" -> spot.setImageResource(R.drawable.ic_selected_spot)
             }
+        }
+    }
+
+    /**
+     * Select a parking spot
+     */
+    private fun selectSpot(spotId: String) {
+        selectedSpot = spotId
+        Toast.makeText(this, "Selecionado: $spotId", Toast.LENGTH_SHORT).show()
+        updateParkingSpot(spotId, "selected")
+    }
+
+    /**
+     * Book the selected parking spot
+     */
+    private fun bookSelectedSpot() {
+        val spotId = selectedSpot
+        if (spotId != null) {
+            database.child("floor_$currentFloor").child(spotId).setValue("car")
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Lugar reservado: $spotId", Toast.LENGTH_SHORT).show()
+                    loadParkingSpotsFromFirebase(currentFloor) // Refresh the floor
+                }
+                .addOnFailureListener { error ->
+                    Toast.makeText(this, "Erro ao reservar lugar: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Selecione um lugar primeiro!", Toast.LENGTH_SHORT).show()
         }
     }
 }
