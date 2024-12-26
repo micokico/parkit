@@ -1,32 +1,31 @@
 package com.example.parkit
 
 import android.os.Bundle
+import android.widget.Button  // Importação da classe Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.parkit.databinding.ActivityStatisticsBinding
+import com.example.parkit.R
 
 class StatisticsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityStatisticsBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Configuração do View Binding
-        binding = ActivityStatisticsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.admin_estatisticas)
 
         // Configura o botão de voltar
-        binding.btnBack.setOnClickListener {
-            finish() // Fecha a atividade atual
+        val btnBack = findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
         }
 
         // Configura botões
-        binding.btnTotalUsers.setOnClickListener {
-            // Ação para exibir quantidade de utilizadores
+        val btnTotalUsers = findViewById<Button>(R.id.buttonUserCount)
+        btnTotalUsers.setOnClickListener {
+
         }
 
-        binding.btnGlobalRevenue.setOnClickListener {
-            // Ação para exibir receitas globais
+        val btnGlobalRevenue = findViewById<Button>(R.id.buttonGlobalRevenue)
+        btnGlobalRevenue.setOnClickListener {
+
         }
     }
 }
