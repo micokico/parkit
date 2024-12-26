@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
     private var priceBike: Double = 0.0
     private var priceVan: Double = 0.0
     private var priceScooter: Double = 0.0
+    private var userName: String = "Nome" // Nome padrão, será atualizado com o nome da base de dados
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +27,9 @@ class HomeActivity : AppCompatActivity() {
         // Inicializar View Binding
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Buscar o nome do usuário da Firestore
+        loadUserData() // Alterado de loadUserName() para loadUserData()
 
         binding.searchBar.setOnClickListener {
             val intent = Intent(this, ExploreActivity::class.java)
@@ -36,7 +40,6 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileBeginActivity::class.java)
             startActivity(intent)
         }
-
 
         // Configurar botões de filtro
         setupFilterButtons()
@@ -52,6 +55,35 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun loadUserData() {
+        val userId = "user_id"  // Substitua com o ID correto do usuário ou recupere de alguma forma (ex: Auth)
+
+        // Realize a consulta no Firestore para o documento do usuário
+        db.collection("users").document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Verifica se o campo 'name' está presente
+                    val userName = document.getString("name") ?: "Usuário"  // Se não encontrado, usa "Usuário"
+
+                    // Log para verificar o nome recuperado
+                    Log.d("Firestore", "Nome do usuário recuperado: $userName")
+
+                    // Atualiza o greetingText com o nome do usuário
+                    binding.greetingText.text = "Bom dia, $userName"
+                } else {
+                    Log.e("Firestore", "Usuário não encontrado.")
+                    Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Erro ao carregar dados", exception)
+                Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
 
     private fun setupFilterButtons() {
         binding.carButton.setOnClickListener {
@@ -106,15 +138,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupParkingCardClickListener() {
-        // Configurar clique no cartão de estacionamento
         binding.parkingCard.setOnClickListener {
             val intent = Intent(this, ChooseSpaceActivity::class.java)
-
             // Passar informações, se necessário
             intent.putExtra("parking_name", binding.parkingName.text.toString())
             intent.putExtra("parking_address", binding.parkingAddress.text.toString())
             intent.putExtra("parking_price", binding.parkingPrice.text.toString())
-
             // Iniciar a nova atividade
             startActivity(intent)
         }
