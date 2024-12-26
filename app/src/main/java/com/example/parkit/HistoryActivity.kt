@@ -65,12 +65,12 @@ class HistoryActivity : AppCompatActivity() {
     private fun loadRecentHistory() {
         val db = FirebaseFirestore.getInstance()
 
-        // Acessa o documento "history" dentro da subcoleção "history" do documento "918235917"
-        db.collection("users").document("918235917").collection("history").document("history").get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    recentList.clear() // Limpa a lista antes de adicionar novos resultados
+        // Acessa todos os documentos dentro da subcoleção "history" do documento "918235917"
+        db.collection("users").document("918235917").collection("history").get()
+            .addOnSuccessListener { documents ->
+                recentList.clear() // Limpa a lista antes de adicionar novos resultados
 
+                for (document in documents) {
                     val name = document.getString("name") ?: "Unknown"
                     val address = document.getString("address") ?: "Unknown"
                     val priceString = document.getString("preco") ?: "0" // Preço como String
@@ -81,11 +81,11 @@ class HistoryActivity : AppCompatActivity() {
                     val transport = document.getString("type") ?: "Unknown"
 
                     val parking = Parking(name, address, price, date, duration, transport)
+                    recentList.add(parking)
+                }
 
-                    recentList.add(parking) // Adiciona aos dados recentes
-
-                    // Atualiza a interface com os dados do documento
-                    updateUI(parking)
+                if (recentList.isNotEmpty()) {
+                    updateUI(recentList[0]) // Atualiza a interface com o primeiro item
                 } else {
                     Toast.makeText(this, "Nenhum histórico encontrado", Toast.LENGTH_SHORT).show()
                 }
@@ -113,7 +113,7 @@ class HistoryActivity : AppCompatActivity() {
         val price = pricePerHour * duration
 
         // Obtém a data atual
-        val currentDate = java.text.SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault()).format(java.util.Date())
+        val currentDate = java.text.SimpleDateFormat("dd-MM-yyyy HH:mm", java.util.Locale.getDefault()).format(java.util.Date())
 
         val parkingData = hashMapOf(
             "name" to name,
@@ -124,9 +124,9 @@ class HistoryActivity : AppCompatActivity() {
             "type" to transport
         )
 
-        // Atualiza o documento "history" dentro da subcoleção "history"
-        db.collection("users").document(userPhone).collection("history").document("history")
-            .set(parkingData)
+        // Cria um novo documento na subcoleção "history"
+        db.collection("users").document(userPhone).collection("history")
+            .add(parkingData)
             .addOnSuccessListener {
                 Log.d("Firestore", "Histórico salvo com sucesso")
             }
