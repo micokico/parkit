@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MyCarAdicionarCarroActivity : AppCompatActivity() {
+
     private lateinit var spinnerTipoVeiculo: Spinner
     private lateinit var etNomeVeiculo: EditText
     private lateinit var etMatricula: EditText
@@ -62,7 +63,6 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
             selectedImageUri = data?.data
-
         }
     }
 
@@ -101,6 +101,7 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
             transaction.set(vehicleCollection.document(vehicleId), vehicle)
         }.addOnSuccessListener {
             Toast.makeText(this, "Veículo adicionado com sucesso", Toast.LENGTH_SHORT).show()
+            setResult(RESULT_OK) // Retorna RESULT_OK para indicar sucesso
             finish()
         }.addOnFailureListener {
             Toast.makeText(this, "Erro ao salvar veículo", Toast.LENGTH_SHORT).show()
