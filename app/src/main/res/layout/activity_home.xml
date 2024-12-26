@@ -28,7 +28,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_alignStart="@id/profile_image"
-            android:text="Bom dia, Andreia"
+            android:text="Bom dia, Nome"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
