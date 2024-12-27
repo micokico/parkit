@@ -14,21 +14,19 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val db = FirebaseFirestore.getInstance()
 
-    private var selectedVehicleType: String = "Carro" // Tipo de veículo padrão
+    private var selectedVehicleType: String = "Carro"
     private var priceCar: Double = 0.0
     private var priceBike: Double = 0.0
     private var priceVan: Double = 0.0
     private var priceScooter: Double = 0.0
-    private var userName: String = "Nome" // Nome padrão, será atualizado com o nome da base de dados
+    private var userName: String = "Nome"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar View Binding
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Buscar o nome do usuário da Firestore
         loadUserData()
 
         binding.searchBar.setOnClickListener {
@@ -41,13 +39,10 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Configurar botões de filtro
         setupFilterButtons()
 
-        // Carregar dados do estacionamento
         loadParkingData()
 
-        // Configurar clique no cartão
         setupParkingCardClickListener()
 
         binding.notificationButton.setOnClickListener {
@@ -58,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun loadUserData() {
         val phoneNumber = "918235917"
-        val userId = FirebaseAuth.getInstance().currentUser?.uid  // Obter o ID do usuário autenticado
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
             db.collection("users")
@@ -69,10 +64,8 @@ class HomeActivity : AppCompatActivity() {
                         val document = documents.firstOrNull()
                         userName = document?.getString("name") ?: "Usuário"
 
-                        // Atualizar o greetingText com o nome do usuário
                         binding.greetingText.text = "Bom dia, $userName"
 
-                        // Log para verificar
                         Log.d("Firestore", "Nome do usuário: $userName")
                     } else {
                         Log.e("Firestore", "Usuário não encontrado.")

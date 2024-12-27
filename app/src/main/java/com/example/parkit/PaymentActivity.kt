@@ -15,14 +15,11 @@ class PaymentActivity : AppCompatActivity() {
 
         val startButton: Button = findViewById(R.id.Start)
         startButton.setOnClickListener {
-            // Adicionando log para depuração
             Log.d("PaymentActivity", "Botão Start clicado")
             try {
-                // Intent para navegar para LoginActivity
                 val intent = Intent(this@PaymentActivity, LoginActivity::class.java)
                 startActivity(intent)
             } catch (e: Exception) {
-                // Tratando exceções para exibir no Toast
                 e.printStackTrace()
                 Toast.makeText(this, "Erro ao navegar: ${e.message}", Toast.LENGTH_SHORT).show()
             }

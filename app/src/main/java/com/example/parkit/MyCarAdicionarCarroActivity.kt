@@ -25,7 +25,6 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mycar_adicionar_carro)
 
-        // Inicializar as views
         spinnerTipoVeiculo = findViewById(R.id.spinnerTipoVeiculo)
         etNomeVeiculo = findViewById(R.id.etNomeVeiculo)
         etMatricula = findViewById(R.id.etMatricula)
@@ -46,13 +45,11 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
             finish()
         }
 
-        // Botão Escolher Imagem
         btnEscolherImagem.setOnClickListener {
             openGallery()
         }
     }
 
-    // Função para abrir a galeria de imagens
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
@@ -80,28 +77,25 @@ class MyCarAdicionarCarroActivity : AppCompatActivity() {
         val vehicleCollection = firestore.collection("Vehicle")
 
         firestore.runTransaction { transaction ->
-            // Obter o contador atual
             val snapshot = transaction.get(metadataRef)
             val currentCounter = snapshot.getLong("VehicleCounter") ?: 1
 
-            // Incrementar o contador
             transaction.update(metadataRef, "VehicleCounter", currentCounter + 1)
 
-            // Criar o veículo com o novo ID
             val vehicleId = currentCounter.toString()
             val vehicle = hashMapOf(
                 "id" to vehicleId,
                 "type" to vehicleType,
                 "name" to vehicleName,
                 "plate" to vehiclePlate,
-                "imageUrl" to selectedImageUri?.toString() // Salvar a URL da imagem, se foi selecionada
+                "imageUrl" to selectedImageUri?.toString()
             )
 
-            // Salvar o veículo na coleção
+
             transaction.set(vehicleCollection.document(vehicleId), vehicle)
         }.addOnSuccessListener {
             Toast.makeText(this, "Veículo adicionado com sucesso", Toast.LENGTH_SHORT).show()
-            setResult(RESULT_OK) // Retorna RESULT_OK para indicar sucesso
+            setResult(RESULT_OK)
             finish()
         }.addOnFailureListener {
             Toast.makeText(this, "Erro ao salvar veículo", Toast.LENGTH_SHORT).show()

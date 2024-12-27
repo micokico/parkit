@@ -20,18 +20,15 @@ class SuccessfulBookingActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val btnViewBookingDetails = findViewById<Button>(R.id.btnViewBookingDetails)
 
-        // Configura a ação do botão "View Booking Details"
         btnViewBookingDetails.setOnClickListener {
-            // Simulação de abrir uma nova página com detalhes da reserva
             Toast.makeText(this, "Opening booking details...", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, BookingDetailsActivity::class.java) // Substitua pela sua activity de detalhes
+            val intent = Intent(this, BookingDetailsActivity::class.java)
             startActivity(intent)
         }
 
-        // Simula a conclusão de notificações com um atraso
         Handler().postDelayed({
             tvAdditionalMessage.text = "Security Guards Notified"
             progressBar.visibility = ProgressBar.INVISIBLE
-        }, 3000) // 3 segundos de atraso
+        }, 3000)
     }
 }

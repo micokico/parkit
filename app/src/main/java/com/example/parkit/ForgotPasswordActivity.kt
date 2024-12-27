@@ -14,19 +14,17 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         val etPhoneNumber = findViewById<EditText>(R.id.etPhoneNumber)
         val btnSendRecovery = findViewById<Button>(R.id.btnSendRecovery)
-        val btnBack = findViewById<Button>(R.id.btnBack)  // ou ImageButton, conforme necessário
+        val btnBack = findViewById<Button>(R.id.btnBack)
         btnBack.setOnClickListener {
-            onBackPressed()  // Este método volta para a tela anterior automaticamente
+            onBackPressed()
         }
 
-        // Lógica para enviar código de recuperação
         btnSendRecovery.setOnClickListener {
             val phoneNumber = etPhoneNumber.text.toString()
 
             if (phoneNumber.isEmpty()) {
                 Toast.makeText(this, "Por favor, insira o número de telefone.", Toast.LENGTH_SHORT).show()
             } else {
-                // Aqui seria implementado o envio do código de recuperação (API ou SMS)
                 Toast.makeText(this, "Código de recuperação enviado para $phoneNumber.", Toast.LENGTH_SHORT).show()
             }
         }
