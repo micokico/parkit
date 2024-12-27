@@ -27,7 +27,7 @@
         android:id="@+id/tvTotalFee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total a pagar: 1.200 Naira"
+        android:text="Total a pagar:"
         android:textSize="16sp"
         android:padding="8dp"
         android:textColor="#000000" />

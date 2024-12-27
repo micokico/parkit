@@ -161,11 +161,11 @@ class SpaceBookingActivity : AppCompatActivity() {
     private fun navigateToPayment(reservationId: String, totalCost: Double) {
         val intent = Intent(this, RealPaymentActivity::class.java)
         intent.putExtra("RESERVATION_ID", reservationId)
-        intent.putExtra("TOTAL_COST", totalCost)
+        intent.putExtra("TOTAL_COST", totalCost) // Envia o custo total
+        intent.putExtra("SELECTED_SPOT", selectedSpot) // Envia o lugar selecionado
         startActivity(intent)
         finish() // Finaliza esta atividade para evitar voltar
     }
-
 
     /**
      * Atualizar o estado do espaço de estacionamento no Firestore
