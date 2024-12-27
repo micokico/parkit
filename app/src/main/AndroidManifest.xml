@@ -53,6 +53,7 @@
         <activity android:name=".ActivePermitActivity" android:exported="true" />
         <activity android:name=".SpaceBookingActivity" android:exported="true" />
         <activity android:name=".ReservasActivity" android:exported="true" />
+        <activity android:name=".RealPaymentActivity" android:exported="true" />
     </application>
 
 </manifest>
