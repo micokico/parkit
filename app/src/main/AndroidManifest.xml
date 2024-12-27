@@ -51,6 +51,7 @@
         <activity android:name=".MyCarActivity" android:exported="true" />
         <activity android:name=".StatisticsActivity" android:exported="true" />
         <activity android:name=".ActivePermitActivity" android:exported="true" />
+        <activity android:name=".SpaceBookingActivity" android:exported="true" />
     </application>
 
 </manifest>
