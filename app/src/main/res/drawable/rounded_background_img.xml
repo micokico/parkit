@@ -1,14 +1,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-
-    <!-- Cor de fundo (ligeiramente mais escura) -->
-    <solid android:color="#E6E6E6" /> <!-- Substitua #FFFFFF por um tom mais escuro -->
-
-    <!-- Bordas arredondadas ou retas -->
-    <corners android:radius="4dp" /> <!-- Ajuste o arredondamento, se necessário -->
-
-    <!-- Borda opcional -->
+    <solid android:color="#E6E6E6" />
+    <corners android:radius="4dp" />
     <stroke
         android:width="1dp"
-        android:color="#E6E6E6" /> <!-- Mesma cor que o fundo -->
+        android:color="#E6E6E6" />
 </shape>

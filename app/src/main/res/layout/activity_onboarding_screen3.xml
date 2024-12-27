@@ -8,19 +8,17 @@
     android:background="@color/white"
     tools:context=".PaymentActivity">
 
-    <!-- Imagem principal -->
     <ImageView
         android:id="@+id/navigation_image"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_marginTop="90dp"
-    android:contentDescription="Pagamento Ilustração"
-    android:src="@drawable/pagamento"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
+        android:contentDescription="Pagamento Ilustração"
+        android:src="@drawable/pagamento"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Título -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -34,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Subtítulo -->
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
@@ -49,7 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botão "Começar" -->
     <Button
         android:id="@+id/Start"
         android:layout_width="200dp"

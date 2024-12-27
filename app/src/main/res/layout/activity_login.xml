@@ -8,7 +8,6 @@
     android:gravity="center"
     android:background="@android:color/white">
 
-    <!-- Título -->
     <TextView
         android:id="@+id/phoneTitle"
         android:layout_width="wrap_content"
@@ -19,12 +18,10 @@
         android:textStyle="bold"
         android:layout_gravity="center_horizontal" />
 
-    <!-- Espaçamento -->
     <Space
         android:layout_width="match_parent"
         android:layout_height="24dp" />
 
-    <!-- Campo para número -->
     <EditText
         android:id="@+id/NumeroEditText"
         android:layout_width="match_parent"
@@ -35,23 +32,21 @@
         android:layout_marginBottom="12dp"
         android:background="@android:drawable/edit_text" />
 
-    <!-- Campo para senha -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Senha"
+        android:hint="Password"
         android:inputType="textPassword"
         android:padding="12dp"
         android:layout_marginBottom="12dp"
         android:background="@android:drawable/edit_text" />
 
-    <!-- Esqueceu a senha -->
     <TextView
         android:id="@+id/forgotPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esqueceu a senha?"
+        android:text="Esqueceste a Password?"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="14sp"
         android:layout_gravity="end"
@@ -59,7 +54,6 @@
         android:clickable="true"
         android:focusable="true" />
 
-    <!-- Botão de login -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
@@ -70,7 +64,6 @@
         android:backgroundTint="@android:color/black"
         android:textColor="@android:color/white" />
 
-    <!-- Texto "ou" -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +72,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp" />
 
-    <!-- Botão de criar conta -->
     <TextView
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
