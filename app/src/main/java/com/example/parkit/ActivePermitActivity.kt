@@ -1,7 +1,9 @@
 package com.example.parkit
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Switch
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,16 +21,16 @@ class ActivePermitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permite_page)
 
-        // Initialize Views
+        // Inicializa as views
         val recyclerView: RecyclerView = findViewById(R.id.rvPermitList)
         switchShowExpired = findViewById(R.id.switchShowExpired)
 
-        // Setup RecyclerView
+        // Configura o RecyclerView
         permitAdapter = PermitAdapter(getPermitList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = permitAdapter
 
-        // Setup Switch Listener
+        // Configura o listener do Switch
         switchShowExpired.setOnCheckedChangeListener { _, isChecked ->
             val filteredList = if (isChecked) {
                 getPermitList(includeExpired = true)
@@ -36,6 +38,12 @@ class ActivePermitActivity : AppCompatActivity() {
                 getPermitList(includeExpired = false)
             }
             permitAdapter.updateList(filteredList)
+        }
+
+        // Configura o botão de voltar
+        val ivBackButton: ImageView = findViewById(R.id.ivBackButton)
+        ivBackButton.setOnClickListener {
+            onBackPressed()  // Volta para a Activity anterior
         }
     }
 
@@ -57,7 +65,7 @@ class ActivePermitActivity : AppCompatActivity() {
 // Data Model
 data class Permit(val matricula: String, val lugarOcupado: String, val dataLimite: String) {
     fun isExpired(): Boolean {
-        // Simulate expired check (actual implementation should compare dates properly)
+        // Simula a verificação de expiração (a implementação real deve comparar as datas corretamente)
         return dataLimite.contains("2021")
     }
 }
