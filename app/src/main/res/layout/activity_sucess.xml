@@ -22,5 +22,6 @@
         android:id="@+id/btnReturnHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
         android:text="Voltar à página principal" />
 </LinearLayout>
