@@ -33,6 +33,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
         val vehicleType = intent.getStringExtra("vehicle_type") ?: "Tipo Desconhecido"
         val vehiclePrice = intent.getStringExtra("vehicle_price") ?: "0.0"
 
+        // Exibe uma Toast com os dados recebidos
         Toast.makeText(this, "Parque: $parkingName, Veículo: $vehicleType", Toast.LENGTH_SHORT).show()
 
         // Inicializa os botões de andares
@@ -84,9 +85,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
         loadParkingSpotsFromFirestore(currentFloor)
     }
 
-    /**
-     * Configura os botões para seleção de andares
-     */
     private fun setupFloorButtons() {
         floor1Button.setOnClickListener { setSelectedFloor(1) }
         floor2Button.setOnClickListener { setSelectedFloor(2) }
@@ -94,9 +92,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
         floor4Button.setOnClickListener { setSelectedFloor(4) }
     }
 
-    /**
-     * Define o andar selecionado e atualiza os botões
-     */
     private fun setSelectedFloor(selectedFloor: Int) {
         currentFloor = selectedFloor
 
@@ -115,9 +110,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
         loadParkingSpotsFromFirestore(selectedFloor)
     }
 
-    /**
-     * Carrega as vagas do andar selecionado a partir do Firestore
-     */
     private fun loadParkingSpotsFromFirestore(floor: Int) {
         val floorKey = "floor_$floor"
         firestore.collection("parkingSpots").document(floorKey).get()
@@ -137,9 +129,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
             }
     }
 
-    /**
-     * Reseta todas as vagas para o estado "free"
-     */
     private fun resetParkingSpots() {
         spots.values.forEach { spot ->
             spot.setImageResource(R.drawable.ic_free_spot)
@@ -147,9 +136,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Atualiza o estado de uma vaga
-     */
     private fun updateParkingSpot(spotId: String, state: String) {
         val spot = spots[spotId]
         if (spot != null) {
@@ -174,9 +160,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Seleciona uma vaga
-     */
     private fun selectSpot(spotId: String) {
         selectedSpot?.let { deselectSpot(it) }
         selectedSpot = spotId
@@ -184,17 +167,11 @@ class ChooseSpaceActivity : AppCompatActivity() {
         updateParkingSpot(spotId, "selected")
     }
 
-    /**
-     * Deseleciona uma vaga
-     */
     private fun deselectSpot(spotId: String) {
         selectedSpot = null
         updateParkingSpot(spotId, "free")
     }
 
-    /**
-     * Navega para a tela de reserva
-     */
     private fun navigateToBooking(parkingName: String, parkingAddress: String, vehicleType: String, vehiclePrice: String) {
         val intent = Intent(this, SpaceBookingActivity::class.java)
         intent.putExtra("SELECTED_SPOT", selectedSpot)

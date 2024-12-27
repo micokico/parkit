@@ -136,7 +136,8 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ChooseSpaceActivity::class.java)
             intent.putExtra("parking_name", binding.parkingName.text.toString())
             intent.putExtra("parking_address", binding.parkingAddress.text.toString())
-            intent.putExtra("parking_price", binding.parkingPrice.text.toString())
+            intent.putExtra("vehicle_type", selectedVehicleType)  // Passando o tipo de veículo
+            intent.putExtra("vehicle_price", binding.parkingPrice.text.toString())
             startActivity(intent)
         }
     }
