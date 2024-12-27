@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
+import android.widget.*
 
 class SpaceBookingActivity : AppCompatActivity() {
 
@@ -43,6 +44,9 @@ class SpaceBookingActivity : AppCompatActivity() {
         val tvSelectedDate = findViewById<TextView>(R.id.tvSelectedDate)
         val tvSelectedTime = findViewById<TextView>(R.id.tvSelectedTime)
 
+        val spinnerVehicle = findViewById<Spinner>(R.id.spinnerVehicle)
+        loadVehiclesFromFirestore(spinnerVehicle)
+
         // Configura o SeekBar
         val seekBar = findViewById<SeekBar>(R.id.seekBarDuration)
         val tvDurationCost = findViewById<TextView>(R.id.tvDurationCost)
@@ -72,15 +76,19 @@ class SpaceBookingActivity : AppCompatActivity() {
         // Botão de reserva
         val bookButton = findViewById<Button>(R.id.btnBookSpace)
         bookButton.setOnClickListener {
+            val selectedVehicle = spinnerVehicle.selectedItem.toString()
             val duration = seekBar.progress.coerceAtLeast(1)
             val totalCost = duration * pricePerHour
 
             if (selectedDate == null || selectedTime == null) {
                 Toast.makeText(this, "Por favor, selecione a data e a hora.", Toast.LENGTH_SHORT).show()
+            } else if (selectedVehicle == "Selecione um veículo") {
+                Toast.makeText(this, "Por favor, selecione um veículo.", Toast.LENGTH_SHORT).show()
             } else {
                 saveReservationToFirestore(
                     selectedSpot!!,
                     parkingName,
+                    selectedVehicle,
                     vehicleType,
                     totalCost,
                     duration,
@@ -124,12 +132,36 @@ class SpaceBookingActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
+    private fun loadVehiclesFromFirestore(spinner: Spinner) {
+        firestore.collection("Vehicle")
+            .get()
+            .addOnSuccessListener { result ->
+                val vehicleList = mutableListOf("Selecione um veículo")
+                for (document in result) {
+                    val vehicleName = document.getString("name")
+                    val plate = document.getString("plate")
+
+                    if (vehicleName != null && plate != null) {
+                        vehicleList.add("$vehicleName - $plate")
+                    }
+                }
+
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vehicleList)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(this, "Erro ao carregar veículos: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     /**
      * Salvar a reserva no Firestore
      */
     private fun saveReservationToFirestore(
         spotId: String,
         parkingName: String?,
+        vehicle: String?,
         vehicleType: String?,
         totalCost: Double,
         duration: Int,
@@ -139,6 +171,7 @@ class SpaceBookingActivity : AppCompatActivity() {
         val reservationData = mapOf(
             "spotId" to spotId,
             "parkingName" to parkingName,
+            "vehicle" to vehicle,
             "vehicleType" to vehicleType,
             "totalCost" to totalCost,
             "duration" to duration,
