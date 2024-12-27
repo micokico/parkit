@@ -64,19 +64,36 @@
             android:id="@+id/tvDurationCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 horas - N1200"
+            android:text="Duração - Preço"
             android:textSize="16sp"
             android:textColor="#000000"
             android:layout_marginBottom="16dp" />
 
-        <!-- Check-in Time (Opcional) -->
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hora de Check-In:"
-            android:textSize="16sp"
-            android:textColor="#555555"
-            android:layout_marginBottom="8dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvSelectedTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nenhuma hora selecionada"
+                android:textSize="16sp"
+                android:textColor="#555555" />
+
+            <Button
+                android:id="@+id/btnPickTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escolher Hora"
+                android:textSize="16sp"
+                android:backgroundTint="#FF0000"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
 
         <!-- Especificações ou Detalhes -->
         <TextView
@@ -94,18 +111,25 @@
             android:layout_marginBottom="8dp">
 
             <TextView
+                android:id="@+id/tvSelectedDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Desativar Parque"
                 android:layout_weight="1"
+                android:text="Nenhuma data selecionada"
                 android:textSize="16sp"
                 android:textColor="#555555" />
 
-            <Switch
-                android:id="@+id/switchDisabledParking"
+            <Button
+                android:id="@+id/btnPickDate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Escolher Data"
+                android:textSize="16sp"
+                android:backgroundTint="#FF0000"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
+
+
 
         <!-- Botão de reservar espaço -->
         <Button
