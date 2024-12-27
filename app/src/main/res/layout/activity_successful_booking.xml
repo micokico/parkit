@@ -6,13 +6,11 @@
     android:background="#F5F5F5"
     android:padding="16dp">
 
-    <!-- Fundo semitransparente -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#CC000000" />
 
-    <!-- Janela central -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,17 +22,15 @@
         android:layout_margin="32dp"
         android:gravity="center">
 
-        <!-- Ícone de sucesso -->
         <ImageView
             android:id="@+id/ivSuccessIcon"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_check_circle"
-        app:tint="#4CAF50"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+            app:tint="#4CAF50"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Mensagem de sucesso -->
         <TextView
             android:id="@+id/tvSuccessMessage"
             android:layout_width="wrap_content"
@@ -46,7 +42,6 @@
             android:gravity="center"
             android:layout_marginBottom="8dp" />
 
-        <!-- Mensagem adicional -->
         <TextView
             android:id="@+id/tvAdditionalMessage"
             android:layout_width="wrap_content"
@@ -57,7 +52,6 @@
             android:gravity="center"
             android:layout_marginBottom="16dp" />
 
-        <!-- Indicador de carregamento -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="40dp"
@@ -68,7 +62,6 @@
 
     </LinearLayout>
 
-    <!-- Botão para visualizar os detalhes da reserva -->
     <Button
         android:id="@+id/btnViewBookingDetails"
         android:layout_width="match_parent"

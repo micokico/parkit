@@ -25,9 +25,7 @@
         android:layout_centerVertical="true"
         android:background="@null" />
     </RelativeLayout>
-    <!-- Título -->
 
-    <!-- Imagem do Perfil -->
     <TextView
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
@@ -52,7 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Nome Completo -->
     <TextView
         android:id="@+id/labelName"
         android:layout_width="350dp"
@@ -79,7 +76,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelName" />
 
-    <!-- Email -->
     <TextView
         android:id="@+id/labelEmail"
         android:layout_width="350dp"
@@ -107,7 +103,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelEmail" />
 
-    <!-- Telefone -->
     <TextView
         android:id="@+id/labelPhone"
         android:layout_width="350dp"
@@ -135,7 +130,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelPhone" />
 
-    <!-- Botão Salvar -->
     <Button
         android:id="@+id/saveButton"
         android:layout_width="200dp"

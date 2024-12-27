@@ -1,4 +1,3 @@
-<!-- Layout XML for individual permit items -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,7 +8,6 @@
     android:layout_marginBottom="4dp"
     android:elevation="2dp">
 
-    <!-- Matrícula -->
     <TextView
         android:id="@+id/tvMatricula"
         android:layout_width="0dp"
@@ -20,7 +18,6 @@
         android:textColor="#000"
         android:textSize="14sp"/>
 
-    <!-- Lugar Ocupado -->
     <TextView
         android:id="@+id/tvLugarOcupado"
         android:layout_width="0dp"
@@ -31,7 +28,6 @@
         android:textColor="#000"
         android:textSize="14sp"/>
 
-    <!-- Data Limite -->
     <TextView
         android:id="@+id/tvDataLimite"
         android:layout_width="0dp"

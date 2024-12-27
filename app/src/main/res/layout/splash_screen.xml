@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- App Title -->
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
@@ -17,7 +16,6 @@
         android:textSize="48sp"
         android:textStyle="bold" />
 
-    <!-- Background Cityscape Illustration -->
     <ImageView
         android:id="@+id/cityscape"
         android:layout_width="match_parent"

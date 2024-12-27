@@ -6,7 +6,6 @@
     android:gravity="center"
     android:padding="8dp">
 
-    <!-- Fundo do slot -->
     <TextView
         android:id="@+id/tvSlotNumber"
         android:layout_width="60dp"
