@@ -2,6 +2,7 @@ package com.example.parkit
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.SeekBar
@@ -148,14 +149,23 @@ class SpaceBookingActivity : AppCompatActivity() {
 
         firestore.collection("reservations")
             .add(reservationData)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Reserva concluída com sucesso!", Toast.LENGTH_SHORT).show()
-                updateParkingSpotInFirestore(spotId)
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(this, "Reserva salva com sucesso!", Toast.LENGTH_SHORT).show()
+                navigateToPayment(documentReference.id, totalCost)
             }
             .addOnFailureListener { error ->
                 Toast.makeText(this, "Erro ao salvar reserva: ${error.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun navigateToPayment(reservationId: String, totalCost: Double) {
+        val intent = Intent(this, RealPaymentActivity::class.java)
+        intent.putExtra("RESERVATION_ID", reservationId)
+        intent.putExtra("TOTAL_COST", totalCost)
+        startActivity(intent)
+        finish() // Finaliza esta atividade para evitar voltar
+    }
+
 
     /**
      * Atualizar o estado do espaço de estacionamento no Firestore
