@@ -78,13 +78,13 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, AdminDashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish() // Finaliza a LoginActivity
+        finish()
     }
 
     private fun goToHomeScreen() {
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish() // Finaliza a LoginActivity
+        finish()
     }
 }

@@ -27,11 +27,11 @@ class HistoryActivity : AppCompatActivity() {
         nameTextView = findViewById(R.id.nameTextView)
         addressTextView = findViewById(R.id.addressTextView)
         priceTextView = findViewById(R.id.priceTextView)
-        val backButton = findViewById<ImageView>(R.id.btn_back) // Botão de voltar
+        val backButton = findViewById<ImageView>(R.id.btn_back)
 
-        // Configurar o botão de voltar
+
         backButton.setOnClickListener {
-            finish() // Finaliza a atividade atual e volta à anterior
+            finish()
         }
 
         loadRecentHistory()
@@ -45,9 +45,8 @@ class HistoryActivity : AppCompatActivity() {
     private fun updateUI(parking: Parking) {
         nameTextView.text = parking.name
         addressTextView.text = parking.address
-        priceTextView.text = String.format("€%.2f", parking.price) // Preço formatado
+        priceTextView.text = String.format("€%.2f", parking.price)
 
-        // Exibe informações adicionais
         findViewById<TextView>(R.id.dateTextView).text = "Data: ${parking.date}"
         findViewById<TextView>(R.id.durationTextView).text = "Duração: ${parking.duration} horas"
         findViewById<TextView>(R.id.transportTextView).text = "Transporte: ${parking.transport.capitalize()}"
@@ -65,16 +64,15 @@ class HistoryActivity : AppCompatActivity() {
     private fun loadRecentHistory() {
         val db = FirebaseFirestore.getInstance()
 
-        // Acessa todos os documentos dentro da subcoleção "history" do documento "918235917"
         db.collection("users").document("918235917").collection("history").get()
             .addOnSuccessListener { documents ->
-                recentList.clear() // Limpa a lista antes de adicionar novos resultados
+                recentList.clear()
 
                 for (document in documents) {
                     val name = document.getString("name") ?: "Unknown"
                     val address = document.getString("address") ?: "Unknown"
-                    val priceString = document.getString("preco") ?: "0" // Preço como String
-                    val price = priceString.toDoubleOrNull() ?: 0.0 // Converte para Double
+                    val priceString = document.getString("preco") ?: "0"
+                    val price = priceString.toDoubleOrNull() ?: 0.0
                     val date = document.getString("data") ?: "Unknown"
                     val durationString = document.getString("duracao") ?: "0"
                     val duration = durationString.toDoubleOrNull() ?: 0.0
@@ -85,7 +83,7 @@ class HistoryActivity : AppCompatActivity() {
                 }
 
                 if (recentList.isNotEmpty()) {
-                    updateUI(recentList[0]) // Atualiza a interface com o primeiro item
+                    updateUI(recentList[0])
                 } else {
                     Toast.makeText(this, "Nenhum histórico encontrado", Toast.LENGTH_SHORT).show()
                 }
@@ -98,9 +96,8 @@ class HistoryActivity : AppCompatActivity() {
 
     fun saveToHistory(name: String, address: String, duration: Double, transport: String) {
         val db = FirebaseFirestore.getInstance()
-        val userPhone = "918235917" // Número de telefone do usuário
+        val userPhone = "918235917"
 
-        // Preços por tipo de transporte
         val transportPrices = mapOf(
             "bike" to 1.0,
             "car" to 2.0,
@@ -108,7 +105,6 @@ class HistoryActivity : AppCompatActivity() {
             "van" to 3.0
         )
 
-        // Calcula o preço com base no tempo e tipo de transporte
         val pricePerHour = transportPrices[transport] ?: 0.0
         val price = pricePerHour * duration
 

@@ -24,13 +24,13 @@ class MyCarActivity : AppCompatActivity() {
     private lateinit var vehiclesListLayout: LinearLayout
     private val firestore = FirebaseFirestore.getInstance()
 
-    // Lista de veículos selecionados para remoção
+
     private val selectedVehicles = mutableSetOf<String>()
 
     private val addVehicleLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                // Recarrega a lista de veículos após adicionar
+
                 loadVehicles()
             }
         }
@@ -39,29 +39,29 @@ class MyCarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mycar)
 
-        // Inicializar componentes da UI
+
         backButton = findViewById(R.id.btn_back)
         addVehicleButton = findViewById(R.id.addVehicleButton)
         removeVehicleButton = findViewById(R.id.removeVehicleButton)
         vehiclesListLayout = findViewById(R.id.vehiclesListLayout)
 
-        // Configurar botão "Voltar"
+
         backButton.setOnClickListener {
             val intent = Intent(this, ProfileBeginActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // Carregar veículos do Firestore
+
         loadVehicles()
 
-        // Botão de adicionar veículo
+
         addVehicleButton.setOnClickListener {
             val intent = Intent(this, MyCarAdicionarCarroActivity::class.java)
             addVehicleLauncher.launch(intent)
         }
 
-        // Botão "Remover Veículos"
+
         removeVehicleButton.setOnClickListener {
             removeSelectedVehicles()
         }
@@ -71,7 +71,7 @@ class MyCarActivity : AppCompatActivity() {
         firestore.collection("Vehicle")
             .get()
             .addOnSuccessListener { result ->
-                vehiclesListLayout.removeAllViews() // Limpar layout antes de adicionar novos veículos
+                vehiclesListLayout.removeAllViews()
                 if (result.isEmpty) {
                     Log.e("Firestore", "No vehicles found.")
                     Toast.makeText(this@MyCarActivity, "Nenhum veículo encontrado.", Toast.LENGTH_SHORT).show()
@@ -117,17 +117,17 @@ class MyCarActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(80, 80)
             scaleType = ImageView.ScaleType.FIT_CENTER
 
-            // Define a imagem com base no tipo de veículo
+
             when (vehicle.type.lowercase()) {
                 "carro" -> setImageResource(R.drawable.carro)
                 "moto" -> setImageResource(R.drawable.mota)
                 "van" -> setImageResource(R.drawable.van)
                 "scooter" -> setImageResource(R.drawable.scotter)
-                else -> setImageResource(R.drawable.carro) // Imagem padrão para tipos desconhecidos
+                else -> setImageResource(R.drawable.carro)
             }
         }
 
-        // CheckBox para selecionar veículo
+
         val selectCheckBox = CheckBox(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -135,14 +135,14 @@ class MyCarActivity : AppCompatActivity() {
             )
             setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    selectedVehicles.add(documentId) // Adiciona à lista de veículos selecionados
+                    selectedVehicles.add(documentId)
                 } else {
-                    selectedVehicles.remove(documentId) // Remove da lista de veículos selecionados
+                    selectedVehicles.remove(documentId)
                 }
             }
         }
 
-        // Adiciona os elementos ao layout principal
+
         vehicleDetailsLayout.addView(vehicleName)
         vehicleDetailsLayout.addView(vehicleDetail)
 
@@ -159,7 +159,7 @@ class MyCarActivity : AppCompatActivity() {
             return
         }
 
-        // Remover os veículos selecionados
+
         selectedVehicles.forEach { documentId ->
             firestore.collection("Vehicle").document(documentId)
                 .delete()
@@ -172,10 +172,10 @@ class MyCarActivity : AppCompatActivity() {
                 }
         }
 
-        // Limpar a lista de veículos selecionados
+
         selectedVehicles.clear()
 
-        // Recarregar os veículos após remoção
+
         loadVehicles()
     }
 }

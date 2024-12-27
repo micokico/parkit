@@ -21,16 +21,13 @@ class ActivePermitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permite_page)
 
-        // Inicializa as views
         val recyclerView: RecyclerView = findViewById(R.id.rvPermitList)
         switchShowExpired = findViewById(R.id.switchShowExpired)
 
-        // Configura o RecyclerView
         permitAdapter = PermitAdapter(getPermitList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = permitAdapter
 
-        // Configura o listener do Switch
         switchShowExpired.setOnCheckedChangeListener { _, isChecked ->
             val filteredList = if (isChecked) {
                 getPermitList(includeExpired = true)
@@ -61,15 +58,12 @@ class ActivePermitActivity : AppCompatActivity() {
     }
 }
 
-// Data Model
 data class Permit(val matricula: String, val lugarOcupado: String, val dataLimite: String) {
     fun isExpired(): Boolean {
-        // Simula a verificação de expiração (a implementação real deve comparar as datas corretamente)
         return dataLimite.contains("2021")
     }
 }
 
-// RecyclerView Adapter
 class PermitAdapter(private var permitList: List<Permit>) : RecyclerView.Adapter<PermitViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PermitViewHolder {

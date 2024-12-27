@@ -21,13 +21,11 @@ class ExploreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explore)
 
-        // Inicializando as views
         searchEditText = findViewById(R.id.search_edit_text)
         nameTextView = findViewById(R.id.nameTextView)
         addressTextView = findViewById(R.id.addressTextView)
         backButton = findViewById(R.id.btn_back)
 
-        // Configurando botão de voltar para ir à HomeActivity
         backButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -35,7 +33,6 @@ class ExploreActivity : AppCompatActivity() {
             finish()
         }
 
-        // Carregar dados do Firestore (apenas name e address)
         loadParkingData()
     }
 
@@ -44,17 +41,14 @@ class ExploreActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    // Obter apenas o name e o address
                     val name = document.getString("name") ?: "Desconhecido"
                     val address = document.getString("address") ?: "Sem endereço"
 
-                    // Atualizar a interface
                     nameTextView.text = name
                     addressTextView.text = address
                 }
             }
             .addOnFailureListener { exception ->
-                // Tratar falha no carregamento de dados
                 nameTextView.text = "Erro ao carregar nome"
                 addressTextView.text = "Erro ao carregar endereço"
             }

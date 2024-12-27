@@ -11,7 +11,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
 
-        // Delay de 3 segundos para avançar para a próxima Activity
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, OnBoardingActivity::class.java)
             startActivity(intent)

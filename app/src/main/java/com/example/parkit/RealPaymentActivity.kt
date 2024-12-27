@@ -39,12 +39,12 @@ class RealPaymentActivity : AppCompatActivity() {
     }
 
     private fun savePaymentDetailsToFirebase(cardNumber: String, expiry: String, cvv: String) {
-        val paymentId = paymentsRef.push().key // Gera um ID único
+        val paymentId = paymentsRef.push().key
         val paymentData = mapOf(
             "userId" to userId,
-            "cardNumber" to cardNumber.takeLast(4), // Só armazene os últimos 4 dígitos
+            "cardNumber" to cardNumber.takeLast(4),
             "expiry" to expiry,
-            "cvv" to "###", // Nunca salve o CVV
+            "cvv" to "###",
             "status" to "Pendente"
         )
 

@@ -24,10 +24,8 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        // Obter o número de telefone da tela anterior
         val phoneNumber = intent.getStringExtra("phoneNumber") ?: ""
 
-        // Adicione um log para confirmar se o número de telefone foi recebido
         Log.d("RegisterActivity", "Número de telefone recebido: $phoneNumber")
 
         binding.createAccountButton.setOnClickListener {
@@ -52,7 +50,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun saveCredentials(phoneNumber: String, password: String) {
-        // Salva o número e senha no Firestore
         val userData = hashMapOf(
             "phoneNumber" to phoneNumber,
             "password" to password
@@ -63,7 +60,7 @@ class RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Log.d("RegisterActivity", "Conta criada com sucesso no Firestore")
                 Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
-                goToLoginScreen() // Redirecionar para a página de login
+                goToLoginScreen()
             }
             .addOnFailureListener { e ->
                 Log.e("RegisterActivity", "Erro ao criar conta: ${e.message}")
