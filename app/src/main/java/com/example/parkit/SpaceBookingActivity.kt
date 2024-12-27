@@ -37,10 +37,11 @@ class SpaceBookingActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvSelectedSpace).text = "Espaço: $selectedSpot"
         findViewById<TextView>(R.id.tvParkingName).text = "Nome do Estacionamento: $parkingName"
         findViewById<TextView>(R.id.tvParkingPrice).text = "Preço por hora: $pricePerHour €"
-        findViewById<TextView>(R.id.tvVehicleType).text = "Veículo: $vehicleType"
+        val tvVehicleType = findViewById<TextView>(R.id.tvVehicleType)
+        tvVehicleType.text = "Veículo: $vehicleType"
 
         val spinnerVehicle = findViewById<Spinner>(R.id.spinnerVehicle)
-        loadVehiclesFromFirestore(spinnerVehicle)
+        loadVehiclesFromFirestore(spinnerVehicle, tvVehicleType)
         loadVehiclePricesFromFirestore()
 
         // Listener do Spinner
@@ -49,6 +50,7 @@ class SpaceBookingActivity : AppCompatActivity() {
                 val selectedVehicle = parent.getItemAtPosition(position).toString()
                 if (selectedVehicle != "Selecione um veículo") {
                     updatePriceBasedOnVehicle(selectedVehicle)
+                    tvVehicleType.text = "Veículo: $selectedVehicle"
                 }
             }
 
@@ -128,7 +130,7 @@ class SpaceBookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadVehiclesFromFirestore(spinner: Spinner) {
+    private fun loadVehiclesFromFirestore(spinner: Spinner, tvVehicleType: TextView) {
         firestore.collection("Vehicle")
             .get() // Carrega todos os documentos da coleção "Vehicle"
             .addOnSuccessListener { result ->
