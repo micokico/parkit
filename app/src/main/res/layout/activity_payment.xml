@@ -53,23 +53,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <!-- Cartão 1 -->
+            <LinearLayout
+                android:id="@+id/card1"
+                android:orientation="vertical"
                 android:layout_width="170dp"
                 android:layout_height="150dp"
-                android:src="@drawable/card_image_1"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
 
-            <ImageView
-                android:layout_width="170dp"
-                android:layout_height="150dp"
-                android:src="@drawable/card_image_2"
-                android:layout_marginEnd="8dp" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/card_image_1" />
+            </LinearLayout>
 
-            <ImageView
+            <!-- Cartão 2 -->
+            <LinearLayout
+                android:id="@+id/card2"
+                android:orientation="vertical"
                 android:layout_width="170dp"
                 android:layout_height="150dp"
-                android:src="@drawable/card_image_3"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/card_image_2" />
+            </LinearLayout>
+
+            <!-- Cartão 3 -->
+            <LinearLayout
+                android:id="@+id/card3"
+                android:orientation="vertical"
+                android:layout_width="170dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/card_image_3" />
+            </LinearLayout>
+
         </LinearLayout>
     </HorizontalScrollView>
 
