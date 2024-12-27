@@ -15,4 +15,9 @@
         <item>Van</item>
         <item>Scooter</item>
     </string-array>
+
+    <string-array name="default_vehicle_list">
+        <item>Selecione um veículo</item>
+    </string-array>
+
 </resources>

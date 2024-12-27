@@ -16,7 +16,7 @@ class ProfileBeginActivity : AppCompatActivity() {
         val profileButton = findViewById<TextView>(R.id.profileTextView)
         val myCarsButton = findViewById<TextView>(R.id.myCarsTextView)
         val historyButton = findViewById<TextView>(R.id.historyTextView)
-
+        val reservationsButton = findViewById<TextView>(R.id.newTextView)
 
         val backButton = findViewById<ImageButton>(R.id.backButton)
         backButton.setOnClickListener {
@@ -58,6 +58,9 @@ class ProfileBeginActivity : AppCompatActivity() {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
-
+        reservationsButton.setOnClickListener {
+            val intent = Intent(this, ReservasActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
