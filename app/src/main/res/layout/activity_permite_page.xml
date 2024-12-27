@@ -63,5 +63,13 @@
             android:gravity="center"/>
     </LinearLayout>
 
+    <!-- RecyclerView for Data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPermitList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerRow"
+        android:layout_marginTop="95dp"
+        android:padding="8dp" />
 
 </RelativeLayout>

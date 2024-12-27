@@ -19,7 +19,8 @@ class AdminDashboardActivity : AppCompatActivity() {
 
         // Configurar ações para os botões
         buttonUsage.setOnClickListener {
-            Toast.makeText(this, "Funcionalidade em desenvolvimento!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ActivePermitActivity::class.java)
+            startActivity(intent)
         }
 
         buttonStatistics.setOnClickListener {
