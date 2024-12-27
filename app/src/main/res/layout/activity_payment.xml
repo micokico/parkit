@@ -17,7 +17,7 @@
         android:id="@+id/tvParkingDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lekki Gardens Car Park A Espaço 4c"
+        android:text="Lugar Selecionado"
         android:textSize="16sp"
         android:padding="8dp"
         android:layout_marginTop="16dp"
@@ -159,9 +159,9 @@
         android:id="@+id/btnPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Realizar Pagamento"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="90dp"
         android:backgroundTint="#000000"
-        android:layout_marginTop="16dp"
-        android:padding="12dp" />
+        android:padding="12dp"
+        android:text="Realizar Pagamento"
+        android:textColor="#FFFFFF" />
 </LinearLayout>
