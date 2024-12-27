@@ -27,14 +27,13 @@ class ChooseSpaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_space)
 
-        // Recupera os dados enviados pela HomeActivity
         val parkingName = intent.getStringExtra("parking_name") ?: "Estacionamento Desconhecido"
         val parkingAddress = intent.getStringExtra("parking_address") ?: "Endereço Desconhecido"
         val vehicleType = intent.getStringExtra("vehicle_type") ?: "Tipo Desconhecido"
-        val vehiclePrice = intent.getStringExtra("vehicle_price") ?: "0.0"
+        val vehiclePrice = intent.getDoubleExtra("vehicle_price", 0.0) // Recebe como Double
 
-        // Exibe uma Toast com os dados recebidos
         Toast.makeText(this, "Parque: $parkingName, Veículo: $vehicleType", Toast.LENGTH_SHORT).show()
+
 
         // Inicializa os botões de andares
         floor1Button = findViewById(R.id.floor1Button)
@@ -172,13 +171,13 @@ class ChooseSpaceActivity : AppCompatActivity() {
         updateParkingSpot(spotId, "free")
     }
 
-    private fun navigateToBooking(parkingName: String, parkingAddress: String, vehicleType: String, vehiclePrice: String) {
+    private fun navigateToBooking(parkingName: String, parkingAddress: String, vehicleType: String, vehiclePrice: Double) {
         val intent = Intent(this, SpaceBookingActivity::class.java)
         intent.putExtra("SELECTED_SPOT", selectedSpot)
         intent.putExtra("PARKING_NAME", parkingName)
         intent.putExtra("PARKING_ADDRESS", parkingAddress)
         intent.putExtra("VEHICLE_TYPE", vehicleType)
-        intent.putExtra("PARKING_PRICE", vehiclePrice)
+        intent.putExtra("PARKING_PRICE", vehiclePrice) // Envia o preço correto
         intent.putExtra("CURRENT_FLOOR", currentFloor)
         startActivity(intent)
     }

@@ -133,14 +133,23 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupParkingCardClickListener() {
         binding.parkingCard.setOnClickListener {
+            val adjustedPrice = when (selectedVehicleType) {
+                "Carro" -> priceCar
+                "Moto" -> priceBike
+                "Van" -> priceVan
+                "Scooter" -> priceScooter
+                else -> 0.0
+            }
+
             val intent = Intent(this, ChooseSpaceActivity::class.java)
             intent.putExtra("parking_name", binding.parkingName.text.toString())
             intent.putExtra("parking_address", binding.parkingAddress.text.toString())
-            intent.putExtra("vehicle_type", selectedVehicleType)  // Passando o tipo de veículo
-            intent.putExtra("vehicle_price", binding.parkingPrice.text.toString())
+            intent.putExtra("vehicle_type", selectedVehicleType)
+            intent.putExtra("vehicle_price", adjustedPrice) // Envia o preço correto
             startActivity(intent)
         }
     }
+
 
     private fun updateParkingPrice() {
         val adjustedPrice = when (selectedVehicleType) {

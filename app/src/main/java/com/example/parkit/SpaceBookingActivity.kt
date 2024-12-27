@@ -19,35 +19,35 @@ class SpaceBookingActivity : AppCompatActivity() {
     private var pricePerHour: Double = 0.0 // Preço por hora
     private var selectedDate: String? = null // Data selecionada
     private var selectedTime: String? = null // Hora selecionada
+    private var vehicleType: String? = null // Tipo do veículo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_space_booking)
 
-        // Recebendo os dados passados pela ChooseSpaceActivity
+        // Recebendo os dados da Intent
         selectedSpot = intent.getStringExtra("SELECTED_SPOT")
         val parkingName = intent.getStringExtra("PARKING_NAME")
-        val vehicleType = intent.getStringExtra("VEHICLE_TYPE")
-        val parkingPrice = intent.getStringExtra("PARKING_PRICE")?.toDoubleOrNull() ?: 0.0
+        vehicleType = intent.getStringExtra("VEHICLE_TYPE")
+        val parkingPrice = intent.getDoubleExtra("PARKING_PRICE", 0.0) // Recebe como Double
         pricePerHour = parkingPrice // Define o preço por hora
         currentFloor = intent.getIntExtra("CURRENT_FLOOR", 1)
 
-        // Atualizando os TextViews com os dados recebidos
+        // Configura os TextViews
         findViewById<TextView>(R.id.tvSelectedSpace).text = "Espaço: $selectedSpot"
         findViewById<TextView>(R.id.tvParkingName).text = "Nome do Estacionamento: $parkingName"
         findViewById<TextView>(R.id.tvParkingPrice).text = "Preço por hora: $pricePerHour €"
+        findViewById<TextView>(R.id.tvVehicleType).text = "Veículo: $vehicleType"
 
-        val tvSelectedDate = findViewById<TextView>(R.id.tvSelectedDate) // Para exibir a data
-        val tvSelectedTime = findViewById<TextView>(R.id.tvSelectedTime) // Para exibir o horário
+        val tvSelectedDate = findViewById<TextView>(R.id.tvSelectedDate)
+        val tvSelectedTime = findViewById<TextView>(R.id.tvSelectedTime)
 
-        // Configurando o SeekBar para estimar o tempo e calcular o custo
+        // Configura o SeekBar
         val seekBar = findViewById<SeekBar>(R.id.seekBarDuration)
         val tvDurationCost = findViewById<TextView>(R.id.tvDurationCost)
-
-        // Listener para o SeekBar
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                val hours = if (progress == 0) 1 else progress // Pelo menos 1 hora
+                val hours = if (progress == 0) 1 else progress
                 val totalCost = hours * pricePerHour
                 tvDurationCost.text = "$hours horas - $totalCost €"
             }
@@ -56,40 +56,36 @@ class SpaceBookingActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        // Configurando o botão para abrir o calendário
+        // Botão para selecionar data
         val btnPickDate = findViewById<Button>(R.id.btnPickDate)
         btnPickDate.setOnClickListener {
             showDatePicker(tvSelectedDate)
         }
 
-        // Configurando o botão para abrir o seletor de horário
+        // Botão para selecionar hora
         val btnPickTime = findViewById<Button>(R.id.btnPickTime)
         btnPickTime.setOnClickListener {
             showTimePicker(tvSelectedTime)
         }
 
-        // Configurando o botão de reserva
+        // Botão de reserva
         val bookButton = findViewById<Button>(R.id.btnBookSpace)
         bookButton.setOnClickListener {
-            if (selectedSpot != null) {
-                val duration = seekBar.progress.coerceAtLeast(1) // Certifica-se de que o mínimo é 1 hora
-                val totalCost = duration * pricePerHour
+            val duration = seekBar.progress.coerceAtLeast(1)
+            val totalCost = duration * pricePerHour
 
-                if (selectedDate == null || selectedTime == null) {
-                    Toast.makeText(this, "Por favor, selecione a data e a hora.", Toast.LENGTH_SHORT).show()
-                } else {
-                    saveReservationToFirestore(
-                        selectedSpot!!,
-                        parkingName,
-                        vehicleType,
-                        totalCost,
-                        duration,
-                        selectedDate!!,
-                        selectedTime!!
-                    )
-                }
+            if (selectedDate == null || selectedTime == null) {
+                Toast.makeText(this, "Por favor, selecione a data e a hora.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Erro ao recuperar espaço selecionado!", Toast.LENGTH_SHORT).show()
+                saveReservationToFirestore(
+                    selectedSpot!!,
+                    parkingName,
+                    vehicleType,
+                    totalCost,
+                    duration,
+                    selectedDate!!,
+                    selectedTime!!
+                )
             }
         }
     }
@@ -104,7 +100,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            // Formata a data selecionada
             selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             tvSelectedDate.text = "Data Selecionada: $selectedDate"
         }, year, month, day)
@@ -121,7 +116,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         val minute = calendar.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
-            // Formata a hora selecionada
             selectedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
             tvSelectedTime.text = "Hora Selecionada: $selectedTime"
         }, hour, minute, true)
@@ -147,8 +141,8 @@ class SpaceBookingActivity : AppCompatActivity() {
             "vehicleType" to vehicleType,
             "totalCost" to totalCost,
             "duration" to duration,
-            "date" to date, // Adiciona a data selecionada
-            "time" to time, // Adiciona o horário selecionado
+            "date" to date,
+            "time" to time,
             "timestamp" to System.currentTimeMillis()
         )
 
@@ -169,10 +163,10 @@ class SpaceBookingActivity : AppCompatActivity() {
     private fun updateParkingSpotInFirestore(spotId: String) {
         val floorKey = "floor_$currentFloor"
         firestore.collection("parkingSpots").document(floorKey)
-            .update(spotId, "car") // Define o estado do espaço como "ocupado"
+            .update(spotId, "car")
             .addOnSuccessListener {
                 Toast.makeText(this, "Espaço atualizado como reservado.", Toast.LENGTH_SHORT).show()
-                finish() // Finaliza a atividade após a atualização
+                finish()
             }
             .addOnFailureListener { error ->
                 Toast.makeText(this, "Erro ao atualizar o espaço: ${error.message}", Toast.LENGTH_SHORT).show()
