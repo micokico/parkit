@@ -142,14 +142,13 @@ class HomeActivity : AppCompatActivity() {
             }
 
             val intent = Intent(this, ChooseSpaceActivity::class.java)
-            intent.putExtra("parking_name", binding.parkingName.text.toString())
-            intent.putExtra("parking_address", binding.parkingAddress.text.toString())
-            intent.putExtra("vehicle_type", selectedVehicleType)
-            intent.putExtra("vehicle_price", adjustedPrice) // Envia o preço correto
+            intent.putExtra("PARKING_NAME", binding.parkingName.text.toString())
+            intent.putExtra("PARKING_ADDRESS", binding.parkingAddress.text.toString())
+            intent.putExtra("VEHICLE_TYPE", selectedVehicleType)
+            intent.putExtra("VEHICLE_PRICE", adjustedPrice)
             startActivity(intent)
         }
     }
-
 
     private fun updateParkingPrice() {
         val adjustedPrice = when (selectedVehicleType) {
