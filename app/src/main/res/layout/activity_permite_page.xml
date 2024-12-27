@@ -1,0 +1,68 @@
+<!-- Layout XML for Active Permit Page -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/ivBackButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/tvHeader"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_return"
+        android:contentDescription="Back button"/>
+
+    <!-- Show Expired Toggle -->
+    <Switch
+        android:id="@+id/switchShowExpired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivBackButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Show Expired"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <!-- Data Table Header -->
+    <LinearLayout
+        android:id="@+id/headerRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/switchShowExpired"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:background="#E0E0E0">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Matrícula"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lugar Ocupado"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Data Limite"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
