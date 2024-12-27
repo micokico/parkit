@@ -10,35 +10,28 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ChooseSpaceActivity : AppCompatActivity() {
 
-    // Floor buttons
     private lateinit var floor1Button: ImageButton
     private lateinit var floor2Button: ImageButton
     private lateinit var floor3Button: ImageButton
     private lateinit var floor4Button: ImageButton
 
-    // Parking spots
     private lateinit var spots: Map<String, ImageView>
 
-    // Firebase Firestore reference
     private val firestore = FirebaseFirestore.getInstance()
 
-    // Currently selected floor
     private var currentFloor: Int = 1
 
-    // Selected parking spot
     private var selectedSpot: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_space)
 
-        // Initialize floor buttons
         floor1Button = findViewById(R.id.floor1Button)
         floor2Button = findViewById(R.id.floor2Button)
         floor3Button = findViewById(R.id.floor3Button)
         floor4Button = findViewById(R.id.floor4Button)
 
-        // Initialize all parking spots
         spots = mapOf(
             "A1" to findViewById(R.id.spotA1),
             "A2" to findViewById(R.id.spotA2),
@@ -62,22 +55,18 @@ class ChooseSpaceActivity : AppCompatActivity() {
             "D5" to findViewById(R.id.spotD5)
         )
 
-        // Setup floor buttons with listeners
         setupFloorButtons()
 
-        // Setup booking button
         val bookPlaceButton = findViewById<Button>(R.id.bookPlaceButton)
         bookPlaceButton.setOnClickListener {
             bookSelectedSpot()
         }
 
-        // Setup back button
         val backButton = findViewById<ImageView>(R.id.backButton)
         backButton.setOnClickListener {
-            finish() // Close the current activity and return to the previous one
+            finish()
         }
 
-        // Load initial data for Floor 1 from Firestore
         loadParkingSpotsFromFirestore(currentFloor)
     }
 
@@ -97,13 +86,11 @@ class ChooseSpaceActivity : AppCompatActivity() {
     private fun setSelectedFloor(selectedFloor: Int) {
         currentFloor = selectedFloor
 
-        // Reset all buttons to unselected
         floor1Button.setImageResource(R.drawable.floor1_unselected)
         floor2Button.setImageResource(R.drawable.floor2_unselected)
         floor3Button.setImageResource(R.drawable.floor3_unselected)
         floor4Button.setImageResource(R.drawable.floor4_unselected)
 
-        // Highlight the selected floor button
         when (selectedFloor) {
             1 -> floor1Button.setImageResource(R.drawable.floor1_selected)
             2 -> floor2Button.setImageResource(R.drawable.floor2_selected)
@@ -111,7 +98,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
             4 -> floor4Button.setImageResource(R.drawable.floor4_selected)
         }
 
-        // Load parking spots for the selected floor from Firestore
         loadParkingSpotsFromFirestore(selectedFloor)
     }
 
@@ -119,11 +105,11 @@ class ChooseSpaceActivity : AppCompatActivity() {
      * Load parking spots from Firestore based on the selected floor
      */
     private fun loadParkingSpotsFromFirestore(floor: Int) {
-        val floorKey = "floor_$floor" // Example: "floor_1"
+        val floorKey = "floor_$floor"
         firestore.collection("parkingSpots").document(floorKey).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    resetParkingSpots() // Clear all spots before updating
+                    resetParkingSpots()
                     document.data?.forEach { (spotId, state) ->
                         val spotState = state as? String ?: "free"
                         updateParkingSpot(spotId, spotState)
@@ -143,7 +129,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     private fun resetParkingSpots() {
         spots.values.forEach { spot ->
             spot.setImageResource(R.drawable.ic_free_spot)
-            spot.setOnClickListener(null) // Remove click listeners
+            spot.setOnClickListener(null)
         }
     }
 
@@ -164,7 +150,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
                 }
                 "car" -> {
                     spot.setImageResource(R.drawable.ic_car)
-                    spot.setOnClickListener(null) // Occupied spots are not clickable
+                    spot.setOnClickListener(null)
                 }
                 "selected" -> {
                     spot.setImageResource(R.drawable.ic_selected_spot)
@@ -180,7 +166,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
      * Select a parking spot
      */
     private fun selectSpot(spotId: String) {
-        // Deselect previously selected spot
+
         selectedSpot?.let { deselectSpot(it) }
 
         selectedSpot = spotId
@@ -205,10 +191,10 @@ class ChooseSpaceActivity : AppCompatActivity() {
         if (spotId != null) {
             val floorKey = "floor_$currentFloor"
             firestore.collection("parkingSpots").document(floorKey)
-                .update(spotId, "car") // Update the spot state to "car"
+                .update(spotId, "car")
                 .addOnSuccessListener {
                     Toast.makeText(this, "Lugar reservado: $spotId", Toast.LENGTH_SHORT).show()
-                    loadParkingSpotsFromFirestore(currentFloor) // Refresh the floor
+                    loadParkingSpotsFromFirestore(currentFloor)
                 }
                 .addOnFailureListener { error ->
                     Toast.makeText(this, "Erro ao reservar lugar: ${error.message}", Toast.LENGTH_SHORT).show()

@@ -12,19 +12,16 @@ class AdminDashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.admin_view)
 
-        // Encontrar os botões pelo ID
         val buttonUsage = findViewById<Button>(R.id.buttonUsage)
         val buttonStatistics = findViewById<Button>(R.id.buttonStatistics)
         val buttonImages = findViewById<Button>(R.id.buttonImages)
 
-        // Configurar ações para os botões
         buttonUsage.setOnClickListener {
             val intent = Intent(this, ActivePermitActivity::class.java)
             startActivity(intent)
         }
 
         buttonStatistics.setOnClickListener {
-            // Redirecionar para a página de estatísticas
             val intent = Intent(this, StatisticsActivity::class.java)
             startActivity(intent)
         }

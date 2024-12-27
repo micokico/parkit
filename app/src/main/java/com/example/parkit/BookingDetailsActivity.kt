@@ -16,13 +16,11 @@ class BookingDetailsActivity : AppCompatActivity() {
         val tvGetDirections = findViewById<TextView>(R.id.tvGetDirections)
         val btnBackToHome = findViewById<Button>(R.id.btnBackToHome)
 
-        // Ação para obter direções
         tvGetDirections.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=ParkIT A"))
             startActivity(intent)
         }
 
-        // Ação para voltar à página principal
         btnBackToHome.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
