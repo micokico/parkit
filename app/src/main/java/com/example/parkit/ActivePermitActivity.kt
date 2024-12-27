@@ -40,10 +40,9 @@ class ActivePermitActivity : AppCompatActivity() {
             permitAdapter.updateList(filteredList)
         }
 
-        // Configura o botão de voltar
         val ivBackButton: ImageView = findViewById(R.id.ivBackButton)
         ivBackButton.setOnClickListener {
-            onBackPressed()  // Volta para a Activity anterior
+            onBackPressed()
         }
     }
 
