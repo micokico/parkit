@@ -4,12 +4,10 @@
     android:background="#FFFFFF"
     android:padding="16dp">
 
-    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-        <!-- Título -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -21,7 +19,6 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- Tipo de Veículo -->
     <TextView
         android:id="@+id/tvTipoVeiculo"
         android:layout_width="wrap_content"
@@ -42,7 +39,6 @@
         android:background="@android:drawable/edit_text"
         android:padding="10dp" />
 
-    <!-- Nome do Veículo -->
     <TextView
         android:id="@+id/tvNomeVeiculo"
         android:layout_width="wrap_content"
@@ -63,7 +59,6 @@
         android:background="@android:drawable/edit_text"
         android:padding="10dp" />
 
-    <!-- Matrícula -->
     <TextView
         android:id="@+id/tvMatricula"
         android:layout_width="wrap_content"
@@ -84,7 +79,6 @@
         android:background="@android:drawable/edit_text"
         android:padding="10dp" />
 
-    <!-- Escolher Imagem -->
     <TextView
         android:id="@+id/tvImagemVeiculo"
         android:layout_width="wrap_content"
@@ -105,7 +99,6 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="#000000" />
 
-    <!-- Botões Salvar e Cancelar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

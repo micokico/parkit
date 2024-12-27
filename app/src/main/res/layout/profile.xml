@@ -8,13 +8,11 @@
     android:padding="0dp"
     tools:context=".ProfileActivity">
 
-    <!-- Top Bar com os botões de voltar e sair -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-    <!-- Botão de voltar -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="24dp"
@@ -26,7 +24,6 @@
         android:layout_centerVertical="true"
         android:background="@null" />
 
-    <!-- Botão de sair -->
     <ImageButton
         android:id="@+id/logoutButton"
         android:layout_width="24dp"
@@ -39,7 +36,6 @@
         android:background="@null" />
     </RelativeLayout>
 
-    <!-- Imagem circular do perfil -->
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="100dp"
@@ -49,7 +45,6 @@
         android:layout_marginBottom="16dp"
         android:padding="8dp" />
 
-    <!-- Parte branca com curva no topo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -59,13 +54,11 @@
         android:elevation="4dp"
         android:padding="16dp">
 
-        <!-- Conteúdo do menu -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Item Perfil -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,15 +88,14 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_next"
                     android:contentDescription="Seta para Perfil" />
+
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/light_gray" />
 
-            <!-- Item Meus carros -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,13 +127,11 @@
                     android:contentDescription="Seta para Meus carros" />
             </LinearLayout>
 
-            <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/light_gray" />
 
-            <!-- Item Histórico -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

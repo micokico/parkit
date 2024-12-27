@@ -6,7 +6,6 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
-    <!-- Botão de voltar -->
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
@@ -16,9 +15,6 @@
         android:layout_gravity="start"
         android:layout_marginBottom="10dp" />
 
-    <!-- Título Principal -->
-
-    <!-- Subtítulo -->
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
@@ -41,12 +37,10 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Espaçamento entre textos e botões -->
     <Space
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <!-- Botão 1: Quantidade de utilizadores totais -->
     <Button
         android:id="@+id/buttonUserCount"
         android:layout_width="match_parent"
@@ -57,7 +51,6 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
-    <!-- Botão 2: Receitas Globais -->
     <Button
         android:id="@+id/buttonGlobalRevenue"
         android:layout_width="match_parent"
