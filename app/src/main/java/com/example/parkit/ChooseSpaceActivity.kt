@@ -1,5 +1,6 @@
 package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
@@ -166,7 +167,6 @@ class ChooseSpaceActivity : AppCompatActivity() {
      * Select a parking spot
      */
     private fun selectSpot(spotId: String) {
-
         selectedSpot?.let { deselectSpot(it) }
 
         selectedSpot = spotId
@@ -184,7 +184,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Book the selected parking spot
+     * Book the selected parking spot and redirect to SpaceBookingActivity
      */
     private fun bookSelectedSpot() {
         val spotId = selectedSpot
@@ -195,6 +195,13 @@ class ChooseSpaceActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Toast.makeText(this, "Lugar reservado: $spotId", Toast.LENGTH_SHORT).show()
                     loadParkingSpotsFromFirestore(currentFloor)
+
+                    // Intent to navigate to SpaceBookingActivity
+                    val intent = Intent(this, SpaceBookingActivity::class.java)
+                    intent.putExtra("SELECTED_SPOT", spotId)
+                    intent.putExtra("PARKING_NAME", "ParkIT Garage")  // Exemplo de nome
+                    intent.putExtra("PARKING_PRICE", "N200/Hr")  // Exemplo de preço
+                    startActivity(intent)
                 }
                 .addOnFailureListener { error ->
                     Toast.makeText(this, "Erro ao reservar lugar: ${error.message}", Toast.LENGTH_SHORT).show()
