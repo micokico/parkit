@@ -4,10 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -20,30 +17,27 @@ class SpaceBookingActivity : AppCompatActivity() {
     private var pricePerHour: Double = 0.0 // Preço por hora
     private var selectedDate: String? = null // Data selecionada
     private var selectedTime: String? = null // Hora selecionada
-    private var vehicleType: String? = null // Tipo do veículo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_space_booking)
 
-        // Recebendo os dados da Intent
         selectedSpot = intent.getStringExtra("SELECTED_SPOT")
         val parkingName = intent.getStringExtra("PARKING_NAME")
-        vehicleType = intent.getStringExtra("VEHICLE_TYPE")
         val parkingPrice = intent.getDoubleExtra("PARKING_PRICE", 0.0) // Recebe como Double
         pricePerHour = parkingPrice // Define o preço por hora
         currentFloor = intent.getIntExtra("CURRENT_FLOOR", 1)
 
-        // Configura os TextViews
         findViewById<TextView>(R.id.tvSelectedSpace).text = "Espaço: $selectedSpot"
         findViewById<TextView>(R.id.tvParkingName).text = "Nome do Estacionamento: $parkingName"
         findViewById<TextView>(R.id.tvParkingPrice).text = "Preço por hora: $pricePerHour €"
-        findViewById<TextView>(R.id.tvVehicleType).text = "Veículo: $vehicleType"
 
         val tvSelectedDate = findViewById<TextView>(R.id.tvSelectedDate)
         val tvSelectedTime = findViewById<TextView>(R.id.tvSelectedTime)
 
-        // Configura o SeekBar
+        val spinnerVehicle = findViewById<Spinner>(R.id.spinnerVehicle)
+        loadVehiclesFromFirestore(spinnerVehicle)
+
         val seekBar = findViewById<SeekBar>(R.id.seekBarDuration)
         val tvDurationCost = findViewById<TextView>(R.id.tvDurationCost)
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -57,31 +51,31 @@ class SpaceBookingActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        // Botão para selecionar data
         val btnPickDate = findViewById<Button>(R.id.btnPickDate)
         btnPickDate.setOnClickListener {
             showDatePicker(tvSelectedDate)
         }
 
-        // Botão para selecionar hora
         val btnPickTime = findViewById<Button>(R.id.btnPickTime)
         btnPickTime.setOnClickListener {
             showTimePicker(tvSelectedTime)
         }
 
-        // Botão de reserva
         val bookButton = findViewById<Button>(R.id.btnBookSpace)
         bookButton.setOnClickListener {
+            val selectedVehicle = spinnerVehicle.selectedItem.toString()
             val duration = seekBar.progress.coerceAtLeast(1)
             val totalCost = duration * pricePerHour
 
             if (selectedDate == null || selectedTime == null) {
                 Toast.makeText(this, "Por favor, selecione a data e a hora.", Toast.LENGTH_SHORT).show()
+            } else if (selectedVehicle == "Selecione um veículo") {
+                Toast.makeText(this, "Por favor, selecione um veículo.", Toast.LENGTH_SHORT).show()
             } else {
                 saveReservationToFirestore(
                     selectedSpot!!,
                     parkingName,
-                    vehicleType,
+                    selectedVehicle,
                     totalCost,
                     duration,
                     selectedDate!!,
@@ -91,9 +85,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Exibe o DatePickerDialog para selecionar uma data
-     */
     private fun showDatePicker(tvSelectedDate: TextView) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -108,9 +99,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    /**
-     * Exibe o TimePickerDialog para selecionar uma hora
-     */
     private fun showTimePicker(tvSelectedTime: TextView) {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -124,13 +112,33 @@ class SpaceBookingActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
-    /**
-     * Salvar a reserva no Firestore
-     */
+    private fun loadVehiclesFromFirestore(spinner: Spinner) {
+        firestore.collection("Vehicle")
+            .get()
+            .addOnSuccessListener { result ->
+                val vehicleList = mutableListOf("Selecione um veículo")
+                for (document in result) {
+                    val vehicleName = document.getString("name")
+                    val plate = document.getString("plate")
+
+                    if (vehicleName != null && plate != null) {
+                        vehicleList.add("$vehicleName - $plate")
+                    }
+                }
+
+                val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, vehicleList)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(this, "Erro ao carregar veículos: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun saveReservationToFirestore(
         spotId: String,
         parkingName: String?,
-        vehicleType: String?,
+        vehicle: String?,
         totalCost: Double,
         duration: Int,
         date: String,
@@ -139,7 +147,7 @@ class SpaceBookingActivity : AppCompatActivity() {
         val reservationData = mapOf(
             "spotId" to spotId,
             "parkingName" to parkingName,
-            "vehicleType" to vehicleType,
+            "vehicle" to vehicle,
             "totalCost" to totalCost,
             "duration" to duration,
             "date" to date,
@@ -163,23 +171,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         intent.putExtra("RESERVATION_ID", reservationId)
         intent.putExtra("TOTAL_COST", totalCost)
         startActivity(intent)
-        finish() // Finaliza esta atividade para evitar voltar
-    }
-
-
-    /**
-     * Atualizar o estado do espaço de estacionamento no Firestore
-     */
-    private fun updateParkingSpotInFirestore(spotId: String) {
-        val floorKey = "floor_$currentFloor"
-        firestore.collection("parkingSpots").document(floorKey)
-            .update(spotId, "car")
-            .addOnSuccessListener {
-                Toast.makeText(this, "Espaço atualizado como reservado.", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-            .addOnFailureListener { error ->
-                Toast.makeText(this, "Erro ao atualizar o espaço: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
+        finish()
     }
 }
