@@ -21,18 +21,27 @@ class ChooseSpaceActivity : AppCompatActivity() {
     private val firestore = FirebaseFirestore.getInstance()
 
     private var currentFloor: Int = 1
-
     private var selectedSpot: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_space)
 
+        // Recupera os dados enviados pela HomeActivity
+        val parkingName = intent.getStringExtra("parking_name") ?: "Estacionamento Desconhecido"
+        val parkingAddress = intent.getStringExtra("parking_address") ?: "Endereço Desconhecido"
+        val vehicleType = intent.getStringExtra("vehicle_type") ?: "Tipo Desconhecido"
+        val vehiclePrice = intent.getStringExtra("vehicle_price") ?: "0.0"
+
+        Toast.makeText(this, "Parque: $parkingName, Veículo: $vehicleType", Toast.LENGTH_SHORT).show()
+
+        // Inicializa os botões de andares
         floor1Button = findViewById(R.id.floor1Button)
         floor2Button = findViewById(R.id.floor2Button)
         floor3Button = findViewById(R.id.floor3Button)
         floor4Button = findViewById(R.id.floor4Button)
 
+        // Inicializa os spots (vagas)
         spots = mapOf(
             "A1" to findViewById(R.id.spotA1),
             "A2" to findViewById(R.id.spotA2),
@@ -60,7 +69,11 @@ class ChooseSpaceActivity : AppCompatActivity() {
 
         val bookPlaceButton = findViewById<Button>(R.id.bookPlaceButton)
         bookPlaceButton.setOnClickListener {
-            bookSelectedSpot()
+            if (selectedSpot != null) {
+                navigateToBooking(parkingName, parkingAddress, vehicleType, vehiclePrice)
+            } else {
+                Toast.makeText(this, "Selecione um lugar primeiro!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val backButton = findViewById<ImageView>(R.id.backButton)
@@ -72,7 +85,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Setup listeners for floor buttons
+     * Configura os botões para seleção de andares
      */
     private fun setupFloorButtons() {
         floor1Button.setOnClickListener { setSelectedFloor(1) }
@@ -82,7 +95,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Set the selected floor and update the button states
+     * Define o andar selecionado e atualiza os botões
      */
     private fun setSelectedFloor(selectedFloor: Int) {
         currentFloor = selectedFloor
@@ -103,7 +116,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Load parking spots from Firestore based on the selected floor
+     * Carrega as vagas do andar selecionado a partir do Firestore
      */
     private fun loadParkingSpotsFromFirestore(floor: Int) {
         val floorKey = "floor_$floor"
@@ -125,7 +138,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Reset all parking spots to "free" state
+     * Reseta todas as vagas para o estado "free"
      */
     private fun resetParkingSpots() {
         spots.values.forEach { spot ->
@@ -135,9 +148,7 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Updates a single parking spot state
-     * @param spotId The ID of the parking spot (e.g., "A1", "B2")
-     * @param state The state of the parking spot ("free", "car", "selected")
+     * Atualiza o estado de uma vaga
      */
     private fun updateParkingSpot(spotId: String, state: String) {
         val spot = spots[spotId]
@@ -164,50 +175,34 @@ class ChooseSpaceActivity : AppCompatActivity() {
     }
 
     /**
-     * Select a parking spot
+     * Seleciona uma vaga
      */
     private fun selectSpot(spotId: String) {
         selectedSpot?.let { deselectSpot(it) }
-
         selectedSpot = spotId
         Toast.makeText(this, "Selecionado: $spotId", Toast.LENGTH_SHORT).show()
         updateParkingSpot(spotId, "selected")
     }
 
     /**
-     * Deselect a parking spot
+     * Deseleciona uma vaga
      */
     private fun deselectSpot(spotId: String) {
         selectedSpot = null
-        Toast.makeText(this, "Desselecionado: $spotId", Toast.LENGTH_SHORT).show()
         updateParkingSpot(spotId, "free")
     }
 
     /**
-     * Book the selected parking spot and redirect to SpaceBookingActivity
+     * Navega para a tela de reserva
      */
-    private fun bookSelectedSpot() {
-        val spotId = selectedSpot
-        if (spotId != null) {
-            val floorKey = "floor_$currentFloor"
-            firestore.collection("parkingSpots").document(floorKey)
-                .update(spotId, "car")
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Lugar reservado: $spotId", Toast.LENGTH_SHORT).show()
-                    loadParkingSpotsFromFirestore(currentFloor)
-
-                    // Intent to navigate to SpaceBookingActivity
-                    val intent = Intent(this, SpaceBookingActivity::class.java)
-                    intent.putExtra("SELECTED_SPOT", spotId)
-                    intent.putExtra("PARKING_NAME", "ParkIT Garage")  // Exemplo de nome
-                    intent.putExtra("PARKING_PRICE", "N200/Hr")  // Exemplo de preço
-                    startActivity(intent)
-                }
-                .addOnFailureListener { error ->
-                    Toast.makeText(this, "Erro ao reservar lugar: ${error.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "Selecione um lugar primeiro!", Toast.LENGTH_SHORT).show()
-        }
+    private fun navigateToBooking(parkingName: String, parkingAddress: String, vehicleType: String, vehiclePrice: String) {
+        val intent = Intent(this, SpaceBookingActivity::class.java)
+        intent.putExtra("SELECTED_SPOT", selectedSpot)
+        intent.putExtra("PARKING_NAME", parkingName)
+        intent.putExtra("PARKING_ADDRESS", parkingAddress)
+        intent.putExtra("VEHICLE_TYPE", vehicleType)
+        intent.putExtra("PARKING_PRICE", vehiclePrice)
+        intent.putExtra("CURRENT_FLOOR", currentFloor)
+        startActivity(intent)
     }
 }

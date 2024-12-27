@@ -10,36 +10,37 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Nome do estacionamento e preço -->
+        <!-- Nome do estacionamento -->
         <TextView
             android:id="@+id/tvParkingName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ParkIT Garage"
+            android:text="Nome do Estacionamento"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#000000"
             android:layout_marginBottom="8dp" />
 
+        <!-- Preço por hora -->
         <TextView
             android:id="@+id/tvParkingPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N200/Hr"
+            android:text="Preço por hora"
             android:textSize="18sp"
             android:textColor="#888888"
             android:layout_marginBottom="16dp" />
 
+        <!-- Espaço selecionado -->
         <TextView
             android:id="@+id/tvSelectedSpace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Espaço 4c"
+            android:text="Espaço Selecionado"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#FF0000"
             android:layout_marginBottom="16dp" />
-
 
         <!-- Duração estimada -->
         <TextView
@@ -58,6 +59,7 @@
             android:progress="6"
             android:layout_marginBottom="8dp" />
 
+        <!-- Exibição do custo baseado na duração -->
         <TextView
             android:id="@+id/tvDurationCost"
             android:layout_width="wrap_content"
@@ -67,7 +69,7 @@
             android:textColor="#000000"
             android:layout_marginBottom="16dp" />
 
-        <!-- Check-in Time -->
+        <!-- Check-in Time (Opcional) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +78,7 @@
             android:textColor="#555555"
             android:layout_marginBottom="8dp" />
 
-        <!-- Especificações -->
+        <!-- Especificações ou Detalhes -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
