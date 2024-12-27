@@ -1,11 +1,9 @@
-<!-- Layout XML for Active Permit Page -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3F3F3">
 
-    <!-- Back Button -->
     <ImageView
         android:id="@+id/ivBackButton"
         android:layout_width="24dp"
@@ -15,7 +13,6 @@
         android:src="@drawable/ic_return"
         android:contentDescription="Back button"/>
 
-    <!-- Show Expired Toggle -->
     <Switch
         android:id="@+id/switchShowExpired"
         android:layout_width="wrap_content"
@@ -27,7 +24,6 @@
         android:textColor="#000"
         android:textSize="14sp" />
 
-    <!-- Data Table Header -->
     <LinearLayout
         android:id="@+id/headerRow"
         android:layout_width="match_parent"
@@ -63,7 +59,6 @@
             android:gravity="center"/>
     </LinearLayout>
 
-    <!-- RecyclerView for Data -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPermitList"
         android:layout_width="match_parent"

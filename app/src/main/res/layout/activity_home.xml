@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header Section -->
     <RelativeLayout
         android:id="@+id/header_section"
         android:layout_width="match_parent"
@@ -65,7 +64,6 @@
 
     </RelativeLayout>
 
-    <!-- Search Bar -->
     <LinearLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
@@ -95,7 +93,6 @@
 
     </LinearLayout>
 
-    <!-- Filters Section -->
     <LinearLayout
         android:id="@+id/filters_section"
         android:layout_width="match_parent"
@@ -145,7 +142,6 @@
 
     </LinearLayout>
 
-    <!-- Nearby Parking Section -->
     <ScrollView
         android:id="@+id/nearby_parking_section"
         android:layout_width="match_parent"

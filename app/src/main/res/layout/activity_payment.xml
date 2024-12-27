@@ -6,7 +6,6 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
-    <!-- Ícone do menu -->
     <ImageView
         android:id="@+id/menu_icon"
         android:layout_width="24dp"
@@ -14,7 +13,6 @@
         android:src="@drawable/ic_menu"
         android:layout_gravity="start" />
 
-    <!-- Detalhes do estacionamento -->
     <TextView
         android:id="@+id/tvParkingDetails"
         android:layout_width="wrap_content"
@@ -25,7 +23,6 @@
         android:layout_marginTop="16dp"
         android:textColor="#000000" />
 
-    <!-- Total a pagar -->
     <TextView
         android:id="@+id/tvTotalFee"
         android:layout_width="wrap_content"
@@ -35,7 +32,6 @@
         android:padding="8dp"
         android:textColor="#000000" />
 
-    <!-- Título: Escolha o cartão -->
     <TextView
         android:id="@+id/tvChooseCard"
         android:layout_width="match_parent"
@@ -46,7 +42,6 @@
         android:layout_marginTop="16dp"
         android:padding="8dp" />
 
-    <!-- Exibição de cartões -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,21 +53,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <!-- Primeiro cartão -->
             <ImageView
                 android:layout_width="170dp"
                 android:layout_height="150dp"
                 android:src="@drawable/card_image_1"
                 android:layout_marginEnd="8dp" />
 
-            <!-- Segundo cartão -->
             <ImageView
                 android:layout_width="170dp"
                 android:layout_height="150dp"
                 android:src="@drawable/card_image_2"
                 android:layout_marginEnd="8dp" />
 
-            <!-- Terceiro cartão -->
             <ImageView
                 android:layout_width="170dp"
                 android:layout_height="150dp"
@@ -81,7 +73,6 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Inserir novo cartão -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,7 +118,6 @@
             android:padding="8dp" />
     </LinearLayout>
 
-    <!-- Botão de pagamento -->
     <Button
         android:id="@+id/btnPay"
         android:layout_width="match_parent"
