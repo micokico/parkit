@@ -1,12 +1,8 @@
 package com.example.parkit
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView // Import da classe ImageView adicionado
-import android.widget.SeekBar
-import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 class SpaceBookingActivity : AppCompatActivity() {
@@ -15,37 +11,33 @@ class SpaceBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_space_booking)
 
-        val tvDurationCost = findViewById<TextView>(R.id.tvDurationCost)
-        val seekBarDuration = findViewById<SeekBar>(R.id.seekBarDuration)
-        val tvCheckInTime = findViewById<TextView>(R.id.tvCheckInTime)
-        val ivEditCheckInTime = findViewById<ImageView>(R.id.ivEditCheckInTime)
-        val switchDisabledParking = findViewById<Switch>(R.id.switchDisabledParking)
-        val switchSpecialGuard = findViewById<Switch>(R.id.switchSpecialGuard)
-        val btnBookSpace = findViewById<Button>(R.id.btnBookSpace)
+        // Recuperando os dados passados pela ChooseSpaceActivity
+        val selectedSpot = intent.getStringExtra("SELECTED_SPOT")
+        val parkingName = intent.getStringExtra("PARKING_NAME")
+        val parkingPrice = intent.getStringExtra("PARKING_PRICE")
 
-        // Configurar o SeekBar
-        seekBarDuration.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val cost = progress * 200
-                tvDurationCost.text = "$progress hours - N$cost"
-            }
+        // Encontrar os TextViews onde os dados serão exibidos
+        val tvSelectedSpace = findViewById<TextView>(R.id.tvSelectedSpace)
+        val tvParkingName = findViewById<TextView>(R.id.tvParkingName)
+        val tvParkingPrice = findViewById<TextView>(R.id.tvParkingPrice)
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-
-        // Ação ao clicar no botão "Book Space"
-        btnBookSpace.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Space booked successfully!",
-                Toast.LENGTH_SHORT
-            ).show()
+        // Atualizando os TextViews com os dados recebidos
+        if (selectedSpot != null) {
+            tvSelectedSpace.text = "Espaço: $selectedSpot"
         }
 
-        // Editar o horário de check-in
-        ivEditCheckInTime.setOnClickListener {
-            Toast.makeText(this, "Edit Check-in Time clicked", Toast.LENGTH_SHORT).show()
+        if (parkingName != null) {
+            tvParkingName.text = "Nome do Estacionamento: $parkingName"
+        }
+
+        if (parkingPrice != null) {
+            tvParkingPrice.text = "Preço: $parkingPrice"
+        }
+
+        // Adicionando funcionalidade ao botão de reserva
+        val bookButton = findViewById<Button>(R.id.btnBookSpace)
+        bookButton.setOnClickListener {
+            // Aqui você pode adicionar lógica de confirmação da reserva
         }
     }
 }
