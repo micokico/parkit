@@ -10,25 +10,32 @@
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="Data:"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/parkingNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parking Name" />
+        android:text="Nome do Parque:" />
 
     <TextView
         android:id="@+id/spotIdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Spot ID" />
+        android:text="ID do Lugar:" />
 
     <TextView
         android:id="@+id/totalCostText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cost" />
-</LinearLayout>
+        android:text="Custo Total:" />
 
+    <Button
+        android:id="@+id/btn_cancel_reservation"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black"
+        android:text="Cancelar Reserva" />
+</LinearLayout>

@@ -20,17 +20,18 @@ data class Reservation(
     val vehicleType: String = ""
 )
 
-class ReservationAdapter(private val reservations: List<Reservation>) :
-    RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
+class ReservationAdapter(
+    private val reservations: List<Reservation>,
+    private val onCancelReservation: (Reservation) -> Unit // Função para cancelar reserva
+) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
 
-    // ViewHolder implementation
     inner class ReservationViewHolder(val view: android.view.View) :
         RecyclerView.ViewHolder(view) {
         val dateText: android.widget.TextView = view.findViewById(R.id.dateText)
         val parkingNameText: android.widget.TextView = view.findViewById(R.id.parkingNameText)
         val spotIdText: android.widget.TextView = view.findViewById(R.id.spotIdText)
         val totalCostText: android.widget.TextView = view.findViewById(R.id.totalCostText)
-
+        val cancelButton: android.widget.Button = view.findViewById(R.id.btn_cancel_reservation)
     }
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ReservationViewHolder {
@@ -41,15 +42,18 @@ class ReservationAdapter(private val reservations: List<Reservation>) :
 
     override fun onBindViewHolder(holder: ReservationViewHolder, position: Int) {
         val reservation = reservations[position]
-        holder.dateText.text = "Date: ${reservation.date}"
-        holder.parkingNameText.text = "Parking: ${reservation.parkingName}"
-        holder.spotIdText.text = "Spot ID: ${reservation.spotId}"
-        holder.totalCostText.text = "Cost: \$${reservation.totalCost}"
+        holder.dateText.text = "Data: ${reservation.date}"
+        holder.parkingNameText.text = "Nome do Parque: ${reservation.parkingName}"
+        holder.spotIdText.text = "ID do Lugar: ${reservation.spotId}"
+        holder.totalCostText.text = "Custo Total: €${reservation.totalCost}"
+
+        holder.cancelButton.setOnClickListener {
+            onCancelReservation(reservation) // Chama a função de cancelar
+        }
     }
 
     override fun getItemCount(): Int = reservations.size
 }
-
 
 class ReservationListActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
@@ -64,13 +68,16 @@ class ReservationListActivity : AppCompatActivity() {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ReservationAdapter(reservations)
+
+        adapter = ReservationAdapter(reservations) { reservation ->
+            cancelReservation(reservation)
+        }
         recyclerView.adapter = adapter
 
         // Configurar botão de voltar
         val backButton = findViewById<ImageButton>(R.id.btn_back)
         backButton.setOnClickListener {
-            onBackPressed() // Chama o comportamento padrão de voltar
+            onBackPressed()
         }
 
         // Buscar reservas do Firestore
@@ -78,8 +85,6 @@ class ReservationListActivity : AppCompatActivity() {
     }
 
     private fun fetchReservations() {
-        val phoneNumber = "918235917" // Substituir pelo número de telefone do utilizador atual.
-
         db.collection("reservations")
             .get()
             .addOnSuccessListener { result ->
@@ -98,5 +103,29 @@ class ReservationListActivity : AppCompatActivity() {
                 Log.e("ReservationListActivity", "Erro ao buscar reservas", exception)
             }
     }
+
+    private fun cancelReservation(reservation: Reservation) {
+        db.collection("reservations")
+            .whereEqualTo("date", reservation.date)
+            .whereEqualTo("time", reservation.time)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    db.collection("reservations").document(document.id).delete()
+                        .addOnSuccessListener {
+                            Log.d("ReservationListActivity", "Reserva cancelada com sucesso.")
+                            reservations.remove(reservation)
+                            adapter.notifyDataSetChanged()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("ReservationListActivity", "Erro ao cancelar reserva.", e)
+                        }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("ReservationListActivity", "Erro ao localizar reserva.", exception)
+            }
+    }
 }
+
 
