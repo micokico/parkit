@@ -8,37 +8,36 @@
     android:background="@color/white"
     tools:context=".HistoryActivity">
 
-<ImageButton
-    android:id="@+id/btn_back"
-    android:layout_width="24dp"
-    android:layout_height="24dp"
-    android:src="@drawable/ic_return"
-    android:contentDescription="Back"
-    android:scaleType="fitCenter"
-    android:layout_alignParentStart="true"
-    android:layout_centerVertical="true"
-    android:background="@null" />
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_return"
+        android:contentDescription="Back"
+        android:scaleType="fitCenter"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@null" />
 
-<TextView
-    android:id="@+id/pageTitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Histórico"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:gravity="center"
-    android:layout_marginBottom="16dp"
-    android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/pageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Histórico"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/header_section"
+        android:orientation="horizontal"
         android:layout_margin="16dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:orientation="horizontal">
+        android:paddingEnd="16dp">
 
         <ImageView
             android:id="@+id/search_icon"
@@ -56,98 +55,356 @@
             android:hint="Pesquisa"
             android:background="@android:color/transparent"
             android:inputType="text" />
-
     </LinearLayout>
 
-<TextView
-    android:id="@+id/recentlyTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Recente"
-    android:layout_marginTop="16dp"
-    android:textStyle="bold"
-    android:textSize="16sp"
-    android:textColor="@color/black" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/recentlyTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Recente"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:orientation="vertical"
+            android:paddingTop="8dp">
 
-            <ImageView
-                android:id="@+id/parkingImageView"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="12dp"
-                android:contentDescription="Parking Image"
-                android:scaleType="centerCrop"
-                android:src="@drawable/parque" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <!-- CardView 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
-                <TextView
-                    android:id="@+id/nameTextView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nome do Estacionamento"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/addressTextView"
+                    <ImageView
+                        android:id="@+id/parkingImageView"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="12dp"
+                        android:contentDescription="Parking Image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/parque" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/nameTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nome do Estacionamento"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addressTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Endereço"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/priceTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Preço"
+                            android:textStyle="bold"
+                            android:textColor="@color/red"
+                            android:layout_marginTop="4dp" />
+
+                        <TextView
+                            android:id="@+id/dateTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data: "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/durationTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Duração: "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/transportTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transporte: "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- CardView 2 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Endereço"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/priceTextView"
+                    <ImageView
+                        android:id="@+id/parkingImageView1"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="12dp"
+                        android:contentDescription="Parking Image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/parque" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/nameTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ParkIt Garage"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addressTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rua Mouzinho de Silveira, Porto"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/priceTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="12€"
+                            android:textStyle="bold"
+                            android:textColor="@color/red"
+                            android:layout_marginTop="4dp" />
+
+                        <TextView
+                            android:id="@+id/dateTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data: 22/11/2024"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/durationTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Duração: 4 horas"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/transportTextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transporte: Mota "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Preço"
-                    android:textStyle="bold"
-                    android:textColor="@color/red"
-                    android:layout_marginTop="4dp" />
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/dateTextView"
+                    <ImageView
+                        android:id="@+id/parkingImageView2"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="12dp"
+                        android:contentDescription="Parking Image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/parque" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/nameTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ParkIt Garage"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addressTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rua Mouzinho de Silveira, Porto"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/priceTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="3€"
+                            android:textStyle="bold"
+                            android:textColor="@color/red"
+                            android:layout_marginTop="4dp" />
+
+                        <TextView
+                            android:id="@+id/dateTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data: 01/11/2024 "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/durationTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Duração: 1 horas"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/transportTextView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transporte: Van "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Data: "
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
+                    android:orientation="horizontal"
+                    android:padding="12dp">
 
-                <TextView
-                    android:id="@+id/durationTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Duração: "
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
+                    <ImageView
+                        android:id="@+id/parkingImageView3"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="12dp"
+                        android:contentDescription="Parking Image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/parque" />
 
-                <TextView
-                    android:id="@+id/transportTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Transporte: "
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/nameTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ParkIt Garage"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/addressTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rua Mouzinho de Silveira, Porto"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/priceTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="5.5€"
+                            android:textStyle="bold"
+                            android:textColor="@color/red"
+                            android:layout_marginTop="4dp" />
+
+                        <TextView
+                            android:id="@+id/dateTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data: 01/10/2024 "
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/durationTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Duração: 3 horas"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/transportTextView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transporte: Scotter"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 </LinearLayout>
