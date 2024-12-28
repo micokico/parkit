@@ -3,6 +3,7 @@ package com.example.parkit
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.R
 
@@ -13,7 +14,7 @@ class StatisticsActivity : AppCompatActivity() {
         setContentView(R.layout.admin_estatisticas)
 
 
-        val btnBack = findViewById<Button>(R.id.btnBack)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminDashboardActivity::class.java)
             startActivity(intent)
