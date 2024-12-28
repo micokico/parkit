@@ -50,14 +50,14 @@ class ActivePermitActivity : AppCompatActivity() {
     // Função para gerar a lista de permissões
     private fun getPermitList(includeExpired: Boolean = false): List<Permit> {
         val permits = listOf(
-            Permit("TEST123", "IB4 APS", "30-01-2024 15:16:02"),
-            Permit("TEST124", "IB5 APS", "15-02-2025 15:16:02"),
-            Permit("TEST126", "IB7 APS", "20-03-2025 15:16:02"),
-            Permit("TEST127", "IB8 APS", "05-04-2024 15:16:02"),
-            Permit("TEST128", "IB9 APS", "10-05-2025 15:16:02"),
-            Permit("TEST129", "IB10 APS", "15-06-2025 15:16:02"),
-            Permit("TEST130", "IB11 APS", "25-07-2024 15:16:02"),
-            Permit("TEST125", "IB6 APS", "30-12-2023 15:16:02")
+            Permit("BA-54-G4", "1ºPiso, B3", "30-01-2024 15:16:02"),
+            Permit("GF-42-1R", "2ºPiso, C1", "15-02-2025 15:16:02"),
+            Permit("HG-TY-63", "1ºPiso, A5", "20-03-2025 15:16:02"),
+            Permit("VB-76-1R", "4ºPiso, D5", "05-04-2024 15:16:02"),
+            Permit("B7-DV-17", "1ºPiso, A4", "10-05-2025 15:16:02"),
+            Permit("NV-B9-17", "3ºPiso, B4", "15-06-2025 15:16:02"),
+            Permit("18-GV-1T", "2ºPiso, C5", "25-07-2024 15:16:02"),
+            Permit("HG-45-6J", "1ºPiso, C4", "30-12-2023 15:16:02")
         )
 
         return if (includeExpired) {
