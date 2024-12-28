@@ -233,7 +233,7 @@ class SpaceBookingActivity : AppCompatActivity() {
     }
 
     private fun navigateToPayment(reservationId: String, totalCost: Double) {
-        val intent = Intent(this, RealPaymentActivity::class.java)
+        val intent = Intent(this, SuccessfulBookingActivity::class.java)
         intent.putExtra("RESERVATION_ID", reservationId)
         intent.putExtra("TOTAL_COST", totalCost)
         startActivity(intent)
