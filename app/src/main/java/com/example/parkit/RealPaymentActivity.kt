@@ -84,7 +84,7 @@ class RealPaymentActivity : AppCompatActivity() {
             "reservationId" to reservationId,
             "cardNumber" to cardNumber.takeLast(4),
             "expiry" to expiry,
-            "cvv" to "###", // Não salva o CVV por questões de segurança
+            "cvv" to "###", // Por segurança, nunca salvar o CVV real
             "totalCost" to totalCost,
             "status" to "Concluído"
         )
@@ -99,6 +99,7 @@ class RealPaymentActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun updateReservationStatus(reservationId: String) {
         firestore.collection("reservations").document(reservationId)
