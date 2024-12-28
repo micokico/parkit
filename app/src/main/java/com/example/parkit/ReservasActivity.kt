@@ -2,14 +2,13 @@ package com.example.parkit
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityReservasBinding
 
 class ReservasActivity : AppCompatActivity() {
 
+    // Declaração do Binding para acessar os elementos do layout
     private lateinit var binding: ActivityReservasBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,16 +18,12 @@ class ReservasActivity : AppCompatActivity() {
         binding = ActivityReservasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configuração do botão de menu
-        binding.menuButton.setOnClickListener {
-            Toast.makeText(this, "Menu clicado!", Toast.LENGTH_SHORT).show()
+        // Configuração do botão de retorno no cabeçalho
+        binding.btnBack.setOnClickListener {
+            // Mensagem ao clicar no botão "Voltar"
+            Toast.makeText(this, "Voltando para a tela anterior!", Toast.LENGTH_SHORT).show()
+            finish() // Encerra a atividade atual
         }
 
-        // Configuração do botão "Voltar ao ecrã principal"
-        binding.btnBackToHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish() // Encerra a atividade atual para evitar sobreposição
-        }
     }
 }
