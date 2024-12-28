@@ -57,5 +57,6 @@
         <activity android:name=".ReservationListActivity" android:exported="true" />
         <activity android:name=".GlobalRevenueActivity" android:exported="true" />
 
+
     </application>
 </manifest>

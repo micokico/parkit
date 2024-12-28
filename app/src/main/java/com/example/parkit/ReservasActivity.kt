@@ -1,5 +1,6 @@
 package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -32,6 +33,7 @@ class ReservationAdapter(
         val spotIdText: android.widget.TextView = view.findViewById(R.id.spotIdText)
         val totalCostText: android.widget.TextView = view.findViewById(R.id.totalCostText)
         val cancelButton: android.widget.Button = view.findViewById(R.id.btn_cancel_reservation)
+        val bookingCard: androidx.cardview.widget.CardView = view.findViewById(R.id.bookingCard) // O CardView
     }
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ReservationViewHolder {
@@ -47,8 +49,22 @@ class ReservationAdapter(
         holder.spotIdText.text = "ID do Lugar: ${reservation.spotId}"
         holder.totalCostText.text = "Custo Total: €${reservation.totalCost}"
 
+        // Configurar botão de cancelar
         holder.cancelButton.setOnClickListener {
-            onCancelReservation(reservation) // Chama a função de cancelar
+            onCancelReservation(reservation)
+        }
+
+        // Configurar clique no CardView para abrir BookingDetailsActivity
+        holder.bookingCard.setOnClickListener {
+            val context = holder.view.context
+            val intent = Intent(context, BookingDetailsActivity::class.java)
+            intent.putExtra("PARKING_NAME", reservation.parkingName)
+            intent.putExtra("DATE", reservation.date)
+            intent.putExtra("SPOT_ID", reservation.spotId)
+            intent.putExtra("TOTAL_COST", reservation.totalCost)
+            intent.putExtra("VEHICLE", reservation.vehicle)
+            intent.putExtra("VEHICLE_TYPE", reservation.vehicleType)
+            context.startActivity(intent)
         }
     }
 
