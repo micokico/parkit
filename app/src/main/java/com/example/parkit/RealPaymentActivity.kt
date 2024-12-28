@@ -14,10 +14,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class RealPaymentActivity : AppCompatActivity() {
 
-    private val database = FirebaseDatabase.getInstance()  // Referência ao Firebase Realtime Database
-    private val paymentsRef = database.getReference("payments")  // Referência à coleção de pagamentos
-    private val firestore = FirebaseFirestore.getInstance()  // Referência ao Firebase Firestore
-    private val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "default_user"  // ID do usuário logado
+    private val database = FirebaseDatabase.getInstance()
+    private val paymentsRef = database.getReference("payments")
+    private val firestore = FirebaseFirestore.getInstance()
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "default_user"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +55,15 @@ class RealPaymentActivity : AppCompatActivity() {
         }
     }
 
-    // Função que valida os campos do cartão
     private fun validateFields(cardNumber: String, expiry: String, cvv: String): Boolean {
         val isCardValid = cardNumber.length == 16 && cardNumber.all { it.isDigit() }
-        val isExpiryValid = expiry.matches(Regex("\\d{2}/\\d{2}"))  // Formato MM/AA
+        val isExpiryValid = expiry.matches(Regex("\\d{2}/\\d{2}")) // Formato MM/AA
         val isCvvValid = cvv.length == 3 && cvv.all { it.isDigit() }
 
         Log.d("Validation", "Card: $isCardValid, Expiry: $isExpiryValid, CVV: $isCvvValid")
         return isCardValid && isExpiryValid && isCvvValid
     }
 
-    // Função que salva os dados do pagamento no Firebase
     private fun savePaymentDetailsToFirebase(
         cardNumber: String,
         expiry: String,
@@ -73,7 +71,7 @@ class RealPaymentActivity : AppCompatActivity() {
         reservationId: String,
         totalCost: Double
     ) {
-        val paymentId = paymentsRef.push().key  // Cria uma chave única para o pagamento
+        val paymentId = paymentsRef.push().key
 
         if (paymentId == null) {
             Log.e("Payment", "Falha ao gerar ID de pagamento.")
@@ -81,22 +79,20 @@ class RealPaymentActivity : AppCompatActivity() {
             return
         }
 
-        // Cria um mapa com os dados do pagamento
         val paymentData = mapOf(
             "userId" to userId,
             "reservationId" to reservationId,
-            "cardNumber" to cardNumber.takeLast(4),  // Salva apenas os últimos 4 dígitos do número do cartão
+            "cardNumber" to cardNumber.takeLast(4),
             "expiry" to expiry,
-            "cvv" to "###",  // Não salva o CVV por questões de segurança
+            "cvv" to "###", // Não salva o CVV por questões de segurança
             "totalCost" to totalCost,
             "status" to "Concluído"
         )
 
-        // Salva os dados no Firebase Realtime Database
         paymentsRef.child(paymentId).setValue(paymentData).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d("Payment", "Dados de pagamento salvos com sucesso!")
-                updateReservationStatus(reservationId)  // Atualiza o status da reserva
+                updateReservationStatus(reservationId)
             } else {
                 Log.e("Payment", "Erro ao salvar pagamento: ${task.exception?.message}")
                 Toast.makeText(this, "Erro ao salvar pagamento!", Toast.LENGTH_SHORT).show()
@@ -104,13 +100,12 @@ class RealPaymentActivity : AppCompatActivity() {
         }
     }
 
-    // Função que atualiza o status da reserva para "Pago" no Firestore
     private fun updateReservationStatus(reservationId: String) {
         firestore.collection("reservations").document(reservationId)
             .update("status", "Pago")
             .addOnSuccessListener {
                 Log.d("Reservation", "Status atualizado para 'Pago'.")
-                navigateToHomeActivity()  // Chama a navegação para HomeActivity
+                navigateToHomeActivity()
             }
             .addOnFailureListener { error ->
                 Log.e("Reservation", "Erro ao atualizar reserva: ${error.message}")
@@ -118,14 +113,10 @@ class RealPaymentActivity : AppCompatActivity() {
             }
     }
 
-    // Função que navega para a HomeActivity após o pagamento
     private fun navigateToHomeActivity() {
-        // Exibe a mensagem de sucesso
         Toast.makeText(this, "Pagamento realizado com sucesso!", Toast.LENGTH_SHORT).show()
-
-        // Redireciona para a HomeActivity
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
-        finish()  // Finaliza a atividade atual para evitar voltar para ela
+        finish() // Finaliza a atividade atual para evitar voltar para ela
     }
 }
