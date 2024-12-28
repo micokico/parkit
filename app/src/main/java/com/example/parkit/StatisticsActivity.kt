@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.R
 
@@ -24,6 +25,7 @@ class StatisticsActivity : AppCompatActivity() {
 
         val btnTotalUsers = findViewById<Button>(R.id.buttonUserCount)
         btnTotalUsers.setOnClickListener {
+            Toast.makeText(this, "Funcionalidade em desenvolvimento!", Toast.LENGTH_SHORT).show()
         }
 
         val btnGlobalRevenue = findViewById<Button>(R.id.buttonGlobalRevenue)
