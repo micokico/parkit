@@ -27,6 +27,9 @@ class StatisticsActivity : AppCompatActivity() {
 
         val btnGlobalRevenue = findViewById<Button>(R.id.buttonGlobalRevenue)
         btnGlobalRevenue.setOnClickListener {
+            val intent = Intent(this, GlobalRevenueActivity::class.java)
+            startActivity(intent)
         }
+
     }
 }
