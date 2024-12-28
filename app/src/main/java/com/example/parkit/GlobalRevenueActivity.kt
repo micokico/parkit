@@ -1,7 +1,9 @@
 package com.example.parkit
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,12 +18,17 @@ class GlobalRevenueActivity : AppCompatActivity() {
 
         val revenueTotalTextView: TextView = findViewById(R.id.revenue_total)
 
-        // Inicializa Firestore
         db = FirebaseFirestore.getInstance()
 
-        // Calcula o total das receitas
         calculateTotalRevenue { totalRevenue ->
             revenueTotalTextView.text = String.format("%.2f €", totalRevenue)
+        }
+
+        val btnBack: ImageButton = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
