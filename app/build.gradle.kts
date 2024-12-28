@@ -57,6 +57,8 @@ dependencies {
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("com.google.firebase:firebase-firestore:24.7.1")
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+    implementation ("com.google.zxing:core:3.5.1")
+
 
 
     implementation("com.github.bumptech.glide:glide:4.15.1")

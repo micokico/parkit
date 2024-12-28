@@ -1,64 +1,88 @@
 package com.example.parkit
 
-import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 
 class BookingDetailsActivity : AppCompatActivity() {
+
+    private lateinit var parkingNameText: TextView
+    private lateinit var dateText: TextView
+    private lateinit var spotIdText: TextView
+    private lateinit var totalCostText: TextView
+    private lateinit var vehicleText: TextView
+    private lateinit var vehicleTypeText: TextView
+    private lateinit var backButton: ImageButton
+    private lateinit var qrCodeImageView: ImageView
+    private lateinit var uniqueIdText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_details)
 
-        // Receber os dados da Intent
-        val parkingName = intent.getStringExtra("PARKING_NAME")
-        val spotId = intent.getStringExtra("SPOT_ID")
-        val vehicle = intent.getStringExtra("VEHICLE")
-        val vehicleType = intent.getStringExtra("VEHICLE_TYPE")
-        val totalCost = intent.getDoubleExtra("TOTAL_COST", 0.0)
-        val duration = intent.getIntExtra("DURATION", 0)
-        val checkInTime = intent.getStringExtra("CHECK_IN_TIME")
-        val checkOutTime = intent.getStringExtra("CHECK_OUT_TIME")
-        val specifications = intent.getStringExtra("SPECIFICATIONS")
+        // Inicializar os componentes
+        parkingNameText = findViewById(R.id.parkingNameText)
+        dateText = findViewById(R.id.dateText)
+        spotIdText = findViewById(R.id.spotIdText)
+        totalCostText = findViewById(R.id.totalCostText)
+        vehicleText = findViewById(R.id.vehicleText)
+        vehicleTypeText = findViewById(R.id.vehicleTypeText)
+        backButton = findViewById(R.id.btn_back)
+        qrCodeImageView = findViewById(R.id.qrCodeImageView)
+        uniqueIdText = findViewById(R.id.tvUniqueID)
 
-        // Referências para os Views
-        val tvParkingName = findViewById<TextView>(R.id.tvParkingName)
-        val tvSpaceName = findViewById<TextView>(R.id.tvSpaceName)
-        val ivQRCode = findViewById<ImageView>(R.id.ivQRCode)
-        val tvUniqueID = findViewById<TextView>(R.id.tvUniqueID)
-        val tvCheckInTime = findViewById<TextView>(R.id.tvCheckInTime)
-        val tvCheckOutTime = findViewById<TextView>(R.id.tvCheckOutTime)
-        val tvSpecifications = findViewById<TextView>(R.id.tvSpecifications)
-
-        // Definir os valores no layout
-        tvParkingName.text = parkingName
-        tvSpaceName.text = spotId
-        tvUniqueID.text = "Unique ID: $spotId" // Gerar um Unique ID de forma personalizada se necessário
-        tvCheckInTime.text = checkInTime ?: "N/A"
-        tvCheckOutTime.text = checkOutTime ?: "N/A"
-        tvSpecifications.text = specifications ?: "Nenhuma"
-
-        // Exibição do QR Code
-        ivQRCode.setImageResource(R.drawable.ic_qr_code)  // Substitua pelo seu ícone ou lógica para gerar QR Code
-
-        // Botão para voltar à HomeActivity
-        val btnBackToHome = findViewById<Button>(R.id.btnBackToHome)
-        btnBackToHome.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+        // Configurar o botão de voltar
+        backButton.setOnClickListener {
+            onBackPressed()
         }
+
+        // Recuperar os dados da Intent
+        val parkingName = intent.getStringExtra("PARKING_NAME") ?: "Desconhecido"
+        val date = intent.getStringExtra("DATE") ?: "Desconhecida"
+        val spotId = intent.getStringExtra("SPOT_ID") ?: "Desconhecido"
+        val totalCost = intent.getIntExtra("TOTAL_COST", 0)
+        val vehicle = intent.getStringExtra("VEHICLE") ?: "Desconhecido"
+        val vehicleType = intent.getStringExtra("VEHICLE_TYPE") ?: "Desconhecido"
+
+        // Gerar código único
+        val uniqueID = "RES-${System.currentTimeMillis() % 100000}"
+
+        // Exibir os dados
+        parkingNameText.text = parkingName
+        dateText.text = date
+        spotIdText.text = spotId
+        totalCostText.text = "€$totalCost"
+        vehicleText.text = vehicle
+        vehicleTypeText.text = vehicleType
+        uniqueIdText.text = "ID Único: $uniqueID" // Exibir o código único
+
+        // Gerar código QR
+        generateQRCode(uniqueID)
     }
 
-    private fun openMapForDirections(parkingName: String) {
-        // Lógica para abrir o Google Maps ou outro serviço de mapa
-        // Exemplo de um intent que abre o Google Maps para o endereço de um estacionamento
-        val geoUri = "geo:0,0?q=$parkingName"
-        val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(geoUri))
-        intent.setPackage("com.google.android.apps.maps")
-        startActivity(intent)
+    private fun generateQRCode(data: String) {
+        val qrCodeWriter = QRCodeWriter()
+        try {
+            val bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 200, 200)
+            val width = bitMatrix.width
+            val height = bitMatrix.height
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) android.graphics.Color.BLACK else android.graphics.Color.WHITE)
+                }
+            }
+
+            qrCodeImageView.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
     }
 }
