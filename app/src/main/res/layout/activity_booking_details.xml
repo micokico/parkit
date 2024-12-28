@@ -61,13 +61,12 @@
             android:textColor="#FF0000"
             android:layout_marginBottom="16dp" />
 
-        <!-- Código QR -->
         <ImageView
-            android:id="@+id/ivQRCode"
+            android:id="@+id/qrCodeImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/ic_qr_code"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Código QR" />
 
         <!-- ID único -->
         <TextView
