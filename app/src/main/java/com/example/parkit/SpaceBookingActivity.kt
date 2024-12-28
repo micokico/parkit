@@ -132,21 +132,18 @@ class SpaceBookingActivity : AppCompatActivity() {
 
     private fun loadVehiclesFromFirestore(spinner: Spinner, tvVehicleType: TextView) {
         firestore.collection("Vehicle")
-            .get() // Carrega todos os documentos da coleção "Vehicle"
+            .get()
             .addOnSuccessListener { result ->
                 userVehicles.clear()
-                userVehicles.add("Selecione um veículo") // Opção padrão no spinner
+                userVehicles.add("Selecione um veículo")
 
                 for (document in result) {
                     val vehicleName = document.getString("name") ?: "Desconhecido"
                     val plate = document.getString("plate") ?: "Sem placa"
                     val type = document.getString("type") ?: "Desconhecido"
-
-                    // Adiciona ao spinner os dados formatados
                     userVehicles.add("$vehicleName - $plate ($type)")
                 }
 
-                // Configura o adapter para o spinner
                 val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, userVehicles)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = adapter
@@ -224,19 +221,21 @@ class SpaceBookingActivity : AppCompatActivity() {
         firestore.collection("reservations")
             .add(reservationData)
             .addOnSuccessListener { documentReference ->
-                Toast.makeText(this, "Reserva salva com sucesso!", Toast.LENGTH_SHORT).show()
-                navigateToPayment(documentReference.id, totalCost)
+                val intent = Intent(this, SuccessfulBookingActivity::class.java)
+                intent.putExtra("SPOT_ID", spotId)
+                intent.putExtra("PARKING_NAME", parkingName)
+                intent.putExtra("VEHICLE", vehicle)
+                intent.putExtra("VEHICLE_TYPE", vehicleType)
+                intent.putExtra("TOTAL_COST", totalCost)
+                intent.putExtra("DURATION", duration)
+                intent.putExtra("DATE", date)
+                intent.putExtra("TIME", time)
+
+                startActivity(intent)
+                finish()
             }
             .addOnFailureListener { error ->
                 Toast.makeText(this, "Erro ao salvar reserva: ${error.message}", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun navigateToPayment(reservationId: String, totalCost: Double) {
-        val intent = Intent(this, SuccessfulBookingActivity::class.java)
-        intent.putExtra("RESERVATION_ID", reservationId)
-        intent.putExtra("TOTAL_COST", totalCost)
-        startActivity(intent)
-        finish()
     }
 }
