@@ -59,7 +59,7 @@ class ProfileBeginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         reservationsButton.setOnClickListener {
-            val intent = Intent(this, ReservasActivity::class.java)
+            val intent = Intent(this, ReservationListActivity::class.java)
             startActivity(intent)
         }
     }

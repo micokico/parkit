@@ -51,10 +51,10 @@
         <activity android:name=".StatisticsActivity" android:exported="true" />
         <activity android:name=".ActivePermitActivity" android:exported="true" />
         <activity android:name=".SpaceBookingActivity" android:exported="true" />
-        <activity android:name=".ReservasActivity" android:exported="true" />
         <activity android:name=".RealPaymentActivity" android:exported="true" />
         <activity android:name=".SuccessfulBookingActivity" android:exported="true" />
         <activity android:name=".BookingDetailsActivity" android:exported="true" />
+        <activity android:name=".ReservationListActivity" android:exported="true" />
     </application>
 
 </manifest>
