@@ -93,5 +93,3 @@
             android:textAllCaps="false" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
-
-
