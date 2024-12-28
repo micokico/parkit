@@ -39,7 +39,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        android:text="Escolha o método de pagamento que mais lhe convém \ne conclua a sua reserva sem complicações!"
         android:textColor="#808080"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"

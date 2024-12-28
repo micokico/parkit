@@ -30,7 +30,7 @@
         android:id="@+id/subtitle_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit"
+        android:text="Aceda rapidamente às principais funcionalidades \ne encontre tudo o que precisa num só lugar!"
         android:textSize="14sp"
         android:textColor="@color/gray"
         android:gravity="center"
