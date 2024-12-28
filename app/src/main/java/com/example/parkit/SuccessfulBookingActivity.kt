@@ -21,13 +21,13 @@ class SuccessfulBookingActivity : AppCompatActivity() {
         val btnViewBookingDetails = findViewById<Button>(R.id.btnViewBookingDetails)
 
         btnViewBookingDetails.setOnClickListener {
-            Toast.makeText(this, "Opening booking details...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "A abrir detalhes da reserva...", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, BookingDetailsActivity::class.java)
             startActivity(intent)
         }
 
         Handler().postDelayed({
-            tvAdditionalMessage.text = "Security Guards Notified"
+            tvAdditionalMessage.text = "Os Guardas foram avisados"
             progressBar.visibility = ProgressBar.INVISIBLE
         }, 3000)
     }

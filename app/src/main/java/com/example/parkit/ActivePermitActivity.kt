@@ -3,7 +3,6 @@ package com.example.parkit
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Switch
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ActivePermitActivity : AppCompatActivity() {
 
@@ -24,10 +25,12 @@ class ActivePermitActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.rvPermitList)
         switchShowExpired = findViewById(R.id.switchShowExpired)
 
+        // Configurar o adaptador e RecyclerView
         permitAdapter = PermitAdapter(getPermitList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = permitAdapter
 
+        // Listener para alternar exibição de expirados
         switchShowExpired.setOnCheckedChangeListener { _, isChecked ->
             val filteredList = if (isChecked) {
                 getPermitList(includeExpired = true)
@@ -37,17 +40,19 @@ class ActivePermitActivity : AppCompatActivity() {
             permitAdapter.updateList(filteredList)
         }
 
+        // Botão de voltar
         val ivBackButton: ImageView = findViewById(R.id.ivBackButton)
         ivBackButton.setOnClickListener {
             onBackPressed()
         }
     }
 
+    // Função para gerar a lista de permissões
     private fun getPermitList(includeExpired: Boolean = false): List<Permit> {
         val permits = listOf(
             Permit("TEST123", "IB4 APS", "30-12-2022 15:16:02"),
             Permit("TEST124", "IB5 APS", "30-12-2023 15:16:02"),
-            Permit("TEST125", "IB6 APS", "30-12-2021 15:16:02") // Expired
+            Permit("TEST125", "IB6 APS", "30-12-2021 15:16:02") // Expirada
         )
 
         return if (includeExpired) {
@@ -58,12 +63,20 @@ class ActivePermitActivity : AppCompatActivity() {
     }
 }
 
+// Classe de dados para as permissões
 data class Permit(val matricula: String, val lugarOcupado: String, val dataLimite: String) {
     fun isExpired(): Boolean {
-        return dataLimite.contains("2021")
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+        return try {
+            val expirationDate = dateFormat.parse(dataLimite)
+            expirationDate.before(Date())
+        } catch (e: Exception) {
+            false
+        }
     }
 }
 
+// Adaptador para o RecyclerView
 class PermitAdapter(private var permitList: List<Permit>) : RecyclerView.Adapter<PermitViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PermitViewHolder {
@@ -83,6 +96,7 @@ class PermitAdapter(private var permitList: List<Permit>) : RecyclerView.Adapter
     }
 }
 
+// ViewHolder para exibir os dados da permissão
 class PermitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvMatricula: TextView = itemView.findViewById(R.id.tvMatricula)
     private val tvLugarOcupado: TextView = itemView.findViewById(R.id.tvLugarOcupado)
@@ -91,6 +105,12 @@ class PermitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(permit: Permit) {
         tvMatricula.text = permit.matricula
         tvLugarOcupado.text = permit.lugarOcupado
-        tvDataLimite.text = permit.dataLimite
+        if (permit.isExpired()) {
+            tvDataLimite.text = "Data Expirada"
+            tvDataLimite.setTextColor(itemView.context.getColor(R.color.red)) // Certifique-se de definir a cor "red" no arquivo colors.xml
+        } else {
+            tvDataLimite.text = permit.dataLimite
+            tvDataLimite.setTextColor(itemView.context.getColor(R.color.black)) // Cor padrão
+        }
     }
 }
