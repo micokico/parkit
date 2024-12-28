@@ -196,6 +196,20 @@ class SpaceBookingActivity : AppCompatActivity() {
         timePickerDialog.show()
     }
 
+    private fun markSpotAsOccupied(spotId: String) {
+        val floorKey = "floor_$currentFloor" // Define o andar atual
+
+        firestore.collection("parkingSpots")
+            .document(floorKey)
+            .update(spotId, "car") // Atualiza o estado do lugar para "car"
+            .addOnSuccessListener {
+                Toast.makeText(this, "Lugar $spotId marcado como ocupado!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(this, "Erro ao marcar o lugar como ocupado: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun saveReservationToFirestore(
         spotId: String,
         parkingName: String?,
@@ -221,6 +235,10 @@ class SpaceBookingActivity : AppCompatActivity() {
         firestore.collection("reservations")
             .add(reservationData)
             .addOnSuccessListener { documentReference ->
+                // Atualizar o estado do lugar para "car"
+                markSpotAsOccupied(spotId)
+
+                // Navegar para a tela de sucesso
                 val intent = Intent(this, SuccessfulBookingActivity::class.java)
                 intent.putExtra("SPOT_ID", spotId)
                 intent.putExtra("PARKING_NAME", parkingName)
