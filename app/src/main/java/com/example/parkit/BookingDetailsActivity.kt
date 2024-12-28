@@ -22,7 +22,7 @@ class BookingDetailsActivity : AppCompatActivity() {
         }
 
         btnBackToHome.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
