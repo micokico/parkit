@@ -44,6 +44,7 @@ class ProfileBeginActivity : AppCompatActivity() {
             dialog.show()
         }
 
+
         profileButton.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)

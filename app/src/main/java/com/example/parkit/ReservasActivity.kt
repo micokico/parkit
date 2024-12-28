@@ -50,6 +50,7 @@ class ReservationAdapter(private val reservations: List<Reservation>) :
     override fun getItemCount(): Int = reservations.size
 }
 
+
 class ReservationListActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private lateinit var recyclerView: RecyclerView

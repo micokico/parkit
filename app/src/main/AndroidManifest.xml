@@ -58,5 +58,4 @@
         <activity android:name=".GlobalRevenueActivity" android:exported="true" />
 
     </application>
-
 </manifest>
