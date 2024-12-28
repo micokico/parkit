@@ -71,7 +71,7 @@
         android:id="@+id/btnViewBookingDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ver Detalhes da Reserva"
+        android:text="Ir para a pagina Inicial"
         android:backgroundTint="#6C757D"
         android:textColor="#FFFFFF"
         android:layout_alignParentBottom="true"

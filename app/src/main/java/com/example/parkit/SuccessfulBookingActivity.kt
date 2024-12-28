@@ -22,7 +22,7 @@ class SuccessfulBookingActivity : AppCompatActivity() {
 
         btnViewBookingDetails.setOnClickListener {
             Toast.makeText(this, "A abrir detalhes da reserva...", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, BookingDetailsActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
