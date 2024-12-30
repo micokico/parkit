@@ -21,6 +21,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <meta-data
+            android:name="com.google.firebase.database.FirebaseDatabase"
+            android:value="true" />
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -36,7 +40,9 @@
         <activity android:name=".LoginActivity" android:exported="true" />
         <activity android:name=".PhoneNumberActivity" android:exported="true" />
         <activity android:name=".VerificationCodeActivity" android:exported="true" />
+        <activity android:name=".VerificationCode" android:exported="true" />
         <activity android:name=".RegisterActivity" android:exported="true" />
+        <activity android:name=".ChangePasswordActivity" android:exported="true" />
         <activity android:name=".AdminDashboardActivity" android:launchMode="singleTask" />
         <activity android:name=".HomeActivity" android:exported="true" />
         <activity android:name=".ExploreActivity" android:exported="true" />
