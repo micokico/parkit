@@ -34,13 +34,11 @@ class ChooseSpaceActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Parque: $parkingName, Veículo: $vehicleType", Toast.LENGTH_SHORT).show()
 
-        // Inicializa os botões de andares
         floor1Button = findViewById(R.id.floor1Button)
         floor2Button = findViewById(R.id.floor2Button)
         floor3Button = findViewById(R.id.floor3Button)
         floor4Button = findViewById(R.id.floor4Button)
 
-        // Inicializa os spots (vagas)
         spots = mapOf(
             "A1" to findViewById(R.id.spotA1),
             "A2" to findViewById(R.id.spotA2),
