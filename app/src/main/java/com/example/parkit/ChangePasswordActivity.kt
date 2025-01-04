@@ -29,7 +29,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         if (phoneNumber.isEmpty()) {
             Log.e("ChangePasswordActivity", "Número de telefone não fornecido")
             Toast.makeText(this, "Erro: Número de telefone ausente", Toast.LENGTH_SHORT).show()
-            finish() // Fecha a atividade para evitar estado inválido
+            finish()
             return
         }
 
@@ -45,26 +45,26 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
 
             if (newPassword != confirmPassword) {
-                Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "As Passwords não coincidem", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            Log.d("ChangePasswordActivity", "Tentando atualizar senha...")
+            Log.d("ChangePasswordActivity", "Tentando atualizar Password...")
             updatePassword(phoneNumber, newPassword)
         }
     }
 
     private fun updatePassword(phoneNumber: String, newPassword: String) {
         db.collection("users").document(phoneNumber)
-            .update("password", newPassword) // Atualiza apenas o campo "password"
+            .update("password", newPassword)
             .addOnSuccessListener {
-                Log.d("ChangePasswordActivity", "Senha atualizada com sucesso no Firestore")
-                Toast.makeText(this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                Log.d("ChangePasswordActivity", "Password atualizada com sucesso no Firestore")
+                Toast.makeText(this, "Password atualizada com sucesso!", Toast.LENGTH_SHORT).show()
                 goToLoginScreen()
             }
             .addOnFailureListener { e ->
-                Log.e("ChangePasswordActivity", "Erro ao atualizar senha: ${e.message}")
-                Toast.makeText(this, "Erro ao atualizar senha: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.e("ChangePasswordActivity", "Erro ao atualizar Password: ${e.message}")
+                Toast.makeText(this, "Erro ao atualizar Password: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
