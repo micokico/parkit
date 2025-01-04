@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.parkit.databinding.ActivityHomeBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ListenerRegistration
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,6 +21,8 @@ class HomeActivity : AppCompatActivity() {
     private var priceVan: Double = 0.0
     private var priceScooter: Double = 0.0
     private var userName: String = "Nome"
+
+    private var userListener: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,30 +54,36 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        userListener?.remove()
+    }
+
     private fun loadUserData() {
         val phoneNumber = "918235917"
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
-            db.collection("users")
+            userListener = db.collection("users")
                 .whereEqualTo("phoneNumber", phoneNumber)
-                .get()
-                .addOnSuccessListener { documents ->
-                    if (!documents.isEmpty) {
-                        val document = documents.firstOrNull()
+                .addSnapshotListener { snapshot, exception ->
+                    if (exception != null) {
+                        Log.e("Firestore", "Erro ao carregar dados", exception)
+                        Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
+                        return@addSnapshotListener
+                    }
+
+                    if (snapshot != null && !snapshot.isEmpty) {
+                        val document = snapshot.documents.firstOrNull()
                         userName = document?.getString("name") ?: "Usuário"
 
                         binding.greetingText.text = "Bom dia, $userName"
 
-                        Log.d("Firestore", "Nome do usuário: $userName")
+                        Log.d("Firestore", "Nome do usuário atualizado: $userName")
                     } else {
                         Log.e("Firestore", "Usuário não encontrado.")
                         Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_SHORT).show()
                     }
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("Firestore", "Erro ao carregar dados", exception)
-                    Toast.makeText(this, "Erro ao carregar os dados", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Log.e("FirebaseAuth", "Usuário não autenticado.")
