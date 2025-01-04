@@ -5,29 +5,46 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
+    <!-- Logout Button -->
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/sairr"
+        android:contentDescription="Sair do aplicativo"
+        android:scaleType="fitCenter"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@null" />
+
+    <!-- Title Text -->
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:text="ParkIt"
         android:textColor="#000000"
         android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:importantForAccessibility="yes" />
 
+    <!-- Button: Current Usage -->
     <Button
         android:id="@+id/buttonUsage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textTitle"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="#000000"
         android:text="Ver utilização atual do parque"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:importantForAccessibility="yes" />
 
+    <!-- Button: Statistics -->
     <Button
         android:id="@+id/buttonStatistics"
         android:layout_width="match_parent"
@@ -37,16 +54,20 @@
         android:backgroundTint="#000000"
         android:text="Estatísticas"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:importantForAccessibility="yes" />
 
+    <!-- Button: Park Images -->
     <Button
         android:id="@+id/buttonImages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonStatistics"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#000000"
         android:text="Imagens do parque"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:importantForAccessibility="yes" />
 
 </RelativeLayout>
