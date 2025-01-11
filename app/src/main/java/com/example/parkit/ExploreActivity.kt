@@ -23,14 +23,12 @@ class ExploreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explore)
 
-        // Inicializar os componentes
         searchEditText = findViewById(R.id.search_edit_text)
         nameTextView = findViewById(R.id.nameTextView)
         addressTextView = findViewById(R.id.addressTextView)
         backButton = findViewById(R.id.btn_back)
-        parkingItem = findViewById(R.id.parkingItem) // Referenciar o LinearLayout do estacionamento
+        parkingItem = findViewById(R.id.parkingItem)
 
-        // Configurar botão de voltar
         backButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -38,7 +36,6 @@ class ExploreActivity : AppCompatActivity() {
             finish()
         }
 
-        // Configurar clique no item do estacionamento
         parkingItem.setOnClickListener {
             val intent = Intent(this, ChooseSpaceActivity::class.java)
             intent.putExtra("PARKING_NAME", nameTextView.text.toString())
@@ -46,7 +43,6 @@ class ExploreActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Carregar os dados do Firestore
         loadParkingData()
     }
 

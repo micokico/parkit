@@ -52,14 +52,12 @@ class SetPasswordActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Password alterada com sucesso!", Toast.LENGTH_SHORT).show()
 
-                        // Opcional: Atualizar banco de dados se necessário
                         val userId = user.uid
                         db.collection("users").document(userId).set(
-                            mapOf("passwordUpdated" to true), // Exemplo: campo para indicar atualização
-                            SetOptions.merge() // Garante que outros dados não serão apagados
+                            mapOf("passwordUpdated" to true),
+                            SetOptions.merge()
                         )
 
-                        // Navegar para a tela de login
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()

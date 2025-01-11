@@ -108,19 +108,17 @@ class HistoryActivity : AppCompatActivity() {
         val pricePerHour = transportPrices[transport] ?: 0.0
         val price = pricePerHour * duration
 
-        // Obtém a data atual
         val currentDate = java.text.SimpleDateFormat("dd-MM-yyyy HH:mm", java.util.Locale.getDefault()).format(java.util.Date())
 
         val parkingData = hashMapOf(
             "name" to name,
             "address" to address,
-            "preco" to price.toString(), // Preço total como String
+            "preco" to price.toString(),
             "data" to currentDate,
             "duracao" to duration.toString(),
             "type" to transport
         )
 
-        // Cria um novo documento na subcoleção "history"
         db.collection("users").document(userPhone).collection("history")
             .add(parkingData)
             .addOnSuccessListener {
@@ -136,7 +134,7 @@ data class Parking(
     val name: String = "",
     val address: String = "",
     val price: Double = 0.0,
-    val date: String = "", // Data de entrada/saída
-    val duration: Double = 0.0, // Duração em horas
-    val transport: String = "" // Meio de transporte usado
+    val date: String = "",
+    val duration: Double = 0.0,
+    val transport: String = ""
 )

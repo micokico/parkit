@@ -27,7 +27,6 @@ class SuccessfulBookingActivity : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val btnViewBookingDetails = findViewById<Button>(R.id.btnViewBookingDetails)
 
-        // Adicionar notificação
         addNotification("Reserva Bem-Sucedida", "Parabéns! Sua reserva foi confirmada.")
 
         btnViewBookingDetails.setOnClickListener {

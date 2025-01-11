@@ -26,14 +26,12 @@ class SpaceBookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_space_booking)
 
-        // Dados da Intent
         selectedSpot = intent.getStringExtra("SELECTED_SPOT")
         val parkingName = intent.getStringExtra("PARKING_NAME") ?: ""
         vehicleType = intent.getStringExtra("VEHICLE_TYPE")
         pricePerHour = intent.getDoubleExtra("PARKING_PRICE", 0.0)
         currentFloor = intent.getIntExtra("CURRENT_FLOOR", 1)
 
-        // Configuração dos TextViews
         findViewById<TextView>(R.id.tvSelectedSpace).text = "Espaço: $selectedSpot"
         findViewById<TextView>(R.id.tvParkingName).text = "Nome do Estacionamento: $parkingName"
         findViewById<TextView>(R.id.tvParkingPrice).text = "Preço por hora: $pricePerHour €"
@@ -44,7 +42,6 @@ class SpaceBookingActivity : AppCompatActivity() {
         loadVehiclesFromFirestore(spinnerVehicle, tvVehicleType)
         loadVehiclePricesFromFirestore()
 
-        // Listener do Spinner
         spinnerVehicle.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedVehicle = parent.getItemAtPosition(position).toString()
@@ -57,7 +54,6 @@ class SpaceBookingActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        // Configuração do SeekBar
         val seekBar = findViewById<SeekBar>(R.id.seekBarDuration)
         val tvDurationCost = findViewById<TextView>(R.id.tvDurationCost)
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -71,19 +67,16 @@ class SpaceBookingActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        // Botão para selecionar data
         val btnPickDate = findViewById<Button>(R.id.btnPickDate)
         btnPickDate.setOnClickListener {
             showDatePicker(findViewById(R.id.tvSelectedDate))
         }
 
-        // Botão para selecionar hora
         val btnPickTime = findViewById<Button>(R.id.btnPickTime)
         btnPickTime.setOnClickListener {
             showTimePicker(findViewById(R.id.tvSelectedTime))
         }
 
-        // Botão de reserva
         val bookButton = findViewById<Button>(R.id.btnBookSpace)
         bookButton.setOnClickListener {
             val selectedVehicle = spinnerVehicle.selectedItem.toString()
@@ -108,7 +101,6 @@ class SpaceBookingActivity : AppCompatActivity() {
             }
         }
 
-        // Botão para voltar à página inicial
         val backButton = findViewById<Button>(R.id.btnBackToHome)
         backButton.setOnClickListener {
             finish()
@@ -197,11 +189,11 @@ class SpaceBookingActivity : AppCompatActivity() {
     }
 
     private fun markSpotAsOccupied(spotId: String) {
-        val floorKey = "floor_$currentFloor" // Define o andar atual
+        val floorKey = "floor_$currentFloor"
 
         firestore.collection("parkingSpots")
             .document(floorKey)
-            .update(spotId, "car") // Atualiza o estado do lugar para "car"
+            .update(spotId, "car")
             .addOnSuccessListener {
                 Toast.makeText(this, "Lugar $spotId marcado como ocupado!", Toast.LENGTH_SHORT).show()
             }
@@ -235,10 +227,8 @@ class SpaceBookingActivity : AppCompatActivity() {
         firestore.collection("reservations")
             .add(reservationData)
             .addOnSuccessListener { documentReference ->
-                // Atualizar o estado do lugar para "car"
                 markSpotAsOccupied(spotId)
 
-                // Navegar para a tela de sucesso
                 val intent = Intent(this, SuccessfulBookingActivity::class.java)
                 intent.putExtra("SPOT_ID", spotId)
                 intent.putExtra("PARKING_NAME", parkingName)

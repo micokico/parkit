@@ -37,7 +37,6 @@
                 android:layout_centerInParent="true" />
         </RelativeLayout>
 
-        <!-- Container para as notificações -->
         <LinearLayout
             android:id="@+id/notificationsLayout"
             android:layout_width="match_parent"

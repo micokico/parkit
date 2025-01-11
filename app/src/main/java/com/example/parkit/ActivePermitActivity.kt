@@ -25,12 +25,10 @@ class ActivePermitActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.rvPermitList)
         switchShowExpired = findViewById(R.id.switchShowExpired)
 
-        // Configurar o adaptador e RecyclerView
         permitAdapter = PermitAdapter(getPermitList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = permitAdapter
 
-        // Listener para alternar exibição de expirados
         switchShowExpired.setOnCheckedChangeListener { _, isChecked ->
             val filteredList = if (isChecked) {
                 getPermitList(includeExpired = true)
@@ -40,14 +38,12 @@ class ActivePermitActivity : AppCompatActivity() {
             permitAdapter.updateList(filteredList)
         }
 
-        // Botão de voltar
         val ivBackButton: ImageView = findViewById(R.id.ivBackButton)
         ivBackButton.setOnClickListener {
             onBackPressed()
         }
     }
 
-    // Função para gerar a lista de permissões
     private fun getPermitList(includeExpired: Boolean = false): List<Permit> {
         val permits = listOf(
             Permit("BA-54-G4", "1ºPiso, B3", "30-01-2024 15:16:02"),
@@ -68,7 +64,6 @@ class ActivePermitActivity : AppCompatActivity() {
     }
 }
 
-// Classe de dados para as permissões
 data class Permit(val matricula: String, val lugarOcupado: String, val dataLimite: String) {
     fun isExpired(): Boolean {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
@@ -81,7 +76,6 @@ data class Permit(val matricula: String, val lugarOcupado: String, val dataLimit
     }
 }
 
-// Adaptador para o RecyclerView
 class PermitAdapter(private var permitList: List<Permit>) : RecyclerView.Adapter<PermitViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PermitViewHolder {
@@ -101,7 +95,6 @@ class PermitAdapter(private var permitList: List<Permit>) : RecyclerView.Adapter
     }
 }
 
-// ViewHolder para exibir os dados da permissão
 class PermitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvMatricula: TextView = itemView.findViewById(R.id.tvMatricula)
     private val tvLugarOcupado: TextView = itemView.findViewById(R.id.tvLugarOcupado)
@@ -112,10 +105,10 @@ class PermitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvLugarOcupado.text = permit.lugarOcupado
         if (permit.isExpired()) {
             tvDataLimite.text = "Data Expirada"
-            tvDataLimite.setTextColor(itemView.context.getColor(R.color.red)) // Certifique-se de definir a cor "red" no arquivo colors.xml
+            tvDataLimite.setTextColor(itemView.context.getColor(R.color.red))
         } else {
             tvDataLimite.text = permit.dataLimite
-            tvDataLimite.setTextColor(itemView.context.getColor(R.color.black)) // Cor padrão
+            tvDataLimite.setTextColor(itemView.context.getColor(R.color.black))
         }
     }
 }

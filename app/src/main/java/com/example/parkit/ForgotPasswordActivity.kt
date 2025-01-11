@@ -33,7 +33,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (phoneNumber.isEmpty()) {
                 Toast.makeText(this, "Por favor, insira o número de telefone.", Toast.LENGTH_SHORT).show()
             } else {
-                sendVerificationCode("+351$phoneNumber") // Prefixo +351 para números de Portugal
+                sendVerificationCode("+351$phoneNumber")
             }
         }
     }

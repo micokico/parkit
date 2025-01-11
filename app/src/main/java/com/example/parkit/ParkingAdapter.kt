@@ -25,7 +25,6 @@ class ParkingAdapter(
         val slot = slots[position]
         holder.tvSlotNumber.text = slot
 
-        // Clique no slot
         holder.itemView.setOnClickListener {
             onSlotClick(slot)
         }

@@ -77,18 +77,18 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Dependências do Firebase (com Firebase BOM já configurado)
-    implementation("com.google.firebase:firebase-auth") // Autenticação Firebase
-    implementation("com.google.firebase:firebase-database") // Banco de dados Realtime do Firebase (se precisar)
-    implementation("com.google.firebase:firebase-firestore") // Firestore, caso queira usar (opcional)
+    // Dependências do Firebase
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-firestore")
 
-    // Para usar o Firebase Analytics (opcional)
+    // Para usar o Firebase Analytics
     implementation("com.google.firebase:firebase-analytics")
 
     // Para usar o Firebase Storage
     implementation("com.google.firebase:firebase-storage") // Firebase Storage
 
-    // O Firebase BOM já foi incluído, então as versões das dependências são gerenciadas automaticamente
+
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
 
 
@@ -96,7 +96,4 @@ dependencies {
 }
 
 
-
-
-// Aplica o plugin do Google Services no final
 apply(plugin = "com.google.gms.google-services")

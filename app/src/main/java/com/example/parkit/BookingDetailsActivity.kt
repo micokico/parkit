@@ -26,7 +26,6 @@ class BookingDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_details)
 
-        // Inicializar os componentes
         parkingNameText = findViewById(R.id.parkingNameText)
         dateText = findViewById(R.id.dateText)
         spotIdText = findViewById(R.id.spotIdText)
@@ -37,12 +36,10 @@ class BookingDetailsActivity : AppCompatActivity() {
         qrCodeImageView = findViewById(R.id.qrCodeImageView)
         uniqueIdText = findViewById(R.id.tvUniqueID)
 
-        // Configurar o botão de voltar
         backButton.setOnClickListener {
             onBackPressed()
         }
 
-        // Recuperar os dados da Intent
         val parkingName = intent.getStringExtra("PARKING_NAME") ?: "Desconhecido"
         val date = intent.getStringExtra("DATE") ?: "Desconhecida"
         val spotId = intent.getStringExtra("SPOT_ID") ?: "Desconhecido"
@@ -50,19 +47,16 @@ class BookingDetailsActivity : AppCompatActivity() {
         val vehicle = intent.getStringExtra("VEHICLE") ?: "Desconhecido"
         val vehicleType = intent.getStringExtra("VEHICLE_TYPE") ?: "Desconhecido"
 
-        // Gerar código único
         val uniqueID = "RES-${System.currentTimeMillis() % 100000}"
 
-        // Exibir os dados
         parkingNameText.text = parkingName
         dateText.text = date
         spotIdText.text = spotId
         totalCostText.text = "€$totalCost"
         vehicleText.text = vehicle
         vehicleTypeText.text = vehicleType
-        uniqueIdText.text = "ID Único: $uniqueID" // Exibir o código único
+        uniqueIdText.text = "ID Único: $uniqueID"
 
-        // Gerar código QR
         generateQRCode(uniqueID)
     }
 

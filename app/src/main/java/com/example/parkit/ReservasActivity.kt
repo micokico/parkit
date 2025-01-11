@@ -23,7 +23,7 @@ data class Reservation(
 
 class ReservationAdapter(
     private val reservations: List<Reservation>,
-    private val onCancelReservation: (Reservation) -> Unit // Função para cancelar reserva
+    private val onCancelReservation: (Reservation) -> Unit
 ) : RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder>() {
 
     inner class ReservationViewHolder(val view: android.view.View) :
@@ -33,7 +33,7 @@ class ReservationAdapter(
         val spotIdText: android.widget.TextView = view.findViewById(R.id.spotIdText)
         val totalCostText: android.widget.TextView = view.findViewById(R.id.totalCostText)
         val cancelButton: android.widget.Button = view.findViewById(R.id.btn_cancel_reservation)
-        val bookingCard: androidx.cardview.widget.CardView = view.findViewById(R.id.bookingCard) // O CardView
+        val bookingCard: androidx.cardview.widget.CardView = view.findViewById(R.id.bookingCard)
     }
 
     override fun onCreateViewHolder(parent: android.view.ViewGroup, viewType: Int): ReservationViewHolder {
@@ -49,12 +49,10 @@ class ReservationAdapter(
         holder.spotIdText.text = "ID do Lugar: ${reservation.spotId}"
         holder.totalCostText.text = "Custo Total: €${reservation.totalCost}"
 
-        // Configurar botão de cancelar
         holder.cancelButton.setOnClickListener {
             onCancelReservation(reservation)
         }
 
-        // Configurar clique no CardView para abrir BookingDetailsActivity
         holder.bookingCard.setOnClickListener {
             val context = holder.view.context
             val intent = Intent(context, BookingDetailsActivity::class.java)
@@ -81,7 +79,6 @@ class ReservationListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
 
-        // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -90,13 +87,11 @@ class ReservationListActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
-        // Configurar botão de voltar
         val backButton = findViewById<ImageButton>(R.id.btn_back)
         backButton.setOnClickListener {
             onBackPressed()
         }
 
-        // Buscar reservas do Firestore
         fetchReservations()
     }
 

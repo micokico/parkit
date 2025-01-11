@@ -19,26 +19,21 @@ class NotificationActivity : AppCompatActivity() {
         val notifications = sharedPreferences.getString("notifications_list", "[]")
         val jsonArray = JSONArray(notifications)
 
-        // Adicionar notificações dinamicamente
         for (i in 0 until jsonArray.length()) {
             val notification = jsonArray.getJSONObject(i)
             val title = notification.getString("title")
             val message = notification.getString("message")
             val timestamp = notification.getLong("timestamp")
 
-            // Inflar o layout para cada notificação
             val notificationView = LayoutInflater.from(this).inflate(R.layout.notification_item, notificationsLayout, false)
 
-            // Configurar os dados no layout
             notificationView.findViewById<TextView>(R.id.tvNotificationTitle).text = title
             notificationView.findViewById<TextView>(R.id.tvNotificationMessage).text = message
             notificationView.findViewById<TextView>(R.id.tvNotificationTime).text = formatTimestamp(timestamp)
 
-            // Adicionar a visualização ao layout principal
             notificationsLayout.addView(notificationView)
         }
 
-        // Configuração do botão "Voltar"
         val backButton = findViewById<ImageButton>(R.id.btn_back)
         backButton.setOnClickListener {
             onBackPressed()
